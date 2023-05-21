@@ -1,0 +1,19 @@
+[Unit]
+Description=${verbose_service_name}
+After=syslog.target network.target
+
+[Service]
+User=${user}
+Group=${group}
+WorkingDirectory=${work_dir}
+
+ExecStart=${exec_start}
+
+Restart=always
+RestartSec=5s
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=${syslog_identifier}
+
+[Install]
+WantedBy=multi-user.target

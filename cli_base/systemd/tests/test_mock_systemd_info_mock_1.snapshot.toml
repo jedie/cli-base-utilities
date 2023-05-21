@@ -1,0 +1,14 @@
+# Systemd service info - Test dataclass
+template_path = "/mocked-temp-path/service_template.txt"
+systemd_base_path = "/mocked-temp-path/etc-systemd-system"
+service_slug = "service_info_mock_test"
+service_file_path = "/mocked-temp-path/etc-systemd-system/service_info_mock_test.service"
+
+[template_context]
+# Systemd template context - Test dataclass
+verbose_service_name = "Service Info Mock Test"
+user = "MockedUserName"
+group = "MockedUserName"
+work_dir = "/mocked-temp-path"
+exec_start = "/mocked/.venv/bin/python3 -m cli_base_app publish-loop"
+syslog_identifier = "service_info_mock_test"
