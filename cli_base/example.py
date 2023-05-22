@@ -33,7 +33,7 @@ class SystemdServiceInfo(BaseSystemdServiceInfo):
 @dataclasses.dataclass
 class DemoSettings:
     """
-    This are just settings for the "cli-base" DEMO.
+    This are just settings for the "cli-base-utilities" DEMO.
     Will be used in cli_base example commands.
     See "./cli.py --help" for more information.
     """

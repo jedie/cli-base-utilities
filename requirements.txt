@@ -16,7 +16,7 @@ bx-py-utils==81 \
     --hash=sha256:5c2e189cccbeb852b058078bc7b0a8976f5f691ee7de657a87eef43fc89fa59a \
     --hash=sha256:fd282f9e4ed8ed2842154ffe3fdd2ca56c428023021afc5b8ff765a53c02cddb
     # via
-    #   cli-base (pyproject.toml)
+    #   cli-base-utilities (pyproject.toml)
     #   manageprojects
 certifi==2023.5.7 \
     --hash=sha256:0f0d56dc5a6ad56fd4ba36484d6cc34451e1c6548c61daad8c320169f91eddc7 \
@@ -107,7 +107,7 @@ click==8.1.3 \
     --hash=sha256:7682dc8afb30297001674575ea00d1814d808d6a36af415a82bd481d37ba7b8e \
     --hash=sha256:bb4d8133cb15a609f44e8213d9b391b0809795062913b383c62be0ee95b1db48
     # via
-    #   cli-base (pyproject.toml)
+    #   cli-base-utilities (pyproject.toml)
     #   cookiecutter
     #   manageprojects
     #   rich-click
@@ -132,7 +132,7 @@ jinja2-time==0.2.0 \
 manageprojects==0.10.0 \
     --hash=sha256:939d9cf9c629be755c2ab6f8ccd4019dfa1c7e39564c25f6087ec2f63867133a \
     --hash=sha256:db457b77e52a73e3ec5fd4889e056df01926ec0c9b1476ab28c79db254d0465f
-    # via cli-base (pyproject.toml)
+    # via cli-base-utilities (pyproject.toml)
 markdown-it-py==2.2.0 \
     --hash=sha256:5a35f8d1870171d9acc47b99612dc146129b631baf04970128b568f190d0cc30 \
     --hash=sha256:7c9a5e412688bc771c67432cbfebcdd686c93ce6484913dccf06cb5a0bea35a1
@@ -255,14 +255,14 @@ rich==13.3.5 \
     --hash=sha256:2d11b9b8dd03868f09b4fffadc84a6a8cda574e40dc90821bd845720ebb8e89c \
     --hash=sha256:69cdf53799e63f38b95b9bf9c875f8c90e78dd62b2f00c13a911c7a3b9fa4704
     # via
-    #   cli-base (pyproject.toml)
+    #   cli-base-utilities (pyproject.toml)
     #   manageprojects
     #   rich-click
 rich-click==1.6.1 \
     --hash=sha256:0fcf4d1a09029d79322dd814ab0b2e66ac183633037561881d45abae8a161d95 \
     --hash=sha256:f8ff96693ec6e261d1544e9f7d9a5811c5ef5d74c8adb4978430fc0dac16777e
     # via
-    #   cli-base (pyproject.toml)
+    #   cli-base-utilities (pyproject.toml)
     #   manageprojects
 six==1.16.0 \
     --hash=sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926 \
@@ -276,7 +276,7 @@ tomlkit==0.11.8 \
     --hash=sha256:8c726c4c202bdb148667835f68d68780b9a003a9ec34167b6c673b38eff2a171 \
     --hash=sha256:9330fc7faa1db67b541b28e62018c17d20be733177d290a13b24c62d1614e0c3
     # via
-    #   cli-base (pyproject.toml)
+    #   cli-base-utilities (pyproject.toml)
     #   manageprojects
 urllib3==2.0.2 \
     --hash=sha256:61717a1095d7e155cdb737ac7bb2f4324a858a1e2e6466f6d03ff630ca68d3cc \
