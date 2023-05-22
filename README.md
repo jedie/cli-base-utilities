@@ -1,10 +1,10 @@
-# cli_base
+# cli-base-utilities
 
 [![tests](https://github.com/jedie/cli-base-utilities/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/jedie/cli-base-utilities/actions/workflows/tests.yml)
 [![codecov](https://codecov.io/github/jedie/cli-base-utilities/branch/main/graph/badge.svg)](https://app.codecov.io/github/jedie/cli-base-utilities)
-[![cli_base @ PyPi](https://img.shields.io/pypi/v/cli_base?label=cli_base%20%40%20PyPi)](https://pypi.org/project/cli_base/)
-[![Python Versions](https://img.shields.io/pypi/pyversions/cli_base)](https://github.com/jedie/cli-base-utilities/blob/main/pyproject.toml)
-[![License GPL-3.0-or-later](https://img.shields.io/pypi/l/cli_base)](https://github.com/jedie/cli-base-utilities/blob/main/LICENSE)
+[![cli-base-utilities @ PyPi](https://img.shields.io/pypi/v/cli-base-utilities?label=cli-base-utilities%20%40%20PyPi)](https://pypi.org/project/cli-base-utilities/)
+[![Python Versions](https://img.shields.io/pypi/pyversions/cli-base-utilities)](https://github.com/jedie/cli-base-utilities/blob/main/pyproject.toml)
+[![License GPL-3.0-or-later](https://img.shields.io/pypi/l/cli-base-utilities)](https://github.com/jedie/cli-base-utilities/blob/main/LICENSE)
 
 Helpers to bild a CLI program
 
