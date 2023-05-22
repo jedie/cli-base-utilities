@@ -1,22 +1,22 @@
 # cli_base
 
-[![tests](https://github.com/jedie/cli-base/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/jedie/cli-base/actions/workflows/tests.yml)
-[![codecov](https://codecov.io/github/jedie/cli-base/branch/main/graph/badge.svg)](https://app.codecov.io/github/jedie/cli-base)
+[![tests](https://github.com/jedie/cli-base-utilities/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/jedie/cli-base-utilities/actions/workflows/tests.yml)
+[![codecov](https://codecov.io/github/jedie/cli-base-utilities/branch/main/graph/badge.svg)](https://app.codecov.io/github/jedie/cli-base-utilities)
 [![cli_base @ PyPi](https://img.shields.io/pypi/v/cli_base?label=cli_base%20%40%20PyPi)](https://pypi.org/project/cli_base/)
-[![Python Versions](https://img.shields.io/pypi/pyversions/cli_base)](https://github.com/jedie/cli-base/blob/main/pyproject.toml)
-[![License GPL-3.0-or-later](https://img.shields.io/pypi/l/cli_base)](https://github.com/jedie/cli-base/blob/main/LICENSE)
+[![Python Versions](https://img.shields.io/pypi/pyversions/cli_base)](https://github.com/jedie/cli-base-utilities/blob/main/pyproject.toml)
+[![License GPL-3.0-or-later](https://img.shields.io/pypi/l/cli_base)](https://github.com/jedie/cli-base-utilities/blob/main/LICENSE)
 
 Helpers to bild a CLI program
 
-* https://pypi.org/project/cli-base/
+* https://pypi.org/project/cli-base-utilities/
 
 
 # start development
 
 ```bash
-~$ git clone https://github.com/jedie/cli-base.git
-~$ cd inverter-connect
-~/cli-base$ ./dev-cli.py --help
+~$ git clone https://github.com/jedie/cli-base-utilities.git
+~$ cd cli-base-utilities
+~/cli-base-utilities$ ./dev-cli.py --help
 ```
 
 

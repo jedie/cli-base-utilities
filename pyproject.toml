@@ -1,5 +1,5 @@
 [project]
-name = "cli-base"
+name = "cli-base-utilities"
 dynamic = ["version"]
 description = "Helpers to bild a CLI program"
 license = {text = "GPL-3.0-or-later"}
@@ -49,8 +49,8 @@ dev = [
 ]
 
 [project.urls]
-Documentation = "https://github.com/jedie/cli-base"
-Source = "https://github.com/jedie/cli-base"
+Documentation = "https://github.com/jedie/cli-base-utilities"
+Source = "https://github.com/jedie/cli-base-utilities"
 
 [project.scripts]
 cli_base_app = "cli_base.__main__:main"
@@ -159,7 +159,7 @@ author_email = "github@jensdiemer.de"
 package_name = "cli_base"
 package_version = "0.0.1"
 package_description = "Helpers to bild a CLI program"
-package_url = "https://github.com/jedie/cli-base"
-issues_url = "https://github.com/jedie/cli-base/issues"
+package_url = "https://github.com/jedie/cli-base-utilities"
+issues_url = "https://github.com/jedie/cli-base-utilities/issues"
 license = "GPL-3.0-or-later"
 _template = "https://github.com/jedie/cookiecutter_templates/"

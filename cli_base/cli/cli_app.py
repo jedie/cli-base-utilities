@@ -74,8 +74,8 @@ cli.add_command(version)
 
 ######################################################################################################
 
-SETTINGS_DIR_NAME = 'cli-base'
-SETTINGS_FILE_NAME = 'cli-base-demo'
+SETTINGS_DIR_NAME = 'cli-base-utilities'
+SETTINGS_FILE_NAME = 'cli-base-utilities-demo'
 
 
 @click.command()
@@ -255,7 +255,7 @@ cli.add_command(demo_verbose_check_output_error)
 
 
 def main():
-    print(f'[bold][green]cli-base[/green] DEMO cli v[cyan]{__version__}')
+    print(f'[bold][green]cli-base-utilities[/green] DEMO cli v[cyan]{__version__}')
 
     console = Console()
     rich_traceback_install(
