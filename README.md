@@ -58,18 +58,21 @@ Usage: ./cli.py [OPTIONS] COMMAND [ARGS]...
 │ --help      Show this message and exit.                                                          │
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
 ╭─ Commands ───────────────────────────────────────────────────────────────────────────────────────╮
-│ demo-endless-loop  Just a useless example command, used in systemd DEMO: It just print some      │
-│                    information in a endless loop.                                                │
-│ edit-settings      Edit the settings file. On first call: Create the default one.                │
-│ print-settings     Display (anonymized) MQTT server username and password                        │
-│ systemd-debug      Print Systemd service template + context + rendered file content.             │
-│ systemd-remove     Write Systemd service file, enable it and (re-)start the service. (May need   │
-│                    sudo)                                                                         │
-│ systemd-setup      Write Systemd service file, enable it and (re-)start the service. (May need   │
-│                    sudo)                                                                         │
-│ systemd-status     Display status of systemd service. (May need sudo)                            │
-│ systemd-stop       Stops the systemd service. (May need sudo)                                    │
-│ version            Print version and exit                                                        │
+│ demo-endless-loop                Just a useless example command, used in systemd DEMO: It just   │
+│                                  print some information in a endless loop.                       │
+│ demo-verbose-check-output-error  DEMO for a error calling                                        │
+│                                  cli_base.cli_tools.subprocess_utils.verbose_check_output()      │
+│ edit-settings                    Edit the settings file. On first call: Create the default one.  │
+│ print-settings                   Display (anonymized) MQTT server username and password          │
+│ systemd-debug                    Print Systemd service template + context + rendered file        │
+│                                  content.                                                        │
+│ systemd-remove                   Write Systemd service file, enable it and (re-)start the        │
+│                                  service. (May need sudo)                                        │
+│ systemd-setup                    Write Systemd service file, enable it and (re-)start the        │
+│                                  service. (May need sudo)                                        │
+│ systemd-status                   Display status of systemd service. (May need sudo)              │
+│ systemd-stop                     Stops the systemd service. (May need sudo)                      │
+│ version                          Print version and exit                                          │
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 [comment]: <> (✂✂✂ auto generated app help end ✂✂✂)
