@@ -6,8 +6,8 @@ from unittest.mock import patch
 from bx_py_utils.path import assert_is_file
 from bx_py_utils.test_utils.redirect import RedirectOut
 from manageprojects.test_utils.subprocess import SubprocessCallMock
-from manageprojects.utilities import subprocess_utils
 
+from cli_base.cli_tools import subprocess_utils
 from cli_base.cli_tools.test_utils.assertion import assert_in
 from cli_base.example import SystemdServiceInfo
 from cli_base.systemd.api import ServiceControl
@@ -114,6 +114,7 @@ class SystemdApiTestCase(TestCase):
             sorted(functions),
             [
                 'enable',
+                'reload_daemon',
                 'remove_service_file',
                 'remove_systemd_service',
                 'restart',

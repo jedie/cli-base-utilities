@@ -1,12 +1,13 @@
 import logging
 from subprocess import CalledProcessError
 
-from manageprojects.utilities.subprocess_utils import verbose_check_call
+
 from rich import print  # noqa
 from rich.console import Console
 from rich.highlighter import ReprHighlighter
 
 from cli_base.cli_tools.rich_utils import PanelPrinter, human_error, print_code, print_unified_diff
+from cli_base.cli_tools.subprocess_utils import verbose_check_call
 from cli_base.systemd.data_classes import BaseSystemdServiceInfo
 
 
@@ -52,7 +53,7 @@ class ServiceControl:
         except PermissionError as err:
             self.sudo_hint_exception_exit(err)
 
-        self.call_systemctl('daemon-reload', with_service_name=False)
+        self.reload_daemon(with_service_name=False)
 
     def remove_service_file(self):
         print(f'Remove "{self.info.service_file_path}"...')
@@ -63,7 +64,7 @@ class ServiceControl:
         except PermissionError as err:
             self.sudo_hint_exception_exit(err)
 
-        self.call_systemctl('daemon-reload', with_service_name=False)
+        self.reload_daemon(with_service_name=False)
 
     def service_file_is_up2date(self, print_warning: bool = True, print_diff: bool = False, console=None):
         logger.debug('Read %s...', self.info.service_file_path)
@@ -134,6 +135,9 @@ class ServiceControl:
 
     def stop(self):
         self.call_systemctl('stop')
+
+    def reload_daemon(self, with_service_name=False):
+        self.call_systemctl('daemon-reload', with_service_name=with_service_name)
 
     def status(self):
         try:

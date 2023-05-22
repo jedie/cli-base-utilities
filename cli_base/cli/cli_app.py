@@ -15,6 +15,7 @@ from rich_click import RichGroup
 
 import cli_base
 from cli_base import __version__, constants
+from cli_base.cli_tools.subprocess_utils import verbose_check_output
 from cli_base.cli_tools.verbosity import OPTION_KWARGS_VERBOSE, setup_logging
 from cli_base.example import DemoSettings, SystemdServiceInfo, endless_loop
 from cli_base.systemd.api import ServiceControl
@@ -238,6 +239,18 @@ def demo_endless_loop(verbosity: int):
 
 cli.add_command(demo_endless_loop)
 
+######################################################################################################
+
+
+@click.command()
+def demo_verbose_check_output_error():
+    """
+    DEMO for a error calling cli_base.cli_tools.subprocess_utils.verbose_check_output()
+    """
+    verbose_check_output('python3', '-c', 'print("Just a Demo!");import sys;sys.exit(123)', exit_on_error=True)
+
+
+cli.add_command(demo_verbose_check_output_error)
 ######################################################################################################
 
 

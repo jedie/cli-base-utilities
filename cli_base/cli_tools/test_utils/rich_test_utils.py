@@ -9,10 +9,10 @@ from bx_py_utils.environ import OverrideEnviron
 from bx_py_utils.path import assert_is_file
 from bx_py_utils.test_utils.context_managers import MassContextManager
 from click._compat import strip_ansi as strip_ansi_codes
-from manageprojects.utilities.subprocess_utils import verbose_check_output
 from rich import get_console
 from rich.console import Console, get_windows_console_features
 
+from cli_base.cli_tools.subprocess_utils import verbose_check_output
 from cli_base.cli_tools.test_utils.assertion import assert_in
 
 

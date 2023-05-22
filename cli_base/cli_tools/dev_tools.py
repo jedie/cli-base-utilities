@@ -1,8 +1,10 @@
 import sys
 from pathlib import Path
 
-from manageprojects.utilities.subprocess_utils import verbose_check_call
+
 from rich import print
+
+from cli_base.cli_tools.subprocess_utils import verbose_check_call
 
 
 def clean_coverage_files():
