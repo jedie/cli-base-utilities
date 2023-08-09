@@ -7,11 +7,11 @@ import sys
 from pathlib import Path
 
 from bx_py_utils.path import assert_is_dir, assert_is_file
-from manageprojects.constants import PY_BIN_PATH
 from rich import print  # noqa
 from rich.console import Console
 
 from cli_base.cli_tools.rich_utils import human_error
+from cli_base.constants import PY_BIN_PATH
 
 
 DEFAULT_TIMEOUT = 5 * 60

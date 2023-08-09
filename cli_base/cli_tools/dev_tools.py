@@ -21,7 +21,7 @@ def clean_coverage_files():
             print(f'(remove {file_path}, ok)')
 
 
-def _run_unittest_cli(extra_env=None, verbose=True, exit_after_run=True):
+def run_unittest_cli(extra_env=None, verbose=True, exit_after_run=True):
     """
     Call the origin unittest CLI and pass all args to it.
     """
@@ -56,7 +56,7 @@ def _run_unittest_cli(extra_env=None, verbose=True, exit_after_run=True):
         sys.exit(0)
 
 
-def _run_tox():
+def run_tox():
     """
     Call tox and pass all command arguments to it
     """

@@ -15,7 +15,7 @@ from rich_click import RichGroup
 
 import cli_base
 from cli_base import constants
-from cli_base.cli_tools.dev_tools import _run_tox, _run_unittest_cli
+from cli_base.cli_tools.dev_tools import run_tox, run_unittest_cli
 from cli_base.cli_tools.subprocess_utils import verbose_check_call
 from cli_base.cli_tools.verbosity import OPTION_KWARGS_VERBOSE
 
@@ -165,7 +165,7 @@ def publish():
     """
     Build and upload this project to PyPi
     """
-    _run_unittest_cli(verbose=False, exit_after_run=False)  # Don't publish a broken state
+    run_unittest_cli(verbose=False, exit_after_run=False)  # Don't publish a broken state
 
     publish_package(
         module=cli_base,
@@ -219,7 +219,7 @@ def update_test_snapshot_files():
     print(f'{removed_file_count} test snapshot files removed... run tests...')
 
     # Just recreate them by running tests:
-    _run_unittest_cli(
+    run_unittest_cli(
         extra_env=dict(
             RAISE_SNAPSHOT_ERRORS='0',  # Recreate snapshot files without error
         ),
@@ -239,7 +239,7 @@ def test():
     """
     Run unittests
     """
-    _run_unittest_cli()
+    run_unittest_cli()
 
 
 cli.add_command(test)
@@ -250,7 +250,7 @@ def tox():
     """
     Run tox
     """
-    _run_tox()
+    run_tox()
 
 
 cli.add_command(tox)
@@ -273,9 +273,9 @@ def main():
         # Check if we just pass a command call
         command = sys.argv[1]
         if command == 'test':
-            _run_unittest_cli()
+            run_unittest_cli()
         elif command == 'tox':
-            _run_tox()
+            run_tox()
 
     # Execute Click CLI:
     cli()
