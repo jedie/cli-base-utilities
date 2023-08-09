@@ -9,9 +9,8 @@ authors = [
 ]
 requires-python = ">=3.9,<4"
 dependencies = [
-    "manageprojects",  # TODO: Move all used parts to this project!
+    "bx_py_utils",  # https://github.com/boxine/bx_py_utils
     "tomlkit",  # https://github.com/sdispater/tomlkit
-    "bx_py_utils",  # TODO: Move all used parts to this project!
     "click",  # https://github.com/pallets/click/
     "rich-click",  # https://github.com/ewels/rich-click
     "rich",  # https://github.com/Textualize/rich
@@ -39,13 +38,10 @@ dev = [
     "darker[flynt, isort, color]",
 
     "tomli",  # https://github.com/hukkin/tomli
-    # tomli only needed for Python <3.11, but see bug:
-    # https://github.com/pypa/pip/issues/9644#issuecomment-1456583402
-    #"tomli;python_version<\"3.11\"",  # https://github.com/hukkin/tomli
-
-    # Work-a-round for:
-    # https://github.com/jazzband/pip-tools/issues/994#issuecomment-1321226661
-    "typing-extensions>=3.10;python_version<\"3.10\"",
+    #
+    # tomli only needed for Python <3.11, but see pip bug:
+    # https://github.com/pypa/pip/issues/9644 / https://github.com/jazzband/pip-tools/issues/1866
+    #'tomli;python_version<"3.11"',  # https://github.com/hukkin/tomli
 ]
 
 [project.urls]
@@ -151,6 +147,9 @@ initial_revision = "a264778"
 initial_date = 2023-05-07T13:44:43+02:00
 cookiecutter_template = "https://github.com/jedie/cookiecutter_templates/"
 cookiecutter_directory = "piptools-python"
+applied_migrations = [
+    "034be26", # 2023-08-05T21:37:12+02:00
+]
 
 [manageprojects.cookiecutter_context.cookiecutter]
 full_name = "Jens Diemer"
