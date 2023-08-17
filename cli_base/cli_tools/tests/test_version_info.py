@@ -9,6 +9,7 @@ import cli_base
 from cli_base import __version__
 from cli_base.cli.dev import PACKAGE_ROOT
 from cli_base.cli_tools.git import Git
+from cli_base.cli_tools.test_utils.rich_test_utils import NoColorEnvRich
 from cli_base.cli_tools.version_info import print_version
 
 
@@ -19,14 +20,14 @@ class VersionInfoTestCase(TestCase):
         git = Git(cwd=PACKAGE_ROOT)
         git_hash = git.get_current_hash(verbose=False)
 
-        with RedirectOut() as buffer:
+        with NoColorEnvRich(), RedirectOut() as buffer:
             print_version(module=cli_base)
 
         self.assertEqual(buffer.stderr, '')
         self.assertEqual(buffer.stdout, f'cli_base v{__version__} {git_hash} ({PACKAGE_ROOT})\n')
 
     def test_no_git(self):
-        with RedirectOut() as buffer:
+        with NoColorEnvRich(), RedirectOut() as buffer:
             print_version(module=cli_base, project_root=Path('foo', 'bar'))
 
         self.assertEqual(buffer.stderr, '')
@@ -36,7 +37,7 @@ class VersionInfoTestCase(TestCase):
             non_git_path = temp_path / '.git'
             non_git_path.mkdir()
 
-            with AssertLogs(self, loggers=('cli_base',)) as logs, RedirectOut() as buffer:
+            with NoColorEnvRich(), AssertLogs(self, loggers=('cli_base',)) as logs, RedirectOut() as buffer:
                 print_version(module=cli_base, project_root=temp_path)
 
             self.assertIn(f'cli_base v{__version__} ', buffer.stdout)
