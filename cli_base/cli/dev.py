@@ -16,6 +16,7 @@ import cli_base
 from cli_base import constants
 from cli_base.cli_tools.dev_tools import coverage_combine_report, erase_coverage_data, run_tox, run_unittest_cli
 from cli_base.cli_tools.subprocess_utils import verbose_check_call
+from cli_base.cli_tools.test_utils.snapshot import UpdateTestSnapshotFiles
 from cli_base.cli_tools.verbosity import OPTION_KWARGS_VERBOSE
 from cli_base.cli_tools.version_info import print_version
 
@@ -204,31 +205,21 @@ cli.add_command(check_code_style)
 
 
 @click.command()
-def update_test_snapshot_files():
+@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
+def update_test_snapshot_files(verbosity: int):
     """
     Update all test snapshot files (by remove and recreate all snapshot files)
     """
 
-    def iter_snapshot_files():
-        yield from PACKAGE_ROOT.rglob('*.snapshot.*')
-
-    removed_file_count = 0
-    for item in iter_snapshot_files():
-        item.unlink()
-        removed_file_count += 1
-    print(f'{removed_file_count} test snapshot files removed... run tests...')
-
-    # Just recreate them by running tests:
-    run_unittest_cli(
-        extra_env=dict(
-            RAISE_SNAPSHOT_ERRORS='0',  # Recreate snapshot files without error
-        ),
-        verbose=False,
-        exit_after_run=False,
-    )
-
-    new_files = len(list(iter_snapshot_files()))
-    print(f'{new_files} test snapshot files created, ok.\n')
+    with UpdateTestSnapshotFiles(root_path=PACKAGE_ROOT, verbose=verbosity > 0):
+        # Just recreate them by running tests:
+        run_unittest_cli(
+            extra_env=dict(
+                RAISE_SNAPSHOT_ERRORS='0',  # Recreate snapshot files without error
+            ),
+            verbose=verbosity > 1,
+            exit_after_run=False,
+        )
 
 
 cli.add_command(update_test_snapshot_files)
