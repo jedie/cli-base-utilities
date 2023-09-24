@@ -9,15 +9,15 @@ import rich_click as click
 from bx_py_utils.path import assert_is_file
 from manageprojects.utilities import code_style
 from manageprojects.utilities.publish import publish_package
-from manageprojects.utilities.version_info import print_version
 from rich import print  # noqa; noqa
 from rich_click import RichGroup
 
 import cli_base
 from cli_base import constants
-from cli_base.cli_tools.dev_tools import run_tox, run_unittest_cli
+from cli_base.cli_tools.dev_tools import coverage_combine_report, erase_coverage_data, run_tox, run_unittest_cli
 from cli_base.cli_tools.subprocess_utils import verbose_check_call
 from cli_base.cli_tools.verbosity import OPTION_KWARGS_VERBOSE
+from cli_base.cli_tools.version_info import print_version
 
 
 logger = logging.getLogger(__name__)
@@ -76,11 +76,11 @@ def coverage(verbosity: int):
     """
     Run and show coverage.
     """
-    verbose_check_call('coverage', 'run', verbose=verbosity > 0, exit_on_error=True)
-    verbose_check_call('coverage', 'combine', '--append', verbose=verbosity > 0, exit_on_error=True)
-    verbose_check_call('coverage', 'report', '--fail-under=30', verbose=verbosity > 0, exit_on_error=True)
-    verbose_check_call('coverage', 'xml', verbose=verbosity > 0, exit_on_error=True)
-    verbose_check_call('coverage', 'json', verbose=verbosity > 0, exit_on_error=True)
+    try:
+        verbose_check_call('coverage', 'run', verbose=verbosity > 0, exit_on_error=True)
+        coverage_combine_report(verbose=verbosity > 0)
+    finally:
+        erase_coverage_data(verbose=verbosity > 0)
 
 
 cli.add_command(coverage)

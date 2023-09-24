@@ -1,31 +1,46 @@
+import os
 import sys
 from pathlib import Path
-
-
-from rich import print
 
 from cli_base.cli_tools.subprocess_utils import verbose_check_call
 
 
-def clean_coverage_files():
-    """
-    Old / obsolete coverage files may corrupt the test run,
-    so better try to remove them
-    """
-    for file_path in Path().cwd().glob('.coverage*'):
-        try:
-            file_path.unlink()
-        except OSError as err:
-            print(f'(Error remove {file_path}: {err})')
-        else:
-            print(f'(remove {file_path}, ok)')
+def is_verbose(*, argv):
+    if '-v' in argv or '--verbose' in argv:
+        return True
+    return False
 
 
-def run_unittest_cli(extra_env=None, verbose=True, exit_after_run=True):
+class EraseCoverageData:
+    """
+    Erase previously collected coverage data by call: `python3 -m coverage erase`
+    """
+
+    erased = False
+
+    def __call__(self, *, cwd=Path().cwd(), verbose=True):
+        if not self.erased:
+            verbose_check_call('coverage', 'erase', verbose=verbose, exit_on_error=True, cwd=cwd)
+        self.erased = True  # Call only once at runtime!
+
+
+erase_coverage_data = EraseCoverageData()
+
+
+def coverage_combine_report(*, cwd=Path().cwd(), verbose=True):
+    verbose_check_call('coverage', 'combine', '--append', verbose=verbose, exit_on_error=True, cwd=cwd)
+    verbose_check_call('coverage', 'report', verbose=verbose, exit_on_error=True, cwd=cwd)
+    verbose_check_call('coverage', 'xml', verbose=verbose, exit_on_error=True, cwd=cwd)
+    verbose_check_call('coverage', 'json', verbose=verbose, exit_on_error=True, cwd=cwd)
+    erase_coverage_data(verbose=True)
+
+
+def run_unittest_cli(extra_env=None, verbose=None, exit_after_run=True):
     """
     Call the origin unittest CLI and pass all args to it.
     """
-    clean_coverage_files()
+    if verbose is None:
+        verbose = is_verbose(argv=sys.argv)
 
     if extra_env is None:
         extra_env = dict()
@@ -44,14 +59,20 @@ def run_unittest_cli(extra_env=None, verbose=True, exit_after_run=True):
         else:
             args = ('--locals', '--buffer')
 
-    verbose_check_call(
-        sys.executable,
-        '-m',
-        'unittest',
-        *args,
-        timeout=15 * 60,
-        extra_env=extra_env,
-    )
+    try:
+        verbose_check_call(
+            sys.executable,
+            '-m',
+            'unittest',
+            *args,
+            timeout=15 * 60,
+            extra_env=extra_env,
+        )
+    finally:
+        inside_tox_run = 'TOX_ENV_NAME' in os.environ  # Called by tox run?
+        if not inside_tox_run:
+            erase_coverage_data(verbose=verbose)
+
     if exit_after_run:
         sys.exit(0)
 
@@ -60,6 +81,11 @@ def run_tox():
     """
     Call tox and pass all command arguments to it
     """
-    clean_coverage_files()
-    verbose_check_call(sys.executable, '-m', 'tox', *sys.argv[2:])
+    verbose = is_verbose(argv=sys.argv)
+    try:
+        verbose_check_call(sys.executable, '-m', 'tox', *sys.argv[2:])
+    finally:
+        coverage_combine_report(verbose=verbose)
+        erase_coverage_data(verbose=verbose)
+
     sys.exit(0)
