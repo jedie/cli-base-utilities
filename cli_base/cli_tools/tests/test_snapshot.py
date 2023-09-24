@@ -4,6 +4,7 @@ from unittest import TestCase
 
 from bx_py_utils.test_utils.redirect import RedirectOut
 
+from cli_base.cli_tools.test_utils.rich_test_utils import NoColorEnvRich
 from cli_base.cli_tools.test_utils.snapshot import UpdateTestSnapshotFiles
 
 
@@ -21,7 +22,9 @@ class SnapshotTestCase(TestCase):
             snapshot2.parent.mkdir()
             snapshot2.touch()
 
-            with RedirectOut() as buffer, UpdateTestSnapshotFiles(root_path=temp_path, verbose=True) as cm:
+            with NoColorEnvRich(), RedirectOut() as buffer, UpdateTestSnapshotFiles(
+                root_path=temp_path, verbose=True
+            ) as cm:
                 self.assertFalse(snapshot1.is_file())
                 self.assertFalse(snapshot2.is_file())
 
