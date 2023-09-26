@@ -6,7 +6,7 @@
 [![Python Versions](https://img.shields.io/pypi/pyversions/cli-base-utilities)](https://github.com/jedie/cli-base-utilities/blob/main/pyproject.toml)
 [![License GPL-3.0-or-later](https://img.shields.io/pypi/l/cli-base-utilities)](https://github.com/jedie/cli-base-utilities/blob/main/LICENSE)
 
-Helpers to bild a CLI program
+Helpers to build a CLI program
 
 * https://pypi.org/project/cli-base-utilities/
 
