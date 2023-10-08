@@ -26,9 +26,9 @@ pygments==2.16.1 \
     --hash=sha256:13fc09fa63bc8d8671a6d247e1eb303c4b343eaee81d861f3404db2935653692 \
     --hash=sha256:1daff0494820c69bc8941e407aa20f577374ee88364ee10a98fdbe0aece96e29
     # via rich
-rich==13.5.3 \
-    --hash=sha256:87b43e0543149efa1253f485cd845bb7ee54df16c9617b8a893650ab84b4acb6 \
-    --hash=sha256:9257b468badc3d347e146a4faa268ff229039d4c2d176ab0cffb4c4fbc73d5d9
+rich==13.6.0 \
+    --hash=sha256:2b38e2fe9ca72c9a00170a1a2d20c63c790d0e10ef1fe35eba76e1e7b1d7d245 \
+    --hash=sha256:5c14d22737e6d5084ef4771b62d5d4363165b403455a30a1c8ca39dc7b644bef
     # via
     #   cli-base-utilities (pyproject.toml)
     #   rich-click
