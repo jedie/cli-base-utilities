@@ -3,6 +3,8 @@ from __future__ import annotations
 from collections.abc import Iterable
 from pathlib import Path
 
+from packaging.version import Version
+
 from cli_base.cli_tools.git import Git, GitHistoryEntry, GithubInfo, GitlabInfo, get_git
 
 
@@ -10,10 +12,12 @@ class TagHistoryRenderer:
     def __init__(
         self,
         *,
+        current_version: str,
         project_info: GithubInfo | GitlabInfo,
         main_branch_name: str = 'main',
         add_author: bool = True,
     ):
+        self.current_version = Version(current_version)
         self.project_info = project_info
 
         self.main_branch_name = main_branch_name
@@ -21,33 +25,37 @@ class TagHistoryRenderer:
 
         self.base_url = None  # Must be set in child class!
 
+    def version2str(self, version: Version):
+        return f'v{version}'
+
     def render(self, tags_history: list[GitHistoryEntry]) -> Iterable[str]:
         for entry in tags_history:
             if entry.last == 'HEAD':
-                compare_url = self.project_info.compare_url(old=entry.next, new=self.main_branch_name)
-                yield f'* [**dev**]({compare_url})'
-                add_commit_url = False
+                version: Version = entry.tag.version
+
+                release_planing = self.current_version > version
+                if release_planing:
+                    new_version = self.version2str(self.current_version)
+                    compare_url = self.project_info.compare_url(old=entry.next, new=new_version)
+                    yield f'* [{new_version}]({compare_url})'
+                else:
+                    compare_url = self.project_info.compare_url(old=entry.next, new=self.main_branch_name)
+                    yield f'* [**dev**]({compare_url})'
             else:
                 compare_url = self.project_info.compare_url(old=entry.next, new=entry.last)
                 yield f'* [{entry.last}]({compare_url})'
-                add_commit_url = True
 
             for log_line in entry.log_lines:
                 if self.add_author:
                     author = f' {log_line.author}'
                 else:
                     author = ''
-                if add_commit_url:
-                    commit_url = self.project_info.commit_url(hash=log_line.hash)
-                    yield f'  * [{log_line.date.isoformat()}{author}]({commit_url}) - {log_line.comment}'
-                else:
-                    yield f'  * {log_line.date.isoformat()}{author} - {log_line.comment}'
-
-            if entry.last == 'HEAD':
-                yield '  * tbc'
+                yield f'  * {log_line.date.isoformat()}{author} - {log_line.comment}'
 
 
-def get_git_history(cwd: Path | None = None, add_author: bool = True, verbose: bool = False) -> Iterable[str]:
+def get_git_history(
+    *, current_version: str, cwd: Path | None = None, add_author: bool = True, verbose: bool = False
+) -> Iterable[str]:
     """
     Generate a project history base on git commits/tags.
     """
@@ -57,6 +65,7 @@ def get_git_history(cwd: Path | None = None, add_author: bool = True, verbose: b
     if project_info:
         tags_history: list[GitHistoryEntry] = git.get_tag_history(verbose=verbose)
         renderer = TagHistoryRenderer(
+            current_version=current_version,
             project_info=project_info,
             main_branch_name=main_branch_name,
             add_author=add_author,
@@ -65,5 +74,7 @@ def get_git_history(cwd: Path | None = None, add_author: bool = True, verbose: b
 
 
 if __name__ == '__main__':
-    for line in get_git_history():
+    from cli_base import __version__
+
+    for line in get_git_history(current_version=__version__):
         print(line)
