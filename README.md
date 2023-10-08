@@ -95,7 +95,7 @@ To make a new release, do this:
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
-* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.4.0...main)
+* [v0.4.1](https://github.com/jedie/cli-base-utilities/compare/v0.4.0...v0.4.1)
   * 2023-10-08 - Remove commit URLs from history and handle release a new version
   * 2023-10-08 - NEW: Generate a project history base on git commits/tags.
   * 2023-10-08 - Update requirements

@@ -13,11 +13,13 @@ class TagHistoryRenderer:
         self,
         *,
         current_version: str,
+        skip_prefixes: tuple[str],
         project_info: GithubInfo | GitlabInfo,
         main_branch_name: str = 'main',
         add_author: bool = True,
     ):
         self.current_version = Version(current_version)
+        self.skip_prefixes = [txt.lower() for txt in skip_prefixes]
         self.project_info = project_info
 
         self.main_branch_name = main_branch_name
@@ -27,6 +29,13 @@ class TagHistoryRenderer:
 
     def version2str(self, version: Version):
         return f'v{version}'
+
+    def skip(self, comment) -> bool:
+        comment = comment.lower()
+        for skip_prefix in self.skip_prefixes:
+            if comment.startswith(skip_prefix):
+                return True
+        return False
 
     def render(self, tags_history: list[GitHistoryEntry]) -> Iterable[str]:
         for entry in tags_history:
@@ -46,6 +55,9 @@ class TagHistoryRenderer:
                 yield f'* [{entry.last}]({compare_url})'
 
             for log_line in entry.log_lines:
+                if self.skip(log_line.comment):
+                    continue
+
                 if self.add_author:
                     author = f' {log_line.author}'
                 else:
@@ -54,7 +66,12 @@ class TagHistoryRenderer:
 
 
 def get_git_history(
-    *, current_version: str, cwd: Path | None = None, add_author: bool = True, verbose: bool = False
+    *,
+    current_version: str,
+    cwd: Path | None = None,
+    add_author: bool = True,
+    skip_prefixes: tuple[str] = ('Release as',),
+    verbose: bool = False,
 ) -> Iterable[str]:
     """
     Generate a project history base on git commits/tags.
@@ -66,6 +83,7 @@ def get_git_history(
         tags_history: list[GitHistoryEntry] = git.get_tag_history(verbose=verbose)
         renderer = TagHistoryRenderer(
             current_version=current_version,
+            skip_prefixes=skip_prefixes,
             project_info=project_info,
             main_branch_name=main_branch_name,
             add_author=add_author,
