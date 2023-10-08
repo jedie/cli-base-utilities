@@ -13,7 +13,7 @@ from manageprojects.utilities.temp_path import TemporaryDirectory
 from packaging.version import Version
 
 from cli_base.cli.dev import PACKAGE_ROOT
-from cli_base.cli_tools.git import Git, GitTagInfo, GitTagInfos
+from cli_base.cli_tools.git import Git, GithubInfo, GitlabInfo, GitTagInfo, GitTagInfos
 from cli_base.cli_tools.test_utils.git_utils import init_git
 
 
@@ -383,3 +383,86 @@ class GitTestCase(TestCase):
 
             self.assertEqual(git.get_remote_url(), 'git@github.com:user-name/project-name.git')
             self.assertEqual(git.get_github_username(), 'user-name')
+
+    def test_get_project_info(self):
+        with self.assertLogs('cli_base'), TemporaryDirectory(prefix='github') as temp_path:
+            Path(temp_path, 'foo.txt').touch()
+            git, first_hash = init_git(temp_path)
+
+            self.assertEqual(git.get_remote_url(), '.')
+            self.assertIs(git.get_project_info(), None)
+
+            git.git_verbose_check_call('remote', 'set-url', 'origin', 'git@github.com:user-name/project-name.git')
+            project_info = git.get_project_info()
+            self.assertEqual(
+                project_info,
+                GithubInfo(
+                    remote_url='git@github.com:user-name/project-name.git',
+                    user_name='user-name',
+                    project_name='project-name',
+                ),
+            )
+            self.assertEqual(
+                project_info.commit_url(hash='<hash>'),
+                'https://github.com/user-name/project-name/commit/<hash>',
+            )
+            self.assertEqual(
+                project_info.compare_url(old='v1', new='v2'),
+                'https://github.com/user-name/project-name/compare/v1...v2',
+            )
+
+        ##############################################################
+        # https GitHub
+
+        with self.assertLogs('cli_base'), TemporaryDirectory(prefix='github') as temp_path:
+            Path(temp_path, 'foo.txt').touch()
+            git, first_hash = init_git(temp_path)
+            git.git_verbose_check_call(
+                'remote', 'set-url', 'origin', 'https://github.com/user-name/project-name.git'
+            )
+            project_info = git.get_project_info()
+            self.assertEqual(
+                project_info,
+                GithubInfo(
+                    remote_url='https://github.com/user-name/project-name.git',
+                    user_name='user-name',
+                    project_name='project-name',
+                ),
+            )
+            self.assertEqual(
+                project_info.commit_url(hash='<hash>'),
+                'https://github.com/user-name/project-name/commit/<hash>',
+            )
+            self.assertEqual(
+                project_info.compare_url(old='v1', new='v2'),
+                'https://github.com/user-name/project-name/compare/v1...v2',
+            )
+
+        ##############################################################
+        # GitLab
+
+        with self.assertLogs('cli_base'), TemporaryDirectory(prefix='gitlab') as temp_path:
+            Path(temp_path, 'foo.txt').touch()
+            git, first_hash = init_git(temp_path)
+
+            self.assertEqual(git.get_remote_url(), '.')
+            self.assertIs(git.get_project_info(), None)
+
+            git.git_verbose_check_call('remote', 'set-url', 'origin', 'git@gitlab.com:user-name/project-name.git')
+            project_info = git.get_project_info()
+            self.assertEqual(
+                project_info,
+                GitlabInfo(
+                    remote_url='git@gitlab.com:user-name/project-name.git',
+                    user_name='user-name',
+                    project_name='project-name',
+                ),
+            )
+            self.assertEqual(
+                project_info.commit_url(hash='<hash>'),
+                'https://gitlab.com/user-name/project-name/-/commit/<hash>',
+            )
+            self.assertEqual(
+                project_info.compare_url(old='v1', new='v2'),
+                'https://gitlab.com/user-name/project-name/-/compare/v1...v2',
+            )

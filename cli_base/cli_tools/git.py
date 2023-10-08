@@ -6,6 +6,8 @@ import logging
 import os
 import re
 import subprocess  # nosec B404
+import warnings
+from functools import total_ordering
 from pathlib import Path
 from shutil import which
 
@@ -32,6 +34,7 @@ class GitBinNotFoundError(GitError):
         super().__init__('Git executable not found in PATH')
 
 
+@total_ordering
 @dataclasses.dataclass
 class GitTagInfo:
     raw_tag: str
@@ -42,6 +45,60 @@ class GitTagInfo:
         if self.version:
             return f'v{self.version}'
         return self.raw_tag
+
+    def __hash__(self) -> int:
+        return hash(self.version)
+
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, GitTagInfo):
+            return NotImplemented
+        return self.version == other.version
+
+    def __lt__(self, other) -> bool:
+        if not isinstance(other, GitTagInfo):
+            return NotImplemented
+        return self.version < other.version
+
+
+@total_ordering
+@dataclasses.dataclass
+class GitLogLine:
+    hash: str
+    date: datetime.date
+    author: str
+    comment: str
+
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, GitLogLine):
+            return NotImplemented
+        return self.date == other.date
+
+    def __lt__(self, other) -> bool:
+        if not isinstance(other, GitLogLine):
+            return NotImplemented
+        return self.date < other.date
+
+
+@total_ordering
+@dataclasses.dataclass
+class GitHistoryEntry:
+    tag: GitTagInfo
+    last: str
+    next: str
+    log_lines: list[GitLogLine]
+
+    def __hash__(self) -> int:
+        return hash(self.tag.version)
+
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, GitHistoryEntry):
+            return NotImplemented
+        return self.tag.version == other.tag.version
+
+    def __lt__(self, other) -> bool:
+        if not isinstance(other, GitHistoryEntry):
+            return NotImplemented
+        return self.tag.version < other.tag.version
 
 
 @dataclasses.dataclass
@@ -64,14 +121,14 @@ class GitTagInfos:
 
         return cls(tags=tags)
 
-    def get_releases(self):
+    def get_releases(self, reverse: bool = False) -> list[GitTagInfo]:
         result = []
         for tag in self.tags:
             if version := tag.version:
                 if version.is_devrelease or version.is_prerelease:
                     continue
                 result.append(tag)
-        return result
+        return sorted(result, reverse=reverse)
 
     def get_last_release(self):
         if releases := self.get_releases():
@@ -84,6 +141,47 @@ class GitTagInfos:
         return False
 
 
+@dataclasses.dataclass
+class GitProjectInfo:
+    remote_url: str  # e.g.: 'git@github.com:<user>/<project>.git' or 'git@gitlab.com:<user>/<project>.git'
+    user_name: str  # e.g.: <user>
+    project_name: str  # e.g.: <project>
+
+    @property
+    def base_url(self) -> str:
+        raise NotImplementedError
+
+    def compare_url(self, old, new):
+        """
+        e.g.:
+        GitLab: https://gitlab.com/<user>/<project>/-/compare/v0.0.1...v0.0.2
+        GitHub: https://github.com/<user>/<project>/compare/v0.0.1...v0.0.2
+        """
+        return f'{self.base_url}/compare/{old}...{new}'
+
+    def commit_url(self, hash):
+        """
+        e.g.:
+        GitLab: https://gitlab.com/<user>/<project>/-/commit/<hash>
+        GitHub: https://github.com/<user>/<project>/commit/<hash>
+        """
+        return f'{self.base_url}/commit/{hash}'
+
+
+@dataclasses.dataclass
+class GithubInfo(GitProjectInfo):
+    @property
+    def base_url(self) -> str:
+        return f'https://github.com/{self.user_name}/{self.project_name}'
+
+
+@dataclasses.dataclass
+class GitlabInfo(GitProjectInfo):
+    @property
+    def base_url(self) -> str:
+        return f'https://gitlab.com/{self.user_name}/{self.project_name}/-'
+
+
 def get_git_root(path: Path):
     if len(path.parts) == 1 or not path.is_dir():
         return None
@@ -92,6 +190,12 @@ def get_git_root(path: Path):
         return path
 
     return get_git_root(path=path.parent)
+
+
+def get_git(cwd: None | Path = None) -> Git:
+    if not cwd:
+        cwd = Path.cwd()
+    return Git(cwd=cwd, detect_root=True)
 
 
 class Git:
@@ -260,6 +364,55 @@ class Git:
         lines = output.splitlines()
         return lines
 
+    def log_info(
+        self,
+        no_merges=True,
+        commit1: str | None = None,  # e.g.: "HEAD"
+        commit2: str | None = None,  # e.g.: "v0.8.0"
+        verbose=False,
+        exit_on_error=True,
+    ) -> list[GitLogLine]:
+        lines = self.log(
+            format='%h;%as;%an;%s',  # e.g.: b07d3d3;2023-09-26;Jens Diemer;Update README.md
+            no_merges=no_merges,
+            commit1=commit1,
+            commit2=commit2,
+            verbose=verbose,
+            exit_on_error=exit_on_error,
+        )
+        result = []
+        for line in lines:
+            hash, date_str, author, comment = line.split(';', 4)
+            date = datetime.date.fromisoformat(date_str)
+            result.append(GitLogLine(hash=hash, date=date, author=author, comment=comment))
+        return result
+
+    def get_tag_history(self, verbose=False) -> list[GitHistoryEntry]:
+        tag_infos: GitTagInfos = self.get_tag_infos(verbose=verbose)
+        tags = tag_infos.get_releases(reverse=True)
+        tag_history = []
+        last = 'HEAD'
+        for tag in tags:
+            next = tag.raw_tag
+
+            log_lines: list[GitLogLine] = self.log_info(
+                no_merges=True,
+                commit1=last,
+                commit2=next,
+                verbose=False,
+                exit_on_error=True,
+            )
+            tag_history.append(
+                GitHistoryEntry(
+                    tag=tag,
+                    last=last,
+                    next=next,
+                    log_lines=log_lines,
+                )
+            )
+            last = next
+        return tag_history
+
     def get_file_dt(self, file_name, verbose=True, with_tz=True) -> datetime.datetime | None:
         output = self.git_verbose_check_output(
             'log',
@@ -403,7 +556,7 @@ class Git:
     def checkout_new_branch(self, branch_name, verbose=True):
         return self.git_verbose_check_call('checkout', '-b', branch_name, verbose=verbose)
 
-    def get_remote_url(self, name='origin', action_type='push', verbose=True):
+    def get_remote_url(self, name='origin', action_type='push', verbose=True) -> str | None:
         """
         returns a string like:
             'git@github.com:<username>/<project_name>.git'
@@ -416,18 +569,38 @@ class Git:
                 logger.info('Use git remote url: %r', url)
                 return url
 
-    def get_github_username(self, name='origin', action_type='push', verbose=True):
+    def get_project_info(self, name='origin', action_type='push', verbose=True) -> GithubInfo | GitlabInfo | None:
+        url = self.get_remote_url(name=name, action_type=action_type, verbose=verbose)
+        if not url.endswith('.git'):
+            logger.info('Non git url: %r', url)
+            return
+
+        if 'github.com' in url:
+            klass = GithubInfo
+        elif 'gitlab.com' in url:
+            klass = GitlabInfo
+        else:
+            logger.info('Non GitHub / GitLab url: %r', url)
+            return
+
+        matches = re.findall(r'[:/]([^:/]+?)/([^/]+?).git', url)
+        if matches:
+            user_name, project_name = matches[0]
+            return klass(
+                remote_url=url,
+                user_name=user_name,
+                project_name=project_name,
+            )
+
+    def get_github_username(self, name='origin', action_type='push', verbose=True) -> str | None:
         """
         returns the user name from the git remote url
         e.g.:
             remote url is: 'git@github.com:<username>/<project_name>.git'
             -> returns '<username>'
         """
-        url = self.get_remote_url(name=name, action_type=action_type, verbose=verbose)
-        if 'github.com' not in url:
-            logger.info('Non github url: %r', url)
-            return
-
-        matches = re.findall(r':(\S+)/', url)
-        if matches:
-            return matches[0]
+        warnings.warn(
+            'get_github_username() is deprecated, use get_github_info() instead', DeprecationWarning, stacklevel=2
+        )
+        if info := self.get_project_info(name=name, action_type=action_type, verbose=verbose):
+            return info.user_name

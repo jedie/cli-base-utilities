@@ -76,3 +76,26 @@ Usage: ./cli.py [OPTIONS] COMMAND [ARGS]...
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 [comment]: <> (✂✂✂ auto generated app help end ✂✂✂)
+
+
+# history
+
+[comment]: <> (✂✂✂ auto generated history start ✂✂✂)
+
+* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.4.0...main)
+  * 2023-10-08 - NEW: Generate a project history base on git commits/tags.
+  * 2023-10-08 - Update requirements
+  * 2023-09-28 - Update requirements
+  * 2023-09-26 - Update README.md
+  * tbc
+* [v0.4.0](https://github.com/jedie/cli-base-utilities/compare/v0.3.0...v0.4.0)
+  * [2023-09-24](https://github.com/jedie/cli-base-utilities/commit/af99097) - fix tests
+  * [2023-09-24](https://github.com/jedie/cli-base-utilities/commit/076c1d2) - Add UpdateTestSnapshotFiles() Context Manager
+  * [2023-09-24](https://github.com/jedie/cli-base-utilities/commit/71dc9a3) - coverage: Refactor setup and add helpers
+  * [2023-09-24](https://github.com/jedie/cli-base-utilities/commit/f5c215e) - Update requirements
+* [v0.3.0](https://github.com/jedie/cli-base-utilities/compare/v0.2.0...v0.3.0)
+  * [2023-08-17](https://github.com/jedie/cli-base-utilities/commit/ac3c00e) - Bugfix tests run in terminal
+  * [2023-08-17](https://github.com/jedie/cli-base-utilities/commit/b4775dd) - update requirements
+  * [2023-08-17](https://github.com/jedie/cli-base-utilities/commit/c310cdf) - NEW: cli_base.cli_tools.git and cli_base.cli_tools.version_info
+
+[comment]: <> (✂✂✂ auto generated history end ✂✂✂)
