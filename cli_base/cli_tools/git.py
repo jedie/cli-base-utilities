@@ -388,11 +388,13 @@ class Git:
         output = self.git_verbose_output(
             'log',
             '--max-parents=0',
+            '--reverse',  # oldest commit first
             'HEAD',
             f'--pretty=format:{GitLogLineUtil.FORMAT}',
         )
         lines = output.splitlines()
-        assert len(lines) == 1, f'Expected only one line, got: {lines=}'
+        # Note: A git repro can have more then one root commit!
+        #       We use the first, the oldest one (we use --reverse)
         return GitLogLineUtil.from_line(lines[0])
 
     def log_info(
