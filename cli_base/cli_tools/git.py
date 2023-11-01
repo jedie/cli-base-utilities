@@ -79,6 +79,23 @@ class GitLogLine:
         return self.date < other.date
 
 
+class GitLogLineUtil:
+    """
+    Helper to parse git log lines into a GitLogLine object.
+    """
+
+    FORMAT = '%h;%as;%an;%s'  # e.g.: b07d3d3;2023-09-26;Jens Diemer;Update README.md
+
+    @classmethod
+    def from_line(cls, line: str) -> GitLogLine:
+        try:
+            hash, date_str, author, comment = line.split(';', 3)
+        except ValueError as err:
+            raise ValueError(f'{err} -> Invalid git log line: {line!r}') from err
+        date = datetime.date.fromisoformat(date_str)
+        return GitLogLine(hash=hash, date=date, author=author, comment=comment)
+
+
 @total_ordering
 @dataclasses.dataclass
 class GitHistoryEntry:
@@ -364,6 +381,20 @@ class Git:
         lines = output.splitlines()
         return lines
 
+    def first_commit_info(self) -> GitLogLine:
+        """
+        e.g.: git log --max-parents=0 HEAD  --pretty=format:"%h;%as;%an;%s"
+        """
+        output = self.git_verbose_output(
+            'log',
+            '--max-parents=0',
+            'HEAD',
+            f'--pretty=format:{GitLogLineUtil.FORMAT}',
+        )
+        lines = output.splitlines()
+        assert len(lines) == 1, f'Expected only one line, got: {lines=}'
+        return GitLogLineUtil.from_line(lines[0])
+
     def log_info(
         self,
         no_merges=True,
@@ -373,23 +404,27 @@ class Git:
         exit_on_error=True,
     ) -> list[GitLogLine]:
         lines = self.log(
-            format='%h;%as;%an;%s',  # e.g.: b07d3d3;2023-09-26;Jens Diemer;Update README.md
+            format=GitLogLineUtil.FORMAT,
             no_merges=no_merges,
             commit1=commit1,
             commit2=commit2,
             verbose=verbose,
             exit_on_error=exit_on_error,
         )
-        result = []
-        for line in lines:
-            hash, date_str, author, comment = line.split(';', 4)
-            date = datetime.date.fromisoformat(date_str)
-            result.append(GitLogLine(hash=hash, date=date, author=author, comment=comment))
+        result = [GitLogLineUtil.from_line(line) for line in lines]
         return result
 
     def get_tag_history(self, verbose=False) -> list[GitHistoryEntry]:
         tag_infos: GitTagInfos = self.get_tag_infos(verbose=verbose)
         tags = tag_infos.get_releases(reverse=True)
+
+        # Get the first commit:
+        first_commit: GitLogLine = self.first_commit_info()
+
+        # Add the fist commit as a "fake" tag.
+        # This is needed to collect all commits before the first tag!
+        tags.append(GitTagInfo(raw_tag=first_commit.hash))
+
         tag_history = []
         last = 'HEAD'
         for tag in tags:
@@ -402,6 +437,11 @@ class Git:
                 verbose=False,
                 exit_on_error=True,
             )
+
+            if next == first_commit.hash:
+                # This is the first commit "fake" tag -> add the first commit, too.
+                log_lines.append(first_commit)
+
             tag_history.append(
                 GitHistoryEntry(
                     tag=tag,
@@ -411,6 +451,7 @@ class Git:
                 )
             )
             last = next
+
         return tag_history
 
     def get_file_dt(self, file_name, verbose=True, with_tz=True) -> datetime.datetime | None:

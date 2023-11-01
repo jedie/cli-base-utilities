@@ -70,7 +70,7 @@ def get_git_history(
     current_version: str,
     cwd: Path | None = None,
     add_author: bool = True,
-    skip_prefixes: tuple[str] = ('Release as',),
+    skip_prefixes: tuple[str, ...] = ('Release as', 'Prepare release'),
     verbose: bool = False,
 ) -> Iterable[str]:
     """

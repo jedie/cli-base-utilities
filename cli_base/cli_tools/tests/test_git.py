@@ -13,11 +13,18 @@ from manageprojects.utilities.temp_path import TemporaryDirectory
 from packaging.version import Version
 
 from cli_base.cli.dev import PACKAGE_ROOT
-from cli_base.cli_tools.git import Git, GithubInfo, GitlabInfo, GitTagInfo, GitTagInfos
+from cli_base.cli_tools.git import Git, GitHistoryEntry, GithubInfo, GitlabInfo, GitLogLine, GitTagInfo, GitTagInfos
 from cli_base.cli_tools.test_utils.git_utils import init_git
 
 
 class GitTestCase(TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        super().setUpClass()
+        cls.own_git = Git(cwd=PACKAGE_ROOT, detect_root=True)
+        git_root_path = cls.own_git.cwd
+        assert git_root_path == PACKAGE_ROOT, f'{git_root_path=} is not {PACKAGE_ROOT=}'
+
     def test_config(self):
         with TemporaryDirectory(prefix='test_init_git_') as temp_path:
             git = Git(cwd=temp_path, detect_root=False)
@@ -48,51 +55,45 @@ class GitTestCase(TestCase):
             self.assertIsNone(value)
 
     def test_own_git_repo(self):
-        deep_path = Path(__file__).parent
-        git = Git(cwd=deep_path)
-        git_root_path = git.cwd
-        self.assertNotEqual(git_root_path, deep_path)
-        self.assertEqual(git_root_path, PACKAGE_ROOT)
-
-        git_hash = git.get_current_hash(verbose=False)
+        git_hash = self.own_git.get_current_hash(verbose=False)
         self.assertEqual(len(git_hash), 7, f'Wrong: {git_hash!r}')
 
-        commit_date = git.get_commit_date(verbose=False)
+        commit_date = self.own_git.get_commit_date(verbose=False)
         self.assertIsInstance(commit_date, datetime.datetime)
         self.assertGreater(commit_date, parse_dt('2023-01-01T00:00:00+0000'))
         self.assertLess(commit_date, parse_dt('2024-01-01T00:00:00+0000'))  # ;)
 
         with self.assertLogs('cli_base'):
-            file_dt1 = git.get_file_dt('cli.py', with_tz=True)
+            file_dt1 = self.own_git.get_file_dt('cli.py', with_tz=True)
             self.assertIsInstance(file_dt1, datetime.datetime)
             self.assertGreater(file_dt1, parse_dt('2023-01-01T00:00:00+0000'))
             self.assertLess(file_dt1, parse_dt('2024-01-01T00:00:00+0000'))  # ;)
 
-            file_dt2 = git.get_file_dt('cli.py', with_tz=False)
+            file_dt2 = self.own_git.get_file_dt('cli.py', with_tz=False)
             self.assertIsInstance(file_dt2, datetime.datetime)
             self.assertGreater(file_dt2, datetime.datetime(2023, 1, 1))
             self.assertLess(file_dt2, datetime.datetime(2024, 1, 1))
 
         git_bin = shutil.which('git')
         with SubprocessCallMock() as call_mock:
-            git.push(name='origin', branch_name='my_branch')
+            self.own_git.push(name='origin', branch_name='my_branch')
         self.assertEqual(call_mock.get_popenargs(), [[git_bin, 'push', 'origin', 'my_branch']])
 
         with SubprocessCallMock(return_callback=SimpleRunReturnCallback(stdout='mocked output')) as call_mock:
-            output = git.push(name='origin', branch_name='my_branch', get_output=True)
+            output = self.own_git.push(name='origin', branch_name='my_branch', get_output=True)
         self.assertEqual(call_mock.get_popenargs(), [[git_bin, 'push', 'origin', 'my_branch']])
         self.assertEqual(output, 'mocked output')
 
         with SubprocessCallMock() as call_mock:
-            git.checkout_branch('foo-bar')
+            self.own_git.checkout_branch('foo-bar')
         self.assertEqual(call_mock.get_popenargs(), [[git_bin, 'checkout', 'foo-bar']])
 
         with SubprocessCallMock() as call_mock:
-            git.checkout_new_branch('foo-bar')
+            self.own_git.checkout_new_branch('foo-bar')
         self.assertEqual(call_mock.get_popenargs(), [[git_bin, 'checkout', '-b', 'foo-bar']])
 
         with SubprocessCallMock(return_callback=SimpleRunReturnCallback(stdout='mocked output')) as call_mock:
-            output = git.pull(name='origin', branch_name='my_branch')
+            output = self.own_git.pull(name='origin', branch_name='my_branch')
         self.assertEqual(call_mock.get_popenargs(), [[git_bin, 'pull', 'origin', 'my_branch']])
         self.assertEqual(output, 'mocked output')
 
@@ -465,4 +466,41 @@ class GitTestCase(TestCase):
             self.assertEqual(
                 project_info.compare_url(old='v1', new='v2'),
                 'https://gitlab.com/user-name/project-name/-/compare/v1...v2',
+            )
+
+    def test_first_commit_info(self):
+        # The first commit of this project will never be changed, isn't it? So use it for testing ;)
+        self.assertEqual(
+            self.own_git.first_commit_info(),
+            GitLogLine(
+                hash='d89f23b',
+                date=datetime.date(2023, 5, 21),
+                author='JensDiemer',
+                comment='init',
+            ),
+        )
+
+    def test_get_tag_history(self):
+        with TemporaryDirectory(prefix='test_get_tag_history') as temp_path:
+            test_file_path = Path(temp_path, 'foo.txt')
+            test_file_path.touch()
+            git, first_hash = init_git(temp_path, comment='The initial commit ;)')
+            tag_history = git.get_tag_history()
+            self.assertEqual(
+                tag_history,
+                [
+                    GitHistoryEntry(
+                        tag=GitTagInfo(raw_tag='1f8bbf9', version=None),
+                        last='HEAD',
+                        next='1f8bbf9',
+                        log_lines=[
+                            GitLogLine(
+                                hash='1f8bbf9',
+                                date=datetime.date(2023, 11, 1),
+                                author='Mr. Test',
+                                comment='The initial commit ;)',
+                            )
+                        ],
+                    )
+                ],
             )
