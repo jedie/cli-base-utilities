@@ -1,11 +1,24 @@
 from __future__ import annotations
 
+import re
 from collections.abc import Iterable
 from pathlib import Path
 
 from packaging.version import Version
 
 from cli_base.cli_tools.git import Git, GitHistoryEntry, GithubInfo, GitlabInfo, get_git
+
+
+def clean_text(text: str) -> str:
+    """
+    Clean the text via regex and remove all non-ascii chars and lower it.
+    >>> clean_text('A ÄÖÜ äöüß Test Message 123!')
+    'a test message 123'
+    """
+    text = text.lower()
+    text = re.sub(r'[^a-z0-9]', ' ', text)  # Remove all non-ascii chars
+    text = re.sub(r' +', ' ', text)  # Remove double spaces
+    return text.strip()
 
 
 class TagHistoryRenderer:
@@ -54,9 +67,16 @@ class TagHistoryRenderer:
                 compare_url = self.project_info.compare_url(old=entry.next, new=entry.last)
                 yield f'* [{entry.last}]({compare_url})'
 
+            seen_comments = set()
             for log_line in entry.log_lines:
                 if self.skip(log_line.comment):
                     continue
+
+                # Remove duplicate git commits, e.g.: serveral "update requirements" commits ;)
+                cleaned_comment = clean_text(log_line.comment)
+                if cleaned_comment in seen_comments:
+                    continue
+                seen_comments.add(cleaned_comment)
 
                 if self.add_author:
                     author = f' {log_line.author}'
@@ -70,7 +90,7 @@ def get_git_history(
     current_version: str,
     cwd: Path | None = None,
     add_author: bool = True,
-    skip_prefixes: tuple[str] = ('Release as',),
+    skip_prefixes: tuple[str, ...] = ('Release as', 'Prepare release'),
     verbose: bool = False,
 ) -> Iterable[str]:
     """

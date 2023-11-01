@@ -95,11 +95,13 @@ To make a new release, do this:
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [v0.4.2](https://github.com/jedie/cli-base-utilities/compare/v0.4.1...v0.4.2)
+  * 2023-11-01 - Remove duplicate git commits and keep only test last one, e.g.: "update requirements"
+  * 2023-11-01 - Bugfix git history: Add commits before the first tag
 * [v0.4.1](https://github.com/jedie/cli-base-utilities/compare/v0.4.0...v0.4.1)
   * 2023-10-08 - Remove commit URLs from history and handle release a new version
   * 2023-10-08 - NEW: Generate a project history base on git commits/tags.
   * 2023-10-08 - Update requirements
-  * 2023-09-28 - Update requirements
   * 2023-09-26 - Update README.md
 * [v0.4.0](https://github.com/jedie/cli-base-utilities/compare/v0.3.0...v0.4.0)
   * 2023-09-24 - fix tests
@@ -110,5 +112,12 @@ To make a new release, do this:
   * 2023-08-17 - Bugfix tests run in terminal
   * 2023-08-17 - update requirements
   * 2023-08-17 - NEW: cli_base.cli_tools.git and cli_base.cli_tools.version_info
+* [v0.2.0](https://github.com/jedie/cli-base-utilities/compare/d89f23b...v0.2.0)
+  * 2023-08-09 - Project setup updates
+  * 2023-05-22 - Update README.md
+  * 2023-05-22 - Rename project "cli-base" to "cli-base-utilities"
+  * 2023-05-22 - Add github CI config
+  * 2023-05-22 - Add subprocess_utils from manageprojects
+  * 2023-05-21 - init
 
 [comment]: <> (✂✂✂ auto generated history end ✂✂✂)
