@@ -30,6 +30,8 @@ class TagHistoryRenderer:
         project_info: GithubInfo | GitlabInfo,
         main_branch_name: str = 'main',
         add_author: bool = True,
+        collapse_after: int | None = 4,
+        collapse_marker: str = 'Expand older history entries ...',
     ):
         self.current_version = Version(current_version)
         self.skip_prefixes = [txt.lower() for txt in skip_prefixes]
@@ -37,6 +39,8 @@ class TagHistoryRenderer:
 
         self.main_branch_name = main_branch_name
         self.add_author = add_author
+        self.collapse_after = collapse_after
+        self.collapse_marker = collapse_marker
 
         self.base_url = None  # Must be set in child class!
 
@@ -51,7 +55,12 @@ class TagHistoryRenderer:
         return False
 
     def render(self, tags_history: list[GitHistoryEntry]) -> Iterable[str]:
-        for entry in tags_history:
+        collapsed = False
+        for count, entry in enumerate(tags_history):
+            if self.collapse_after and count == self.collapse_after:
+                yield f'\n<details><summary>{self.collapse_marker}</summary>\n'
+                collapsed = True
+
             if entry.last == 'HEAD':
                 version: Version = entry.tag.version
 
@@ -83,6 +92,9 @@ class TagHistoryRenderer:
                 else:
                     author = ''
                 yield f'  * {log_line.date.isoformat()}{author} - {log_line.comment}'
+
+        if collapsed:
+            yield '\n</details>\n'
 
 
 def get_git_history(
