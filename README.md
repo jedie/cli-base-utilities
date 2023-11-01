@@ -95,6 +95,12 @@ To make a new release, do this:
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.4.5...main)
+  * 2023-11-30 - Configure unittests via "load_tests Protocol" hook
+  * 2023-11-30 - Update requirements and add "flake8-bugbear"
+  * 2023-11-30 - Remove function calls in function agruments
+  * 2023-11-01 - Bugfix "AssertionError: Expected only one line" in Git.first_commit_info()
+  * 2023-11-01 - Update requirements
 * [v0.4.5](https://github.com/jedie/cli-base-utilities/compare/v0.4.4...v0.4.5)
   * 2023-11-30 - Configure unittests via "load_tests Protocol" hook
   * 2023-11-30 - Update requirements and add "flake8-bugbear"
@@ -103,12 +109,12 @@ To make a new release, do this:
   * 2023-11-01 - Bugfix "AssertionError: Expected only one line" in Git.first_commit_info()
 * [v0.4.3](https://github.com/jedie/cli-base-utilities/compare/v0.4.2...v0.4.3)
   * 2023-11-01 - Git history renderer: Collapse older entries
-* [v0.4.2](https://github.com/jedie/cli-base-utilities/compare/v0.4.1...v0.4.2)
-  * 2023-11-01 - Remove duplicate git commits and keep only test last one, e.g.: "update requirements"
-  * 2023-11-01 - Bugfix git history: Add commits before the first tag
 
 <details><summary>Expand older history entries ...</summary>
 
+* [v0.4.2](https://github.com/jedie/cli-base-utilities/compare/v0.4.1...v0.4.2)
+  * 2023-11-01 - Remove duplicate git commits and keep only test last one, e.g.: "update requirements"
+  * 2023-11-01 - Bugfix git history: Add commits before the first tag
 * [v0.4.1](https://github.com/jedie/cli-base-utilities/compare/v0.4.0...v0.4.1)
   * 2023-10-08 - Remove commit URLs from history and handle release a new version
   * 2023-10-08 - NEW: Generate a project history base on git commits/tags.

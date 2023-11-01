@@ -220,9 +220,9 @@ charset-normalizer==3.3.2 \
     --hash=sha256:fd1abc0d89e30cc4e02e4064dc67fcc51bd941eb395c502aac3ec19fab46b519 \
     --hash=sha256:ff8fa367d09b717b2a17a052544193ad76cd49979c805768879cb63d9ca50561
     # via requests
-cli-base-utilities==0.4.4 \
-    --hash=sha256:110bef895fb7dfc29662f463ccedc4c985a880afbde2e6dea387d0d2f96f4985 \
-    --hash=sha256:72d4248776519a21c3448d6e348511ce6fe8c3742c154e158473236c8278fb1c
+cli-base-utilities==0.4.5 \
+    --hash=sha256:4669adbd114e47ee9ff185f4c83555438ff01daa4a026dfbbcbd999e26c9b039 \
+    --hash=sha256:789034deaf489d8f8126a9dd972d3bdc7fd6efcd519a600dc814dbf66d47bab9
     # via manageprojects
 click==8.1.7 \
     --hash=sha256:ae74fb96c20a0277a1d615f1e4d73c8414f5a98db8b799a7931d1582f3390c28 \
@@ -369,9 +369,7 @@ flake8==6.1.0 \
 flake8-bugbear==23.11.28 \
     --hash=sha256:0ba6c44eaa0e4782da94c5c2607159a0e73569369246cd179cc143a0e16b78ba \
     --hash=sha256:8d0f351d954fd860851710cd8b5b28742b2339c0e58848b103418dd9cddb9aa4
-    # via
-    #   cli-base-utilities (pyproject.toml)
-    #   manageprojects
+    # via manageprojects
 flynt==0.77 \
     --hash=sha256:2863ac8ec19d6ec8d29e760546e6ced644baf6dff3c7cdc77e03abbd29b80f14 \
     --hash=sha256:2bd1b37043ad88a3f3c3c34a76fc0b64d24e5f03d36ea6b48cb69cc642bff17e
@@ -842,9 +840,9 @@ urllib3==2.1.0 \
     # via
     #   requests
     #   twine
-virtualenv==20.24.7 \
-    --hash=sha256:69050ffb42419c91f6c1284a7b24e0475d793447e35929b488bf6a0aade39353 \
-    --hash=sha256:a18b3fd0314ca59a2e9f4b556819ed07183b3e9a3702ecfe213f593d44f7b3fd
+virtualenv==20.25.0 \
+    --hash=sha256:4238949c5ffe6876362d9c0180fc6c3a824a7b12b80604eeb8085f2ed7460de3 \
+    --hash=sha256:bf51c0d9c7dd63ea8e44086fa1e4fb1093a31e963b86959257378aef020e1f1b
     # via tox
 wheel==0.42.0 \
     --hash=sha256:177f9c9b0d45c47873b619f5b650346d632cdc35fb5e4d25058e09c9e581433d \
