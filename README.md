@@ -95,6 +95,8 @@ To make a new release, do this:
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [v0.4.4](https://github.com/jedie/cli-base-utilities/compare/v0.4.3...v0.4.4)
+  * 2023-11-01 - Bugfix "AssertionError: Expected only one line" in Git.first_commit_info()
 * [v0.4.3](https://github.com/jedie/cli-base-utilities/compare/v0.4.2...v0.4.3)
   * 2023-11-01 - Git history renderer: Collapse older entries
 * [v0.4.2](https://github.com/jedie/cli-base-utilities/compare/v0.4.1...v0.4.2)
@@ -105,14 +107,14 @@ To make a new release, do this:
   * 2023-10-08 - NEW: Generate a project history base on git commits/tags.
   * 2023-10-08 - Update requirements
   * 2023-09-26 - Update README.md
+
+<details><summary>Expand older history entries ...</summary>
+
 * [v0.4.0](https://github.com/jedie/cli-base-utilities/compare/v0.3.0...v0.4.0)
   * 2023-09-24 - fix tests
   * 2023-09-24 - Add UpdateTestSnapshotFiles() Context Manager
   * 2023-09-24 - coverage: Refactor setup and add helpers
   * 2023-09-24 - Update requirements
-
-<details><summary>Expand older history entries ...</summary>
-
 * [v0.3.0](https://github.com/jedie/cli-base-utilities/compare/v0.2.0...v0.3.0)
   * 2023-08-17 - Bugfix tests run in terminal
   * 2023-08-17 - update requirements
