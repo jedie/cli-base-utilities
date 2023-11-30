@@ -10,10 +10,10 @@ from rich.style import Style
 
 from cli_base.toml_settings.data_class_utils import iter_dataclass
 
+DEFAULT_STYLE = Style(bgcolor='#090909')
 
-def print_dataclasses(
-    *, instance, anonymize_keys: Iterable, indent=0, style=Style(bgcolor='#090909'), console=None
-) -> set[str]:
+
+def print_dataclasses(*, instance, anonymize_keys: Iterable, indent=0, style=DEFAULT_STYLE, console=None) -> set[str]:
     console = console or Console()
 
     console.print(f'{" "*indent}[magenta]{instance.__class__.__name__}[/magenta]:', style=style)

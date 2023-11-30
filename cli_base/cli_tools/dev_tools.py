@@ -1,6 +1,5 @@
 import os
 import sys
-from pathlib import Path
 
 from cli_base.cli_tools.subprocess_utils import verbose_check_call
 
@@ -18,7 +17,7 @@ class EraseCoverageData:
 
     erased = False
 
-    def __call__(self, *, cwd=Path().cwd(), verbose=True):
+    def __call__(self, *, cwd=None, verbose=True):
         if not self.erased:
             verbose_check_call('coverage', 'erase', verbose=verbose, exit_on_error=True, cwd=cwd)
         self.erased = True  # Call only once at runtime!
@@ -27,7 +26,7 @@ class EraseCoverageData:
 erase_coverage_data = EraseCoverageData()
 
 
-def coverage_combine_report(*, cwd=Path().cwd(), verbose=True):
+def coverage_combine_report(*, cwd=None, verbose=True):
     verbose_check_call('coverage', 'combine', '--append', verbose=verbose, exit_on_error=True, cwd=cwd)
     verbose_check_call('coverage', 'report', verbose=verbose, exit_on_error=True, cwd=cwd)
     verbose_check_call('coverage', 'xml', verbose=verbose, exit_on_error=True, cwd=cwd)
