@@ -95,7 +95,7 @@ To make a new release, do this:
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
-* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.5.0...main)
+* [v0.6.0](https://github.com/jedie/cli-base-utilities/compare/v0.5.0...v0.6.0)
   * 2023-12-02 - NEW: Code style tools
 * [v0.5.0](https://github.com/jedie/cli-base-utilities/compare/v0.4.5...v0.5.0)
   * 2023-12-01 - fix flake8
