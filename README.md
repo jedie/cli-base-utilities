@@ -95,6 +95,8 @@ To make a new release, do this:
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.5.0...main)
+  * 2023-12-02 - NEW: Code style tools
 * [v0.5.0](https://github.com/jedie/cli-base-utilities/compare/v0.4.5...v0.5.0)
   * 2023-12-01 - fix flake8
   * 2023-12-01 - NEW: test utils: AssertLogs() context manager
@@ -108,11 +110,11 @@ To make a new release, do this:
   * 2023-11-30 - Remove function calls in function agruments
 * [v0.4.4](https://github.com/jedie/cli-base-utilities/compare/v0.4.3...v0.4.4)
   * 2023-11-01 - Bugfix "AssertionError: Expected only one line" in Git.first_commit_info()
-* [v0.4.3](https://github.com/jedie/cli-base-utilities/compare/v0.4.2...v0.4.3)
-  * 2023-11-01 - Git history renderer: Collapse older entries
 
 <details><summary>Expand older history entries ...</summary>
 
+* [v0.4.3](https://github.com/jedie/cli-base-utilities/compare/v0.4.2...v0.4.3)
+  * 2023-11-01 - Git history renderer: Collapse older entries
 * [v0.4.2](https://github.com/jedie/cli-base-utilities/compare/v0.4.1...v0.4.2)
   * 2023-11-01 - Remove duplicate git commits and keep only test last one, e.g.: "update requirements"
   * 2023-11-01 - Bugfix git history: Add commits before the first tag
