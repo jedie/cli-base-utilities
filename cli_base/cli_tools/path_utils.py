@@ -50,8 +50,8 @@ def expand_user(path: Path) -> Path:
             sudo_user_home = pwd.getpwnam(sudo_user).pw_dir
             with OverrideEnviron(HOME=sudo_user_home):
                 return Path(path).expanduser()
-    else:
-        return Path(path).expanduser()
+
+    return Path(path).expanduser()
 
 
 def backup(file_path: Path, max_try=100) -> Path:

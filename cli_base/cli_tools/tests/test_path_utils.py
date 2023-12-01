@@ -2,6 +2,8 @@ import tempfile
 from pathlib import Path
 from unittest import TestCase
 
+from manageprojects.test_utils.logs import AssertLogs
+
 from cli_base.cli_tools.path_utils import backup, expand_user
 from cli_base.cli_tools.test_utils.environment_fixtures import AsSudoCallOverrideEnviron
 
@@ -20,6 +22,14 @@ class PathUtilsTestCase(TestCase):
 
             self.assertEqual(Path('~/example/').expanduser(), Path('/root/example'))
             self.assertEqual(expand_user(Path('~/example/')), real_example)
+
+        # What happen if SUDO_USER is the same as getpass.getuser() ?
+        with AsSudoCallOverrideEnviron(SUDO_USER='root', LOGNAME='root'), AssertLogs(
+            self, loggers=('cli_base',)
+        ) as logs:
+            self.assertEqual(Path('~').expanduser(), Path('/root'))
+            self.assertEqual(expand_user(Path('~')), Path('/root'))
+        logs.assert_in('Do not run this as root user!', "SUDO_USER:'root' <-> root")
 
     def test_backup(self):
         with tempfile.TemporaryDirectory(prefix='test_') as temp_dir:
