@@ -2,10 +2,9 @@ import tempfile
 from pathlib import Path
 from unittest import TestCase
 
-from manageprojects.test_utils.logs import AssertLogs
-
 from cli_base.cli_tools.path_utils import backup, expand_user
 from cli_base.cli_tools.test_utils.environment_fixtures import AsSudoCallOverrideEnviron
+from cli_base.cli_tools.test_utils.logs import AssertLogs
 
 
 class PathUtilsTestCase(TestCase):
