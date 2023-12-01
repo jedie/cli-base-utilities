@@ -228,6 +228,9 @@ def verbose_check_output(
 
 
 class ToolsExecutor:
+    """
+    Call tools from current Python /.venv/bin/ path.
+    """
     def __init__(self, cwd: Path):
         self.cwd = cwd
 
@@ -239,20 +242,20 @@ class ToolsExecutor:
 
         self.extra_env['PYTHONUNBUFFERED'] = '1'
 
-    def verbose_check_output(self, bin, *popenargs, verbose=True, exit_on_error=True, **kwargs):
-        """'verbose' version of subprocess.check_output()"""
-        bin_path = PY_BIN_PATH / bin
+    def _call(self, func: callable, file_name: str, *popenargs, **kwargs):
+        bin_path = PY_BIN_PATH / file_name
         assert_is_file(bin_path)
 
-        try:
-            verbose_check_call(
-                bin_path,
-                *popenargs,
-                verbose=verbose,
-                cwd=self.cwd,
-                extra_env=self.extra_env,
-                exit_on_error=exit_on_error,
-                **kwargs,
-            )
-        except subprocess.CalledProcessError:
-            pass
+        return func(
+            bin_path,
+            *popenargs,
+            cwd=self.cwd,
+            extra_env=self.extra_env,
+            **kwargs,
+        )
+
+    def verbose_check_call(self, file_name: str, *popenargs, **kwargs):
+        return self._call(verbose_check_call, file_name, *popenargs, **kwargs)
+
+    def verbose_check_output(self, file_name: str, *popenargs, **kwargs):
+        return self._call(verbose_check_output, file_name, *popenargs, **kwargs)
