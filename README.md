@@ -96,6 +96,7 @@ To make a new release, do this:
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.4.5...main)
+  * 2023-12-01 - fix flake8
   * 2023-12-01 - NEW: test utils: AssertLogs() context manager
   * 2023-12-01 - Bugfix expand_user() if SUDO_USER is the same as current user
   * 2023-12-01 - Add "run_coverage()" to "dev_tools" and polish tox, unittest, too.
