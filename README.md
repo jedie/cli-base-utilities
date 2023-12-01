@@ -31,7 +31,7 @@ Usage: ./dev-cli.py [OPTIONS] COMMAND [ARGS]...
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
 ╭─ Commands ───────────────────────────────────────────────────────────────────────────────────────╮
 │ check-code-style            Check code style by calling darker + flake8                          │
-│ coverage                    Run and show coverage.                                               │
+│ coverage                    Run tests and show coverage report.                                  │
 │ fix-code-style              Fix code style of all cli_base source code files via darker          │
 │ install                     Run pip-sync and install 'cli_base' via pip as editable.             │
 │ mypy                        Run Mypy (configured in pyproject.toml)                              │
@@ -96,6 +96,7 @@ To make a new release, do this:
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.4.5...main)
+  * 2023-12-01 - Add "run_coverage()" to "dev_tools" and polish tox, unittest, too.
   * 2023-12-01 - add tests for EraseCoverageData()
   * 2023-12-01 - Apply manageprojects updates
 * [v0.4.5](https://github.com/jedie/cli-base-utilities/compare/v0.4.4...v0.4.5)

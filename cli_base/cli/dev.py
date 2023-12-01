@@ -14,7 +14,7 @@ from rich_click import RichGroup
 
 import cli_base
 from cli_base import constants
-from cli_base.cli_tools.dev_tools import coverage_combine_report, erase_coverage_data, run_tox, run_unittest_cli
+from cli_base.cli_tools.dev_tools import run_coverage, run_tox, run_unittest_cli
 from cli_base.cli_tools.subprocess_utils import verbose_check_call
 from cli_base.cli_tools.test_utils.snapshot import UpdateTestSnapshotFiles
 from cli_base.cli_tools.verbosity import OPTION_KWARGS_VERBOSE
@@ -69,22 +69,6 @@ def mypy(verbosity: int):
 
 
 cli.add_command(mypy)
-
-
-@click.command()
-@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
-def coverage(verbosity: int):
-    """
-    Run and show coverage.
-    """
-    try:
-        verbose_check_call('coverage', 'run', verbose=verbosity > 0, exit_on_error=True)
-        coverage_combine_report(verbose=verbosity > 0)
-    finally:
-        erase_coverage_data(verbose=verbosity > 0)
-
-
-cli.add_command(coverage)
 
 
 @click.command()
@@ -236,6 +220,17 @@ def test():
 cli.add_command(test)
 
 
+@click.command()  # Dummy command
+def coverage():
+    """
+    Run tests and show coverage report.
+    """
+    run_coverage()
+
+
+cli.add_command(coverage)
+
+
 @click.command()  # Dummy "tox" command
 def tox():
     """
@@ -261,12 +256,15 @@ def main():
     print_version(cli_base)
 
     if len(sys.argv) >= 2:
-        # Check if we just pass a command call
+        # Check if we can just pass a command call to origin CLI:
         command = sys.argv[1]
-        if command == 'test':
-            run_unittest_cli()
-        elif command == 'tox':
-            run_tox()
+        command_map = {
+            'test': run_unittest_cli,
+            'tox': run_tox,
+            'coverage': run_coverage,
+        }
+        if real_func := command_map.get(command):
+            real_func(argv=sys.argv, exit_after_run=True)
 
     # Execute Click CLI:
     cli()
