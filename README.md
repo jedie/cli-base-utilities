@@ -96,6 +96,7 @@ To make a new release, do this:
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.4.5...main)
+  * 2023-12-01 - add tests for EraseCoverageData()
   * 2023-12-01 - Fix code style bugs
   * 2023-12-01 - Apply manageprojects updates
   * 2023-11-01 - Update requirements
