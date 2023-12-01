@@ -7,7 +7,6 @@ from unittest import TestCase
 
 from bx_py_utils.test_utils.datetime import parse_dt
 from bx_py_utils.test_utils.snapshot import assert_text_snapshot
-from manageprojects.test_utils.logs import AssertLogs
 from manageprojects.test_utils.subprocess import SimpleRunReturnCallback, SubprocessCallMock
 from manageprojects.utilities.temp_path import TemporaryDirectory
 from packaging.version import Version
@@ -15,6 +14,7 @@ from packaging.version import Version
 from cli_base.cli.dev import PACKAGE_ROOT
 from cli_base.cli_tools.git import Git, GitHistoryEntry, GithubInfo, GitlabInfo, GitLogLine, GitTagInfo, GitTagInfos
 from cli_base.cli_tools.test_utils.git_utils import init_git
+from cli_base.cli_tools.test_utils.logs import AssertLogs
 
 
 class GitTestCase(TestCase):
