@@ -3,5 +3,7 @@
     Helpers to bild a CLI program
 """
 
-__version__ = '0.7.0rc2'
+# See https://packaging.python.org/en/latest/specifications/version-specifiers/
+__version__ = '0.7.0rc3'
+
 __author__ = 'Jens Diemer <github@jensdiemer.de>'

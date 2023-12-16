@@ -1,9 +1,9 @@
 from __future__ import annotations
 
+import importlib
 import os
 import re
 from collections.abc import Iterable
-from importlib import metadata
 from pathlib import Path
 
 from bx_py_utils.auto_doc import assert_readme_block
@@ -132,8 +132,20 @@ def get_git_history(
 def update_readme_history(*, verbosity: int = 0, raise_update_error: bool = False) -> bool:
     """
     Update project history base on git commits/tags in README.md
+
     Callable via CLI e.g.:
+
         python -m cli_base update-readme-history -v
+
+    The `pyproject.toml` must contain a section like this:
+
+        [tool.cli_base]
+        version_module_name = "cli_base"
+
+    The `README.md` must contain these markers:
+
+        [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
+        [comment]: <> (✂✂✂ auto generated history end ✂✂✂)
     """
     base_path = Path.cwd()
     if verbosity > 2:
@@ -149,16 +161,18 @@ def update_readme_history(*, verbosity: int = 0, raise_update_error: bool = Fals
         print(f'{readme_md_path=}')
     assert_is_file(readme_md_path)
 
-    project_name: str = get_pyproject_config(
-        section=('project', 'name'),
+    version_module_name: str = get_pyproject_config(
+        section=('tool', 'cli_base', 'version_module_name'),
         base_path=pyproject_toml_path.parent,
     )
-    if not project_name:
-        raise LookupError(f'No "project.name" in {pyproject_toml_path}')
+    if not version_module_name:
+        raise LookupError(f'No "tool.cli_base.version_module_name" in {pyproject_toml_path}')
     elif verbosity > 1:
-        print(f'{project_name=}')
-    current_version = metadata.version(project_name)
-    assert current_version, f'No version found for {project_name}'
+        print(f'{version_module_name=}')
+
+    module = importlib.import_module(version_module_name)
+    current_version = module.__version__
+    assert current_version, f'No version found for {version_module_name}'
 
     if verbosity > 1:
         print(f'{current_version=}')

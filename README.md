@@ -107,18 +107,30 @@ To make a new release, do this:
 * commit the changes
 * Create release
 
-Use this by git hooks, e.g.:
+It's recommended to use git hookd (via [pre-commit](https://pre-commit.com/)) to update the README.
+For this, add in your `pyproject.toml`:
+
+```toml
+[tool.cli_base]
+version_module_name = "<your_package>" # Must provide the `__version__` attribute
+```
+
+Copy&paste [.pre-commit-config.yaml](https://github.com/jedie/cli-base-utilities/blob/main/.pre-commit-config.yaml) into your project.
+
+Add `pre-commit` to your requirements and install the git hooks by:
 
 ```bash
 .venv/bin/pre-commit install
 .venv/bin/pre-commit autoupdate
 ```
 
+
 # history
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
-* [v0.7.0rc2](https://github.com/jedie/cli-base-utilities/compare/v0.6.0...v0.7.0rc2)
+* [v0.7.0rc3](https://github.com/jedie/cli-base-utilities/compare/v0.6.0...v0.7.0rc3)
+  * 2023-12-16 - Bugfix update_readme_history(): Use `__version__` from module
   * 2023-12-16 - NEW: "update-readme-history" git hook using "pre-commit"
   * 2023-12-16 - fix tests
   * 2023-12-16 - Bugfix type hints

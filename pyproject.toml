@@ -71,6 +71,10 @@ include = ["cli_base*"]
 version = {attr = "cli_base.__version__"}
 
 
+[tool.cli_base]
+version_module_name = "cli_base" # Used in cli_base.cli_tools.git_history.update_readme_history()
+
+
 [tool.darker]
 src = ['.']
 revision = "origin/main..."
