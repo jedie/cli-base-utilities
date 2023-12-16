@@ -14,6 +14,17 @@ dependencies = [
     "click",  # https://github.com/pallets/click/
     "rich-click",  # https://github.com/ewels/rich-click
     "rich",  # https://github.com/Textualize/rich
+    "packaging",  # https://github.com/pypa/packaging
+
+    "tomli",  # https://github.com/hukkin/tomli
+    #
+    # tomli only needed for Python <3.11, but see pip bug:
+    # https://github.com/pypa/pip/issues/9644 / https://github.com/jazzband/pip-tools/issues/1866
+    #'tomli;python_version<"3.11"',  # https://github.com/hukkin/tomli
+
+    # indirect depencies, added because we didn't create the requirements.txt with Python <3.11
+    # See: https://github.com/jazzband/pip-tools/issues/1326
+    "async-timeout",
 ]
 [project.optional-dependencies]
 dev = [
@@ -31,18 +42,13 @@ dev = [
     "safety",  # https://github.com/pyupio/safety
     "mypy",  # https://github.com/python/mypy
     "twine",  # https://github.com/pypa/twine
+    "pre-commit",  # https://github.com/pre-commit/pre-commit
 
     # https://github.com/akaihola/darker
     # https://github.com/ikamensh/flynt
     # https://github.com/pycqa/isort
     # https://github.com/pygments/pygments
     "darker[flynt, isort, color]",
-
-    "tomli",  # https://github.com/hukkin/tomli
-    #
-    # tomli only needed for Python <3.11, but see pip bug:
-    # https://github.com/pypa/pip/issues/9644 / https://github.com/jazzband/pip-tools/issues/1866
-    #'tomli;python_version<"3.11"',  # https://github.com/hukkin/tomli
 ]
 
 [project.urls]

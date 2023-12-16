@@ -107,12 +107,19 @@ To make a new release, do this:
 * commit the changes
 * Create release
 
+Use this by git hooks, e.g.:
+
+```bash
+.venv/bin/pre-commit install
+.venv/bin/pre-commit autoupdate
+```
 
 # history
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
-* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.6.0...main)
+* [v0.7.0rc2](https://github.com/jedie/cli-base-utilities/compare/v0.6.0...v0.7.0rc2)
+  * 2023-12-16 - NEW: "update-readme-history" git hook using "pre-commit"
   * 2023-12-16 - fix tests
   * 2023-12-16 - Bugfix type hints
   * 2023-12-16 - Add update-readme-history to app CLI
