@@ -1,6 +1,5 @@
 import inspect
 import os
-from importlib.metadata import PackageNotFoundError
 from unittest.mock import patch
 
 from bx_py_utils.test_utils.redirect import RedirectOut
@@ -51,15 +50,15 @@ class GitHistoryTestCase(BaseTestCase):
 
             with self.assertRaises(LookupError) as cm:
                 update_readme_history()
-            self.assertIn('No "project.name" in ', str(cm.exception))
+            self.assertIn('No "tool.cli_base.version_module_name" in ', str(cm.exception))
 
-            pyproject_toml_path.write_text('[project]\nname = "not_existing_project_name"\n')
+            pyproject_toml_path.write_text('[tool.cli_base]\nversion_module_name = "not_existing_module_name"\n')
 
-            with self.assertRaises(PackageNotFoundError) as cm:
+            with self.assertRaises(ModuleNotFoundError) as cm:
                 update_readme_history()
-            self.assertIn('not_existing_project_name', str(cm.exception))
+            self.assertIn('not_existing_module_name', str(cm.exception))
 
-            pyproject_toml_path.write_text('[project]\nname = "cli-base-utilities"\n')
+            pyproject_toml_path.write_text('[tool.cli_base]\nversion_module_name = "cli_base"\n')
 
             with self.assertRaises(NoGitRepoError) as cm:
                 update_readme_history()
