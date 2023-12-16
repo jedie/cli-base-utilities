@@ -113,6 +113,7 @@ To make a new release, do this:
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.6.0...main)
+  * 2023-12-16 - fix tests
   * 2023-12-16 - Bugfix type hints
   * 2023-12-16 - Add update-readme-history to app CLI
   * 2023-12-16 - Move DEMO into `./cli_base/demo/`

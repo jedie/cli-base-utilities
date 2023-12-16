@@ -11,6 +11,7 @@ from cli_base.cli_tools.git import NoGitRepoError
 from cli_base.cli_tools.git_history import get_git_history, update_readme_history
 from cli_base.cli_tools.test_utils.assertion import assert_in
 from cli_base.cli_tools.test_utils.environment_fixtures import MockCurrentWorkDir
+from cli_base.cli_tools.test_utils.rich_test_utils import NoColorEnvRichClick
 
 
 class GitHistoryTestCase(BaseTestCase):
@@ -31,7 +32,7 @@ class GitHistoryTestCase(BaseTestCase):
         )
 
     def test_update_readme_history(self):
-        with MockCurrentWorkDir(prefix='test_update_readme_history') as mocked_cwd:
+        with NoColorEnvRichClick(), MockCurrentWorkDir(prefix='test_update_readme_history') as mocked_cwd:
             temp_path = mocked_cwd.temp_path
 
             with self.assertRaises(FileNotFoundError) as cm:
