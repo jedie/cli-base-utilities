@@ -95,6 +95,9 @@ To make a new release, do this:
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.6.0...main)
+  * 2023-12-16 - Update requirements
+  * 2023-12-16 - Skip test_readme_history() on CI
 * [v0.6.0](https://github.com/jedie/cli-base-utilities/compare/v0.5.0...v0.6.0)
   * 2023-12-02 - NEW: Code style tools
 * [v0.5.0](https://github.com/jedie/cli-base-utilities/compare/v0.4.5...v0.5.0)
@@ -108,11 +111,11 @@ To make a new release, do this:
   * 2023-11-30 - Configure unittests via "load_tests Protocol" hook
   * 2023-11-30 - Update requirements and add "flake8-bugbear"
   * 2023-11-30 - Remove function calls in function agruments
-* [v0.4.4](https://github.com/jedie/cli-base-utilities/compare/v0.4.3...v0.4.4)
-  * 2023-11-01 - Bugfix "AssertionError: Expected only one line" in Git.first_commit_info()
 
 <details><summary>Expand older history entries ...</summary>
 
+* [v0.4.4](https://github.com/jedie/cli-base-utilities/compare/v0.4.3...v0.4.4)
+  * 2023-11-01 - Bugfix "AssertionError: Expected only one line" in Git.first_commit_info()
 * [v0.4.3](https://github.com/jedie/cli-base-utilities/compare/v0.4.2...v0.4.3)
   * 2023-11-01 - Git history renderer: Collapse older entries
 * [v0.4.2](https://github.com/jedie/cli-base-utilities/compare/v0.4.1...v0.4.2)
