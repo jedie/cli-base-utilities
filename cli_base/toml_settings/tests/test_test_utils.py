@@ -3,8 +3,8 @@ from unittest import TestCase
 
 from bx_py_utils.path import assert_is_dir, assert_is_file
 
-from cli_base.cli.cli_app import SETTINGS_DIR_NAME, SETTINGS_FILE_NAME
-from cli_base.example import DemoSettings
+from cli_base.demo.cli import SETTINGS_DIR_NAME, SETTINGS_FILE_NAME
+from cli_base.demo.settings import DemoSettings
 from cli_base.toml_settings.api import TomlSettings
 from cli_base.toml_settings.test_utils.data_class_utils import (
     MockTomlSettings,

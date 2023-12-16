@@ -48,9 +48,26 @@ Usage: ./dev-cli.py [OPTIONS] COMMAND [ARGS]...
 [comment]: <> (✂✂✂ auto generated dev help end ✂✂✂)
 
 
-# DEMO app CLI
+# app CLI
 
 [comment]: <> (✂✂✂ auto generated app help start ✂✂✂)
+```
+Usage: ./cli.py [OPTIONS] COMMAND [ARGS]...
+
+╭─ Options ────────────────────────────────────────────────────────────────────────────────────────╮
+│ --help      Show this message and exit.                                                          │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭─ Commands ───────────────────────────────────────────────────────────────────────────────────────╮
+│ update-readme-history      Update project history base on git commits/tags in README.md          │
+│ version                    Print version and exit                                                │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
+```
+[comment]: <> (✂✂✂ auto generated app help end ✂✂✂)
+
+
+# DEMO app CLI
+
+[comment]: <> (✂✂✂ auto generated demo help start ✂✂✂)
 ```
 Usage: ./cli.py [OPTIONS] COMMAND [ARGS]...
 
@@ -75,7 +92,7 @@ Usage: ./cli.py [OPTIONS] COMMAND [ARGS]...
 │ version                          Print version and exit                                          │
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
-[comment]: <> (✂✂✂ auto generated app help end ✂✂✂)
+[comment]: <> (✂✂✂ auto generated demo help end ✂✂✂)
 
 
 # Generate project history base on git commits/tags
@@ -96,6 +113,12 @@ To make a new release, do this:
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.6.0...main)
+  * 2023-12-16 - fix tests
+  * 2023-12-16 - Bugfix type hints
+  * 2023-12-16 - Add update-readme-history to app CLI
+  * 2023-12-16 - Move DEMO into `./cli_base/demo/`
+  * 2023-12-16 - Simplify App CLI
+  * 2023-12-16 - Remove PACKAGE_ROOT from app CLI
   * 2023-12-16 - Update requirements
   * 2023-12-16 - Skip test_readme_history() on CI
 * [v0.6.0](https://github.com/jedie/cli-base-utilities/compare/v0.5.0...v0.6.0)
