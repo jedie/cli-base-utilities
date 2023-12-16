@@ -96,6 +96,8 @@ To make a new release, do this:
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.6.0...main)
+  * 2023-12-16 - Simplify App CLI
+  * 2023-12-16 - Remove PACKAGE_ROOT from app CLI
   * 2023-12-16 - Update requirements
   * 2023-12-16 - Skip test_readme_history() on CI
 * [v0.6.0](https://github.com/jedie/cli-base-utilities/compare/v0.5.0...v0.6.0)

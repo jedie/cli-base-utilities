@@ -12,7 +12,6 @@ from rich.console import Console
 from rich.traceback import install as rich_traceback_install
 from rich_click import RichGroup
 
-import cli_base
 from cli_base import __version__, constants
 from cli_base.cli_tools.subprocess_utils import verbose_check_output
 from cli_base.cli_tools.verbosity import OPTION_KWARGS_VERBOSE, setup_logging
@@ -58,23 +57,19 @@ def cli():
     pass
 
 
-@click.command()
+@cli.command()
 def version():
     """Print version and exit"""
     # Pseudo command, because the version always printed on every CLI call ;)
     sys.exit(0)
 
 
-cli.add_command(version)
-
-
 ######################################################################################################
-
 SETTINGS_DIR_NAME = 'cli-base-utilities'
 SETTINGS_FILE_NAME = 'cli-base-utilities-demo'
 
 
-@click.command()
+@cli.command()
 @click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
 def edit_settings(verbosity: int):
     """
@@ -88,10 +83,7 @@ def edit_settings(verbosity: int):
     ).open_in_editor()
 
 
-cli.add_command(edit_settings)
-
-
-@click.command()
+@cli.command()
 @click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
 def print_settings(verbosity: int):
     """
@@ -105,14 +97,11 @@ def print_settings(verbosity: int):
     ).print_settings()
 
 
-cli.add_command(print_settings)
-
-
 ######################################################################################################
 # Manage systemd service commands:
 
 
-@click.command()
+@cli.command()
 @click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
 def systemd_debug(verbosity: int):
     """
@@ -130,10 +119,7 @@ def systemd_debug(verbosity: int):
     ServiceControl(info=systemd_settings).debug_systemd_config()
 
 
-cli.add_command(systemd_debug)
-
-
-@click.command()
+@cli.command()
 @click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
 def systemd_setup(verbosity: int):
     """
@@ -151,10 +137,7 @@ def systemd_setup(verbosity: int):
     ServiceControl(info=systemd_settings).setup_and_restart_systemd_service()
 
 
-cli.add_command(systemd_setup)
-
-
-@click.command()
+@cli.command()
 @click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
 def systemd_remove(verbosity: int):
     """
@@ -172,10 +155,7 @@ def systemd_remove(verbosity: int):
     ServiceControl(info=systemd_settings).remove_systemd_service()
 
 
-cli.add_command(systemd_remove)
-
-
-@click.command()
+@cli.command()
 @click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
 def systemd_status(verbosity: int):
     """
@@ -193,10 +173,7 @@ def systemd_status(verbosity: int):
     ServiceControl(info=systemd_settings).status()
 
 
-cli.add_command(systemd_status)
-
-
-@click.command()
+@cli.command()
 @click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
 def systemd_stop(verbosity: int):
     """
@@ -214,10 +191,7 @@ def systemd_stop(verbosity: int):
     ServiceControl(info=systemd_settings).stop()
 
 
-cli.add_command(systemd_stop)
-
-
-@click.command()
+@cli.command()
 @click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
 def demo_endless_loop(verbosity: int):
     """
@@ -233,12 +207,10 @@ def demo_endless_loop(verbosity: int):
     endless_loop(user_settings=user_settings, verbosity=verbosity)
 
 
-cli.add_command(demo_endless_loop)
-
 ######################################################################################################
 
 
-@click.command()
+@cli.command()
 def demo_verbose_check_output_error():
     """
     DEMO for a error calling cli_base.cli_tools.subprocess_utils.verbose_check_output()
@@ -246,7 +218,6 @@ def demo_verbose_check_output_error():
     verbose_check_output('python3', '-c', 'print("Just a Demo!");import sys;sys.exit(123)', exit_on_error=True)
 
 
-cli.add_command(demo_verbose_check_output_error)
 ######################################################################################################
 
 
