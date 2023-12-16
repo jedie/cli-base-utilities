@@ -124,12 +124,28 @@ Add `pre-commit` to your requirements and install the git hooks by:
 .venv/bin/pre-commit autoupdate
 ```
 
+# Update pre-commit hooks
+
+Update version in `.pre-commit-config.yaml` and make a release.
+
+The Problem: The hooks are broken, if the "new" version is not tagged yet.
+To create a release, it's possible to use all git commands (commit, push, etc) with `--no-verify` to skip the hooks.
+
+It's easier to temporarily uninstall the hooks, create the release and install the hooks again, e.g.:
+
+```bash
+.../cli-base-utilities$ .venv/bin/pre-commit uninstall
+# ...bump version, commit, push, merge... create release...
+.../cli-base-utilities$ .venv/bin/pre-commit install
+```
+
 
 # history
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [v0.7.0](https://github.com/jedie/cli-base-utilities/compare/v0.6.0...v0.7.0)
+  * 2023-12-16 - Add "Update pre-commit hooks" to README
   * 2023-12-16 - Bugfix update_readme_history(): Use `__version__` from module
   * 2023-12-16 - NEW: "update-readme-history" git hook using "pre-commit"
   * 2023-12-16 - fix tests
