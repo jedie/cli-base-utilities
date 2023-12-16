@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from cli_base import __version__
-from cli_base.cli.cli_app import PACKAGE_ROOT
+from cli_base.cli.dev import PACKAGE_ROOT
 from cli_base.cli_tools.test_utils.assertion import assert_in, assert_startswith
 from cli_base.cli_tools.test_utils.rich_test_utils import (
     NoColorEnvRich,

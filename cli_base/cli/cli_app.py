@@ -7,7 +7,6 @@ from pathlib import Path
 
 import rich_click
 import rich_click as click
-from bx_py_utils.path import assert_is_file
 from rich import print  # noqa
 from rich.console import Console
 from rich.traceback import install as rich_traceback_install
@@ -24,9 +23,6 @@ from cli_base.toml_settings.api import TomlSettings
 
 logger = logging.getLogger(__name__)
 
-
-PACKAGE_ROOT = Path(cli_base.__file__).parent.parent
-assert_is_file(PACKAGE_ROOT / 'pyproject.toml')
 
 OPTION_ARGS_DEFAULT_TRUE = dict(is_flag=True, show_default=True, default=True)
 OPTION_ARGS_DEFAULT_FALSE = dict(is_flag=True, show_default=True, default=False)
