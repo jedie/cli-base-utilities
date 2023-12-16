@@ -1,10 +1,16 @@
 from __future__ import annotations
 
+import os
 import re
 from collections.abc import Iterable
+from importlib import metadata
 from pathlib import Path
 
+from bx_py_utils.auto_doc import assert_readme_block
+from bx_py_utils.path import assert_is_file
+from bx_py_utils.pyproject_toml import get_pyproject_config
 from packaging.version import Version
+from rich import print  # noqa
 
 from cli_base.cli_tools.git import Git, GitHistoryEntry, GithubInfo, GitlabInfo, get_git
 
@@ -123,8 +129,78 @@ def get_git_history(
         yield from renderer.render(tags_history)
 
 
+def update_readme_history(*, verbosity: int = 0, raise_update_error: bool = False) -> bool:
+    """
+    Update project history base on git commits/tags in README.md
+    Callable via CLI e.g.:
+        python -m cli_base update-readme-history -v
+    """
+    base_path = Path.cwd()
+    if verbosity > 2:
+        print(f'{base_path=}')
+
+    pyproject_toml_path = base_path / 'pyproject.toml'
+    if verbosity > 1:
+        print(f'{pyproject_toml_path=}')
+    assert_is_file(pyproject_toml_path)
+
+    readme_md_path = base_path / 'README.md'
+    if verbosity > 1:
+        print(f'{readme_md_path=}')
+    assert_is_file(readme_md_path)
+
+    project_name: str = get_pyproject_config(
+        section=('project', 'name'),
+        base_path=pyproject_toml_path.parent,
+    )
+    if not project_name:
+        raise LookupError(f'No "project.name" in {pyproject_toml_path}')
+    elif verbosity > 1:
+        print(f'{project_name=}')
+    current_version = metadata.version(project_name)
+    assert current_version, f'No version found for {project_name}'
+
+    if verbosity > 1:
+        print(f'{current_version=}')
+
+    git_history = get_git_history(
+        current_version=current_version,
+        add_author=False,
+        verbose=verbosity > 1,
+    )
+    history = '\n'.join(git_history)
+
+    old_mtime = readme_md_path.stat().st_mtime
+    try:
+        assert_readme_block(
+            readme_path=readme_md_path,
+            text_block=f'\n{history}\n',
+            start_marker_line='[comment]: <> (✂✂✂ auto generated history start ✂✂✂)',
+            end_marker_line='[comment]: <> (✂✂✂ auto generated history end ✂✂✂)',
+        )
+    except AssertionError:
+        if raise_update_error:
+            raise
+
+        new_mtime = readme_md_path.stat().st_mtime
+        if new_mtime > old_mtime:
+            print(f'History in {readme_md_path} updated.')
+            return True
+        else:
+            raise
+    else:
+        print(f'History in {readme_md_path} is up-to-date.')
+        return False
+
+
 if __name__ == '__main__':
     from cli_base import __version__
 
     for line in get_git_history(current_version=__version__):
         print(line)
+
+    from cli_base.cli.dev import PACKAGE_ROOT
+
+    os.chdir(PACKAGE_ROOT)
+
+    update_readme_history(verbosity=2)

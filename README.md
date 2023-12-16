@@ -58,7 +58,8 @@ Usage: ./cli.py [OPTIONS] COMMAND [ARGS]...
 │ --help      Show this message and exit.                                                          │
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
 ╭─ Commands ───────────────────────────────────────────────────────────────────────────────────────╮
-│ version                   Print version and exit                                                 │
+│ update-readme-history      Update project history base on git commits/tags in README.md          │
+│ version                    Print version and exit                                                │
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 [comment]: <> (✂✂✂ auto generated app help end ✂✂✂)
@@ -112,6 +113,7 @@ To make a new release, do this:
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.6.0...main)
+  * 2023-12-16 - Add update-readme-history to app CLI
   * 2023-12-16 - Move DEMO into `./cli_base/demo/`
   * 2023-12-16 - Simplify App CLI
   * 2023-12-16 - Remove PACKAGE_ROOT from app CLI
