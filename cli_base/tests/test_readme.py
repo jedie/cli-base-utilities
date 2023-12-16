@@ -1,7 +1,6 @@
 from manageprojects.tests.base import BaseTestCase
 
 from cli_base import constants
-from cli_base.cli.cli_app import SETTINGS_DIR_NAME, SETTINGS_FILE_NAME
 from cli_base.cli.dev import PACKAGE_ROOT
 from cli_base.cli_tools.test_utils.assertion import assert_in
 from cli_base.cli_tools.test_utils.cli_readme import AssertCliHelpInReadme
@@ -11,7 +10,8 @@ from cli_base.cli_tools.test_utils.rich_test_utils import (
     assert_rich_no_color,
     assert_subprocess_rich_diagnose_no_color,
 )
-from cli_base.example import DemoSettings
+from cli_base.demo.cli import SETTINGS_DIR_NAME, SETTINGS_FILE_NAME
+from cli_base.demo.settings import DemoSettings
 from cli_base.toml_settings.test_utils.cli_mock import TomlSettingsCliMock
 
 
@@ -62,14 +62,16 @@ class ReadmeTestCase(BaseTestCase):
     def invoke_dev_cli(self, *args):
         return self.cli_mock.invoke(cli_bin=PACKAGE_ROOT / 'dev-cli.py', args=args, strip_line_prefix='Usage: ')
 
+    def invoke_demo_cli(self, *args):
+        return self.cli_mock.invoke(cli_bin=PACKAGE_ROOT / 'demo-cli.py', args=args, strip_line_prefix='Usage: ')
+
     def test_main_help(self):
         stdout = self.invoke_cli('--help')
         assert_in(
             content=stdout,
             parts=(
                 'Usage: ./cli.py [OPTIONS] COMMAND [ARGS]...',
-                'edit-settings',
-                'demo-endless-loop',
+                ' version ',
                 constants.CLI_EPILOG,
             ),
         )
@@ -87,3 +89,16 @@ class ReadmeTestCase(BaseTestCase):
             ),
         )
         self.readme_assert.assert_block(text_block=stdout, marker='dev help')
+
+    def test_demo_help(self):
+        stdout = self.invoke_demo_cli('--help')
+        assert_in(
+            content=stdout,
+            parts=(
+                'Usage: ./cli.py [OPTIONS] COMMAND [ARGS]...',
+                'edit-settings',
+                'demo-endless-loop',
+                constants.CLI_EPILOG,
+            ),
+        )
+        self.readme_assert.assert_block(text_block=stdout, marker='demo help')

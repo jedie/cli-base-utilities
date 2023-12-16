@@ -13,11 +13,6 @@ from rich.traceback import install as rich_traceback_install
 from rich_click import RichGroup
 
 from cli_base import __version__, constants
-from cli_base.cli_tools.subprocess_utils import verbose_check_output
-from cli_base.cli_tools.verbosity import OPTION_KWARGS_VERBOSE, setup_logging
-from cli_base.example import DemoSettings, SystemdServiceInfo, endless_loop
-from cli_base.systemd.api import ServiceControl
-from cli_base.toml_settings.api import TomlSettings
 
 
 logger = logging.getLogger(__name__)
@@ -57,6 +52,9 @@ def cli():
     pass
 
 
+######################################################################################################
+
+
 @cli.command()
 def version():
     """Print version and exit"""
@@ -64,158 +62,7 @@ def version():
     sys.exit(0)
 
 
-######################################################################################################
-SETTINGS_DIR_NAME = 'cli-base-utilities'
-SETTINGS_FILE_NAME = 'cli-base-utilities-demo'
-
-
-@cli.command()
-@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
-def edit_settings(verbosity: int):
-    """
-    Edit the settings file. On first call: Create the default one.
-    """
-    setup_logging(verbosity=verbosity)
-    TomlSettings(
-        dir_name=SETTINGS_DIR_NAME,
-        file_name=SETTINGS_FILE_NAME,
-        settings_dataclass=DemoSettings(),
-    ).open_in_editor()
-
-
-@cli.command()
-@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
-def print_settings(verbosity: int):
-    """
-    Display (anonymized) MQTT server username and password
-    """
-    setup_logging(verbosity=verbosity)
-    TomlSettings(
-        dir_name=SETTINGS_DIR_NAME,
-        file_name=SETTINGS_FILE_NAME,
-        settings_dataclass=DemoSettings(),
-    ).print_settings()
-
-
-######################################################################################################
-# Manage systemd service commands:
-
-
-@cli.command()
-@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
-def systemd_debug(verbosity: int):
-    """
-    Print Systemd service template + context + rendered file content.
-    """
-    setup_logging(verbosity=verbosity)
-    toml_settings = TomlSettings(
-        dir_name=SETTINGS_DIR_NAME,
-        file_name=SETTINGS_FILE_NAME,
-        settings_dataclass=DemoSettings(),
-    )
-    user_settings: DemoSettings = toml_settings.get_user_settings(debug=True)
-    systemd_settings: SystemdServiceInfo = user_settings.systemd
-
-    ServiceControl(info=systemd_settings).debug_systemd_config()
-
-
-@cli.command()
-@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
-def systemd_setup(verbosity: int):
-    """
-    Write Systemd service file, enable it and (re-)start the service. (May need sudo)
-    """
-    setup_logging(verbosity=verbosity)
-    toml_settings = TomlSettings(
-        dir_name=SETTINGS_DIR_NAME,
-        file_name=SETTINGS_FILE_NAME,
-        settings_dataclass=DemoSettings(),
-    )
-    user_settings: DemoSettings = toml_settings.get_user_settings(debug=True)
-    systemd_settings: SystemdServiceInfo = user_settings.systemd
-
-    ServiceControl(info=systemd_settings).setup_and_restart_systemd_service()
-
-
-@cli.command()
-@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
-def systemd_remove(verbosity: int):
-    """
-    Write Systemd service file, enable it and (re-)start the service. (May need sudo)
-    """
-    setup_logging(verbosity=verbosity)
-    toml_settings = TomlSettings(
-        dir_name=SETTINGS_DIR_NAME,
-        file_name=SETTINGS_FILE_NAME,
-        settings_dataclass=DemoSettings(),
-    )
-    user_settings: DemoSettings = toml_settings.get_user_settings(debug=True)
-    systemd_settings: SystemdServiceInfo = user_settings.systemd
-
-    ServiceControl(info=systemd_settings).remove_systemd_service()
-
-
-@cli.command()
-@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
-def systemd_status(verbosity: int):
-    """
-    Display status of systemd service. (May need sudo)
-    """
-    setup_logging(verbosity=verbosity)
-    toml_settings = TomlSettings(
-        dir_name=SETTINGS_DIR_NAME,
-        file_name=SETTINGS_FILE_NAME,
-        settings_dataclass=DemoSettings(),
-    )
-    user_settings: DemoSettings = toml_settings.get_user_settings(debug=True)
-    systemd_settings: SystemdServiceInfo = user_settings.systemd
-
-    ServiceControl(info=systemd_settings).status()
-
-
-@cli.command()
-@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
-def systemd_stop(verbosity: int):
-    """
-    Stops the systemd service. (May need sudo)
-    """
-    setup_logging(verbosity=verbosity)
-    toml_settings = TomlSettings(
-        dir_name=SETTINGS_DIR_NAME,
-        file_name=SETTINGS_FILE_NAME,
-        settings_dataclass=DemoSettings(),
-    )
-    user_settings: DemoSettings = toml_settings.get_user_settings(debug=True)
-    systemd_settings: SystemdServiceInfo = user_settings.systemd
-
-    ServiceControl(info=systemd_settings).stop()
-
-
-@cli.command()
-@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
-def demo_endless_loop(verbosity: int):
-    """
-    Just a useless example command, used in systemd DEMO: It just print some information in a endless loop.
-    """
-    setup_logging(verbosity=verbosity)
-    toml_settings = TomlSettings(
-        dir_name=SETTINGS_DIR_NAME,
-        file_name=SETTINGS_FILE_NAME,
-        settings_dataclass=DemoSettings(),
-    )
-    user_settings: DemoSettings = toml_settings.get_user_settings(debug=True)
-    endless_loop(user_settings=user_settings, verbosity=verbosity)
-
-
-######################################################################################################
-
-
-@cli.command()
-def demo_verbose_check_output_error():
-    """
-    DEMO for a error calling cli_base.cli_tools.subprocess_utils.verbose_check_output()
-    """
-    verbose_check_output('python3', '-c', 'print("Just a Demo!");import sys;sys.exit(123)', exit_on_error=True)
+# TODO: Add "update-history" command here
 
 
 ######################################################################################################

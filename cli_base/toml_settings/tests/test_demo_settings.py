@@ -3,7 +3,7 @@ from unittest import TestCase
 
 from tomlkit import TOMLDocument
 
-from cli_base.example import DemoSettings
+from cli_base.demo.settings import DemoSettings
 from cli_base.toml_settings.deserialize import toml2dataclass
 from cli_base.toml_settings.serialize import dataclass2toml
 
