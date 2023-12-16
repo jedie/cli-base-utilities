@@ -129,7 +129,7 @@ Add `pre-commit` to your requirements and install the git hooks by:
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
-* [v0.7.0rc3](https://github.com/jedie/cli-base-utilities/compare/v0.6.0...v0.7.0rc3)
+* [v0.7.0](https://github.com/jedie/cli-base-utilities/compare/v0.6.0...v0.7.0)
   * 2023-12-16 - Bugfix update_readme_history(): Use `__version__` from module
   * 2023-12-16 - NEW: "update-readme-history" git hook using "pre-commit"
   * 2023-12-16 - fix tests
