@@ -32,7 +32,7 @@ class TagHistoryRenderer:
         self,
         *,
         current_version: str,
-        skip_prefixes: tuple[str],
+        skip_prefixes: tuple[str, ...],
         project_info: GithubInfo | GitlabInfo,
         main_branch_name: str = 'main',
         add_author: bool = True,
