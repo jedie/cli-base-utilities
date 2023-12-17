@@ -144,6 +144,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.7.0...main)
+  * 2023-12-17 - Bugfix .pre-commit-config.yaml
 * [v0.7.0](https://github.com/jedie/cli-base-utilities/compare/v0.6.0...v0.7.0)
   * 2023-12-16 - Add "Update pre-commit hooks" to README
   * 2023-12-16 - Bugfix update_readme_history(): Use `__version__` from module
@@ -165,13 +167,13 @@ It's easier to temporarily uninstall the hooks, create the release and install t
   * 2023-12-01 - Add "run_coverage()" to "dev_tools" and polish tox, unittest, too.
   * 2023-12-01 - add tests for EraseCoverageData()
   * 2023-12-01 - Apply manageprojects updates
+
+<details><summary>Expand older history entries ...</summary>
+
 * [v0.4.5](https://github.com/jedie/cli-base-utilities/compare/v0.4.4...v0.4.5)
   * 2023-11-30 - Configure unittests via "load_tests Protocol" hook
   * 2023-11-30 - Update requirements and add "flake8-bugbear"
   * 2023-11-30 - Remove function calls in function agruments
-
-<details><summary>Expand older history entries ...</summary>
-
 * [v0.4.4](https://github.com/jedie/cli-base-utilities/compare/v0.4.3...v0.4.4)
   * 2023-11-01 - Bugfix "AssertionError: Expected only one line" in Git.first_commit_info()
 * [v0.4.3](https://github.com/jedie/cli-base-utilities/compare/v0.4.2...v0.4.3)
