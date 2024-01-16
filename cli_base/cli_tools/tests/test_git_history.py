@@ -2,6 +2,7 @@ import inspect
 import os
 from unittest.mock import patch
 
+import typeguard
 from bx_py_utils.test_utils.redirect import RedirectOut
 from manageprojects.tests.base import BaseTestCase
 
@@ -30,6 +31,9 @@ class GitHistoryTestCase(BaseTestCase):
             parts=('  * 2023-10-08 JensDiemer - NEW: Generate a project history base on git commits/tags.',),
         )
 
+    # FIXME: remove "suppress_type_checks" after:
+    # https://github.com/boxine/bx_py_utils/pull/164/files#diff-421e2a471c4deb91b133844c2caffb339a68dbebf82a65e798bbdf68b3b4013c
+    @typeguard.suppress_type_checks
     def test_update_readme_history(self):
         with NoColorEnvRichClick(), MockCurrentWorkDir(prefix='test_update_readme_history') as mocked_cwd:
             temp_path = mocked_cwd.temp_path
