@@ -158,6 +158,7 @@ cookiecutter_directory = "piptools-python"
 applied_migrations = [
     "034be26", # 2023-08-05T21:37:12+02:00
     "9a6c2db", # 2023-11-30T20:56:46+01:00
+    "2f938fc", # 2024-01-16T17:26:31+01:00
 ]
 
 [manageprojects.cookiecutter_context.cookiecutter]

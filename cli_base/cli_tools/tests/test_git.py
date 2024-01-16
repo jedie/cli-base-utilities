@@ -72,7 +72,7 @@ class GitTestCase(TestCase):
             file_dt2 = self.own_git.get_file_dt('cli.py', with_tz=False)
             self.assertIsInstance(file_dt2, datetime.datetime)
             self.assertGreater(file_dt2, datetime.datetime(2023, 1, 1))
-            self.assertLess(file_dt2, datetime.datetime(2024, 1, 1))
+            self.assertLess(file_dt2, datetime.datetime(2025, 1, 1))
 
         git_bin = shutil.which('git')
         with SubprocessCallMock() as call_mock:

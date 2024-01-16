@@ -93,7 +93,7 @@ def main():
     rich_traceback_install(
         width=console.size.width,  # full terminal width
         show_locals=True,
-        suppress=[click, rich_click],
+        suppress=[click],
         max_frames=2,
     )
 

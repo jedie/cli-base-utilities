@@ -145,6 +145,7 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.7.0...main)
+  * 2024-01-16 - manageprojects updates
   * 2024-01-16 - Update requirements + datetimes ;)
   * 2023-12-17 - Bugfix .pre-commit-config.yaml
 * [v0.7.0](https://github.com/jedie/cli-base-utilities/compare/v0.6.0...v0.7.0)
