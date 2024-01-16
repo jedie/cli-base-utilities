@@ -60,14 +60,14 @@ class GitTestCase(TestCase):
 
         commit_date = self.own_git.get_commit_date(verbose=False)
         self.assertIsInstance(commit_date, datetime.datetime)
-        self.assertGreater(commit_date, parse_dt('2023-01-01T00:00:00+0000'))
-        self.assertLess(commit_date, parse_dt('2024-01-01T00:00:00+0000'))  # ;)
+        self.assertGreater(commit_date, parse_dt('2024-01-01T00:00:00+0000'))
+        self.assertLess(commit_date, parse_dt('2025-01-01T00:00:00+0000'))  # ;)
 
         with self.assertLogs('cli_base'):
             file_dt1 = self.own_git.get_file_dt('cli.py', with_tz=True)
             self.assertIsInstance(file_dt1, datetime.datetime)
             self.assertGreater(file_dt1, parse_dt('2023-01-01T00:00:00+0000'))
-            self.assertLess(file_dt1, parse_dt('2024-01-01T00:00:00+0000'))  # ;)
+            self.assertLess(file_dt1, parse_dt('2025-01-01T00:00:00+0000'))  # ;)
 
             file_dt2 = self.own_git.get_file_dt('cli.py', with_tz=False)
             self.assertIsInstance(file_dt2, datetime.datetime)
