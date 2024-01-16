@@ -7,25 +7,28 @@ from pathlib import Path
 
 import rich_click as click
 from bx_py_utils.path import assert_is_file
-from manageprojects.utilities import code_style
 from manageprojects.utilities.publish import publish_package
-from rich import print  # noqa; noqa
+from rich.console import Console
+from rich.traceback import install as rich_traceback_install
 from rich_click import RichGroup
 
 import cli_base
 from cli_base import constants
+from cli_base.cli_tools import code_style
 from cli_base.cli_tools.dev_tools import run_coverage, run_tox, run_unittest_cli
 from cli_base.cli_tools.subprocess_utils import verbose_check_call
 from cli_base.cli_tools.test_utils.snapshot import UpdateTestSnapshotFiles
 from cli_base.cli_tools.verbosity import OPTION_KWARGS_VERBOSE
 from cli_base.cli_tools.version_info import print_version
+from cli_base.constants import BASE_PATH
 
 
 logger = logging.getLogger(__name__)
 
 
-PACKAGE_ROOT = Path(cli_base.__file__).parent.parent
-assert_is_file(PACKAGE_ROOT / 'pyproject.toml')
+PACKAGE_ROOT = BASE_PATH.parent
+assert_is_file(PACKAGE_ROOT / 'pyproject.toml')  # Exists only in cloned git repo
+
 
 OPTION_ARGS_DEFAULT_TRUE = dict(is_flag=True, show_default=True, default=True)
 OPTION_ARGS_DEFAULT_FALSE = dict(is_flag=True, show_default=True, default=False)
@@ -105,7 +108,7 @@ def update():
     verbose_check_call(bin_path / 'pip', 'install', '-U', 'pip-tools')
 
     extra_env = dict(
-        CUSTOM_COMPILE_COMMAND='./cli.py update',
+        CUSTOM_COMPILE_COMMAND='./dev-cli.py update',
     )
 
     pip_compile_base = [
@@ -169,7 +172,7 @@ def fix_code_style(color: bool, verbosity: int):
     """
     Fix code style of all cli_base source code files via darker
     """
-    code_style.fix(package_root=PACKAGE_ROOT, color=color, verbose=verbosity > 0)
+    code_style.fix(package_root=PACKAGE_ROOT, darker_color=color, darker_verbose=verbosity > 0)
 
 
 cli.add_command(fix_code_style)
@@ -182,7 +185,7 @@ def check_code_style(color: bool, verbosity: int):
     """
     Check code style by calling darker + flake8
     """
-    code_style.check(package_root=PACKAGE_ROOT, color=color, verbose=verbosity > 0)
+    code_style.check(package_root=PACKAGE_ROOT, darker_color=color, darker_verbose=verbosity > 0)
 
 
 cli.add_command(check_code_style)
@@ -254,6 +257,14 @@ cli.add_command(version)
 
 def main():
     print_version(cli_base)
+
+    console = Console()
+    rich_traceback_install(
+        width=console.size.width,  # full terminal width
+        show_locals=True,
+        suppress=[click],
+        max_frames=2,
+    )
 
     if len(sys.argv) >= 2:
         # Check if we can just pass a command call to origin CLI:
