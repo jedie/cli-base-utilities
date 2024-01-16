@@ -11,6 +11,7 @@ from manageprojects.utilities.publish import publish_package
 from rich.console import Console
 from rich.traceback import install as rich_traceback_install
 from rich_click import RichGroup
+from typeguard import install_import_hook
 
 import cli_base
 from cli_base import constants
@@ -21,6 +22,11 @@ from cli_base.cli_tools.test_utils.snapshot import UpdateTestSnapshotFiles
 from cli_base.cli_tools.verbosity import OPTION_KWARGS_VERBOSE
 from cli_base.cli_tools.version_info import print_version
 from cli_base.constants import BASE_PATH
+
+
+# Install typeguard import hook to check for missing type annotations.
+# Sadly we can't add this into: cli_base/tests/__init__.py
+install_import_hook(packages=('cli_base',))
 
 
 logger = logging.getLogger(__name__)

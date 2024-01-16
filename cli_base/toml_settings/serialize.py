@@ -1,28 +1,30 @@
+from __future__ import annotations
+
 import dataclasses
 import inspect
 from pathlib import Path
 
 import tomlkit
 from tomlkit import TOMLDocument
-from tomlkit.items import Item
+from tomlkit.items import Table
 
 from cli_base.toml_settings.data_class_utils import iter_dataclass
 
 
-def add_docstring(document: TOMLDocument, instance):
+def add_docstring(document: TOMLDocument | Table, instance):
     if doc_string := inspect.getdoc(instance):
         for line in doc_string.strip().splitlines():
             document.add(tomlkit.comment(line))
 
 
-def add_value(*, field_name, item: Item, value):
+def add_value(*, field_name, item: TOMLDocument | Table, value):
     if isinstance(value, Path):
         value = str(value)
 
     item.add(field_name, value)
 
 
-def add_dataclass(document: TOMLDocument, name, instance):
+def add_dataclass(document: TOMLDocument | Table, name, instance):
     assert dataclasses.is_dataclass(instance), f'No dataclass: {instance!r}'
 
     table = tomlkit.table()

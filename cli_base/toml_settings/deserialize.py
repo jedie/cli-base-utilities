@@ -1,9 +1,12 @@
+from __future__ import annotations
+
 import dataclasses
 import logging
 from pathlib import Path
 
 import tomlkit
 from tomlkit import TOMLDocument
+from tomlkit.items import Table
 
 from cli_base.toml_settings.data_class_utils import iter_dataclass
 from cli_base.toml_settings.serialize import add_dataclass
@@ -12,7 +15,7 @@ from cli_base.toml_settings.serialize import add_dataclass
 logger = logging.getLogger(__name__)
 
 
-def toml2dataclass(*, document: TOMLDocument, instance, _changed=False) -> bool:
+def toml2dataclass(*, document: TOMLDocument | Table, instance, _changed=False) -> bool:
     """
     Sync toml and instance in place:
 
