@@ -145,6 +145,7 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [v0.8.0](https://github.com/jedie/cli-base-utilities/compare/v0.7.0...v0.8.0)
+  * 2024-03-12 - Bugfix publish
   * 2024-03-12 - fix tests
   * 2024-03-12 - Split app/dev CLI into a package with autodiscovery
   * 2024-03-12 - Move click defaults
