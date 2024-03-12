@@ -5,7 +5,7 @@ from bx_py_utils.path import assert_is_file
 from pre_commit import clientlib
 
 import cli_base
-from cli_base.cli.dev import PACKAGE_ROOT
+from cli_base.cli_dev import PACKAGE_ROOT
 from cli_base.cli_tools.constants import GITHUB_ACTION
 from cli_base.cli_tools.subprocess_utils import ToolsExecutor
 

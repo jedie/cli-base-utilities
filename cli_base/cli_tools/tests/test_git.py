@@ -11,7 +11,7 @@ from manageprojects.test_utils.subprocess import SimpleRunReturnCallback, Subpro
 from manageprojects.utilities.temp_path import TemporaryDirectory
 from packaging.version import Version
 
-from cli_base.cli.dev import PACKAGE_ROOT
+from cli_base.cli_dev import PACKAGE_ROOT
 from cli_base.cli_tools.git import Git, GitHistoryEntry, GithubInfo, GitlabInfo, GitLogLine, GitTagInfo, GitTagInfos
 from cli_base.cli_tools.test_utils.git_utils import init_git
 from cli_base.cli_tools.test_utils.logs import AssertLogs

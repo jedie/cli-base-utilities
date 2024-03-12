@@ -1,7 +1,7 @@
 from manageprojects.tests.base import BaseTestCase
 
 from cli_base import constants
-from cli_base.cli.dev import PACKAGE_ROOT
+from cli_base.cli_dev import PACKAGE_ROOT
 from cli_base.cli_tools.test_utils.assertion import assert_in
 from cli_base.cli_tools.test_utils.cli_readme import AssertCliHelpInReadme
 from cli_base.cli_tools.test_utils.rich_test_utils import (

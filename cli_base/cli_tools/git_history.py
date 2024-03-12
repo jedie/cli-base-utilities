@@ -213,7 +213,7 @@ if __name__ == '__main__':
     for line in get_git_history(current_version=__version__):
         print(line)
 
-    from cli_base.cli.dev import PACKAGE_ROOT
+    from cli_base.cli_dev import PACKAGE_ROOT
 
     os.chdir(PACKAGE_ROOT)
 

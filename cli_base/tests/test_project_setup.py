@@ -6,7 +6,7 @@ from manageprojects.test_utils.project_setup import check_editor_config, get_py_
 from packaging.version import Version
 
 from cli_base import __version__
-from cli_base.cli.dev import PACKAGE_ROOT
+from cli_base.cli_dev import PACKAGE_ROOT
 from cli_base.cli_tools.code_style import assert_code_style
 
 
@@ -21,7 +21,7 @@ class ProjectSetupTestCase(TestCase):
         assert_is_file(cli_bin)
 
         output = subprocess.check_output([cli_bin, 'version'], text=True)
-        self.assertIn(f'cli-base-utilities DEMO cli v{__version__}', output)
+        self.assertIn(f'cli_base v{__version__}', output)
 
         dev_cli_bin = PACKAGE_ROOT / 'dev-cli.py'
         assert_is_file(dev_cli_bin)
