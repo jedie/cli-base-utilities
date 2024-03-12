@@ -1,3 +1,5 @@
+import sys
+from pathlib import Path
 from unittest import TestCase
 from unittest.mock import patch
 
@@ -8,6 +10,9 @@ from cli_base.cli_tools.dev_tools import EraseCoverageData, run_coverage, run_to
 from cli_base.cli_tools.test_utils.assertion import assert_in
 from cli_base.cli_tools.test_utils.rich_test_utils import NoColorRichClickCli
 from cli_base.constants import PY_BIN_PATH
+
+
+PYTHON_NAME = Path(sys.executable).name
 
 
 class DevToolsTestCase(TestCase):
@@ -33,7 +38,9 @@ class DevToolsTestCase(TestCase):
             run_unittest_cli(argv=('./dev-cli.py', 'unittest'), exit_after_run=False)
         self.assertEqual(
             call_mock.get_popenargs(rstrip_paths=(PY_BIN_PATH,)),
-            [['.../python', '-m', 'unittest', '--locals', '--buffer']],
+            [
+                [f'.../{PYTHON_NAME}', '-m', 'unittest', '--locals', '--buffer'],
+            ],
         )
 
     def test_run_unittest_via_cli(self):
@@ -54,7 +61,7 @@ class DevToolsTestCase(TestCase):
         self.assertEqual(
             call_mock.get_popenargs(rstrip_paths=(PY_BIN_PATH,)),
             [
-                ['.../python', '-m', 'tox'],
+                [f'.../{PYTHON_NAME}', '-m', 'tox'],
                 ['.../coverage', 'combine', '--append'],
                 ['.../coverage', 'report'],
                 ['.../coverage', 'xml'],
