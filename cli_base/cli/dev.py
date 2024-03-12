@@ -21,6 +21,7 @@ from cli_base.cli_tools.subprocess_utils import verbose_check_call
 from cli_base.cli_tools.test_utils.snapshot import UpdateTestSnapshotFiles
 from cli_base.cli_tools.verbosity import OPTION_KWARGS_VERBOSE
 from cli_base.cli_tools.version_info import print_version
+from cli_base.click_defaults import OPTION_ARGS_DEFAULT_TRUE
 from cli_base.constants import BASE_PATH
 
 
@@ -36,24 +37,7 @@ PACKAGE_ROOT = BASE_PATH.parent
 assert_is_file(PACKAGE_ROOT / 'pyproject.toml')  # Exists only in cloned git repo
 
 
-OPTION_ARGS_DEFAULT_TRUE = dict(is_flag=True, show_default=True, default=True)
-OPTION_ARGS_DEFAULT_FALSE = dict(is_flag=True, show_default=True, default=False)
-ARGUMENT_EXISTING_DIR = dict(
-    type=click.Path(exists=True, file_okay=False, dir_okay=True, readable=True, path_type=Path)
-)
-ARGUMENT_NOT_EXISTING_DIR = dict(
-    type=click.Path(
-        exists=False,
-        file_okay=False,
-        dir_okay=True,
-        readable=False,
-        writable=True,
-        path_type=Path,
-    )
-)
-ARGUMENT_EXISTING_FILE = dict(
-    type=click.Path(exists=True, file_okay=True, dir_okay=False, readable=True, path_type=Path)
-)
+
 
 
 class ClickGroup(RichGroup):  # FIXME: How to set the "info_name" easier?
