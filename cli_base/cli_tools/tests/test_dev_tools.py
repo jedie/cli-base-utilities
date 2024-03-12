@@ -43,7 +43,8 @@ class DevToolsTestCase(TestCase):
             stdout,
             parts=(
                 'unittest --help',
-                'usage: python -m unittest [-h]',
+                'usage: python',
+                ' -m unittest [-h]',
             ),
         )
 
