@@ -3,7 +3,7 @@ from unittest.mock import patch
 
 from manageprojects.test_utils.subprocess import SimpleRunReturnCallback, SubprocessCallMock
 
-from cli_base.cli.dev import PACKAGE_ROOT
+from cli_base.cli_dev import PACKAGE_ROOT
 from cli_base.cli_tools.dev_tools import EraseCoverageData, run_coverage, run_tox, run_unittest_cli
 from cli_base.cli_tools.test_utils.assertion import assert_in
 from cli_base.cli_tools.test_utils.rich_test_utils import NoColorRichClickCli

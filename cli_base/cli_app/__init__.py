@@ -1,6 +1,7 @@
 """
     CLI for usage
 """
+
 import logging
 import sys
 
@@ -12,8 +13,7 @@ from rich_click import RichGroup
 
 import cli_base
 from cli_base import constants
-from cli_base.cli_tools import git_history
-from cli_base.cli_tools.verbosity import OPTION_KWARGS_VERBOSE, setup_logging
+from cli_base.autodiscover import import_all_files
 from cli_base.cli_tools.version_info import print_version
 
 
@@ -34,36 +34,11 @@ def cli():
     pass
 
 
-######################################################################################################
-
-
 @cli.command()
 def version():
     """Print version and exit"""
     # Pseudo command, because the version always printed on every CLI call ;)
     sys.exit(0)
-
-
-@cli.command()
-@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
-def update_readme_history(verbosity: int):
-    """
-    Update project history base on git commits/tags in README.md
-
-    Will be exited with 1 if the README.md was updated otherwise with 0.
-
-    Also, callable via e.g.:
-        python -m cli_base update-readme-history -v
-    """
-    setup_logging(verbosity=verbosity)
-    updated = git_history.update_readme_history(verbosity=verbosity)
-    exit_code = 1 if updated else 0
-    if verbosity:
-        print(f'{exit_code=}')
-    sys.exit(exit_code)
-
-
-######################################################################################################
 
 
 def main():
@@ -76,6 +51,9 @@ def main():
         suppress=[click],
         max_frames=2,
     )
+
+    # Register all click commands, just by import all files in this package:
+    import_all_files(package=__package__, init_file=__file__)
 
     # Execute Click CLI:
     cli.name = './cli.py'

@@ -6,7 +6,7 @@ from manageprojects.test_utils.project_setup import check_editor_config, get_py_
 from packaging.version import Version
 
 from cli_base import __version__
-from cli_base.cli.dev import PACKAGE_ROOT
+from cli_base.cli_dev import PACKAGE_ROOT
 from cli_base.cli_tools.code_style import assert_code_style
 
 

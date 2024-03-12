@@ -2,7 +2,7 @@ from unittest import TestCase
 
 from manageprojects.test_utils.subprocess import SimpleRunReturnCallback, SubprocessCallMock
 
-from cli_base.cli.dev import PACKAGE_ROOT
+from cli_base.cli_dev import PACKAGE_ROOT
 from cli_base.cli_tools.code_style import assert_code_style
 from cli_base.constants import PY_BIN_PATH
 

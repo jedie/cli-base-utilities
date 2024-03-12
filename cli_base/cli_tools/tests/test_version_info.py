@@ -6,7 +6,7 @@ from manageprojects.utilities.temp_path import TemporaryDirectory
 
 import cli_base
 from cli_base import __version__
-from cli_base.cli.dev import PACKAGE_ROOT
+from cli_base.cli_dev import PACKAGE_ROOT
 from cli_base.cli_tools.git import Git
 from cli_base.cli_tools.test_utils.logs import AssertLogs
 from cli_base.cli_tools.test_utils.rich_test_utils import NoColorEnvRich

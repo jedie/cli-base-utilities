@@ -58,7 +58,7 @@ Source = "https://github.com/jedie/cli-base-utilities"
 
 [project.scripts]
 cli_base_app = "cli_base.__main__:main"
-cli_base_dev = "cli_base.cli.dev:main"
+cli_base_dev = "cli_base.cli_dev:main"
 
 [build-system]
 requires = ["setuptools>=61.0", "setuptools_scm>=7.1"]
