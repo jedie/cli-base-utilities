@@ -145,6 +145,7 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.7.0...main)
+  * 2024-03-12 - Apply cookiecutter template updates
   * 2024-03-12 - Update requirements
   * 2024-01-16 - Use typeguard in tests
   * 2024-01-16 - manageprojects updates

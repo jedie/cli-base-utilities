@@ -80,14 +80,12 @@ version_module_name = "cli_base" # Used in cli_base.cli_tools.git_history.update
 src = ['.']
 revision = "origin/main..."
 line_length = 119
-verbose = true
 color = true
 skip_string_normalization = true
 diff = false
 check = false
 stdout = false
 isort = true
-flynt = true
 lint = [
     "flake8",
 ]
@@ -160,6 +158,7 @@ applied_migrations = [
     "034be26", # 2023-08-05T21:37:12+02:00
     "9a6c2db", # 2023-11-30T20:56:46+01:00
     "2f938fc", # 2024-01-16T17:26:31+01:00
+    "a20f0e3", # 2024-03-12T06:17:20+01:00
 ]
 
 [manageprojects.cookiecutter_context.cookiecutter]

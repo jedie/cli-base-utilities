@@ -12,9 +12,11 @@ from rich.console import Console
 from rich.traceback import install as rich_traceback_install
 from rich_click import RichGroup
 
-from cli_base import __version__, constants
+import cli_base
+from cli_base import constants
 from cli_base.cli_tools import git_history
 from cli_base.cli_tools.verbosity import OPTION_KWARGS_VERBOSE, setup_logging
+from cli_base.cli_tools.version_info import print_version
 
 
 logger = logging.getLogger(__name__)
@@ -87,7 +89,7 @@ def update_readme_history(verbosity: int):
 
 
 def main():
-    print(f'[bold][green]cli-base-utilities[/green] DEMO cli v[cyan]{__version__}')
+    print_version(cli_base)
 
     console = Console()
     rich_traceback_install(

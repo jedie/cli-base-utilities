@@ -24,8 +24,8 @@ from cli_base.cli_tools.version_info import print_version
 from cli_base.constants import BASE_PATH
 
 
-# Install typeguard import hook to check for missing type annotations.
-# Sadly we can't add this into: cli_base/tests/__init__.py
+# Check type annotations via typeguard in all tests.
+# Sadly we must activate this here and can't do this in ./tests/__init__.py
 install_import_hook(packages=('cli_base',))
 
 
@@ -70,17 +70,14 @@ def cli():
     pass
 
 
-@click.command()
+@cli.command()
 @click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
 def mypy(verbosity: int):
     """Run Mypy (configured in pyproject.toml)"""
     verbose_check_call('mypy', '.', cwd=PACKAGE_ROOT, verbose=verbosity > 0, exit_on_error=True)
 
 
-cli.add_command(mypy)
-
-
-@click.command()
+@cli.command()
 def install():
     """
     Run pip-sync and install 'cli_base' via pip as editable.
@@ -89,10 +86,7 @@ def install():
     verbose_check_call('pip', 'install', '--no-deps', '-e', '.')
 
 
-cli.add_command(install)
-
-
-@click.command()
+@cli.command()
 def safety():
     """
     Run safety check against current requirements files
@@ -100,10 +94,7 @@ def safety():
     verbose_check_call('safety', 'check', '-r', 'requirements.dev.txt')
 
 
-cli.add_command(safety)
-
-
-@click.command()
+@cli.command()
 def update():
     """
     Update "requirements*.txt" dependencies files
@@ -151,10 +142,7 @@ def update():
     verbose_check_call(bin_path / 'pip-sync', 'requirements.dev.txt')
 
 
-cli.add_command(update)
-
-
-@click.command()
+@cli.command()
 def publish():
     """
     Build and upload this project to PyPi
@@ -164,14 +152,11 @@ def publish():
     publish_package(
         module=cli_base,
         package_path=PACKAGE_ROOT,
-        distribution_name='cli-base-utilities',
+        distribution_name='cli_base',
     )
 
 
-cli.add_command(publish)
-
-
-@click.command()
+@cli.command()
 @click.option('--color/--no-color', **OPTION_ARGS_DEFAULT_TRUE)
 @click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
 def fix_code_style(color: bool, verbosity: int):
@@ -181,10 +166,7 @@ def fix_code_style(color: bool, verbosity: int):
     code_style.fix(package_root=PACKAGE_ROOT, darker_color=color, darker_verbose=verbosity > 0)
 
 
-cli.add_command(fix_code_style)
-
-
-@click.command()
+@cli.command()
 @click.option('--color/--no-color', **OPTION_ARGS_DEFAULT_TRUE)
 @click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
 def check_code_style(color: bool, verbosity: int):
@@ -194,10 +176,7 @@ def check_code_style(color: bool, verbosity: int):
     code_style.check(package_root=PACKAGE_ROOT, darker_color=color, darker_verbose=verbosity > 0)
 
 
-cli.add_command(check_code_style)
-
-
-@click.command()
+@cli.command()
 @click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
 def update_test_snapshot_files(verbosity: int):
     """
@@ -215,10 +194,7 @@ def update_test_snapshot_files(verbosity: int):
         )
 
 
-cli.add_command(update_test_snapshot_files)
-
-
-@click.command()  # Dummy command
+@cli.command()  # Dummy command
 def test():
     """
     Run unittests
@@ -226,10 +202,7 @@ def test():
     run_unittest_cli()
 
 
-cli.add_command(test)
-
-
-@click.command()  # Dummy command
+@cli.command()  # Dummy command
 def coverage():
     """
     Run tests and show coverage report.
@@ -237,10 +210,7 @@ def coverage():
     run_coverage()
 
 
-cli.add_command(coverage)
-
-
-@click.command()  # Dummy "tox" command
+@cli.command()  # Dummy "tox" command
 def tox():
     """
     Run tox
@@ -248,17 +218,11 @@ def tox():
     run_tox()
 
 
-cli.add_command(tox)
-
-
-@click.command()
+@cli.command()
 def version():
     """Print version and exit"""
     # Pseudo command, because the version always printed on every CLI call ;)
     sys.exit(0)
-
-
-cli.add_command(version)
 
 
 def main():
