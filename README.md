@@ -144,6 +144,13 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.8.0...main)
+  * 2024-03-12 - Bugfix publish
+  * 2024-03-12 - fix tests
+  * 2024-03-12 - Split app/dev CLI into a package with autodiscovery
+  * 2024-03-12 - Move click defaults
+  * 2024-03-12 - Apply cookiecutter template updates
+  * 2024-03-12 - Update requirements
 * [v0.8.0](https://github.com/jedie/cli-base-utilities/compare/v0.7.0...v0.8.0)
   * 2024-03-12 - Bugfix publish
   * 2024-03-12 - fix tests
@@ -169,6 +176,9 @@ It's easier to temporarily uninstall the hooks, create the release and install t
   * 2023-12-16 - Skip test_readme_history() on CI
 * [v0.6.0](https://github.com/jedie/cli-base-utilities/compare/v0.5.0...v0.6.0)
   * 2023-12-02 - NEW: Code style tools
+
+<details><summary>Expand older history entries ...</summary>
+
 * [v0.5.0](https://github.com/jedie/cli-base-utilities/compare/v0.4.5...v0.5.0)
   * 2023-12-01 - fix flake8
   * 2023-12-01 - NEW: test utils: AssertLogs() context manager
@@ -176,9 +186,6 @@ It's easier to temporarily uninstall the hooks, create the release and install t
   * 2023-12-01 - Add "run_coverage()" to "dev_tools" and polish tox, unittest, too.
   * 2023-12-01 - add tests for EraseCoverageData()
   * 2023-12-01 - Apply manageprojects updates
-
-<details><summary>Expand older history entries ...</summary>
-
 * [v0.4.5](https://github.com/jedie/cli-base-utilities/compare/v0.4.4...v0.4.5)
   * 2023-11-30 - Configure unittests via "load_tests Protocol" hook
   * 2023-11-30 - Update requirements and add "flake8-bugbear"
