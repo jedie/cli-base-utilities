@@ -144,6 +144,7 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.9.0...main)
 * [v0.9.0](https://github.com/jedie/cli-base-utilities/compare/v0.8.0...v0.9.0)
   * 2024-07-16 - Update project
 * [v0.8.0](https://github.com/jedie/cli-base-utilities/compare/v0.7.0...v0.8.0)
@@ -169,11 +170,11 @@ It's easier to temporarily uninstall the hooks, create the release and install t
   * 2023-12-16 - Remove PACKAGE_ROOT from app CLI
   * 2023-12-16 - Update requirements
   * 2023-12-16 - Skip test_readme_history() on CI
-* [v0.6.0](https://github.com/jedie/cli-base-utilities/compare/v0.5.0...v0.6.0)
-  * 2023-12-02 - NEW: Code style tools
 
 <details><summary>Expand older history entries ...</summary>
 
+* [v0.6.0](https://github.com/jedie/cli-base-utilities/compare/v0.5.0...v0.6.0)
+  * 2023-12-02 - NEW: Code style tools
 * [v0.5.0](https://github.com/jedie/cli-base-utilities/compare/v0.4.5...v0.5.0)
   * 2023-12-01 - fix flake8
   * 2023-12-01 - NEW: test utils: AssertLogs() context manager
