@@ -155,6 +155,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.10.0...main)
+  * 2024-08-02 - Update pre-commit hook version to cli-base-utilities v0.10.0
 * [v0.10.0](https://github.com/jedie/cli-base-utilities/compare/v0.9.0...v0.10.0)
   * 2024-08-02 - Use dateutil in get_commit_date()
   * 2024-08-02 - Replace "safety" by "pip-audit" and add tooling for it.
@@ -172,6 +174,9 @@ It's easier to temporarily uninstall the hooks, create the release and install t
   * 2024-01-16 - manageprojects updates
   * 2024-01-16 - Update requirements + datetimes ;)
   * 2023-12-17 - Bugfix .pre-commit-config.yaml
+
+<details><summary>Expand older history entries ...</summary>
+
 * [v0.7.0](https://github.com/jedie/cli-base-utilities/compare/v0.6.0...v0.7.0)
   * 2023-12-16 - Add "Update pre-commit hooks" to README
   * 2023-12-16 - Bugfix update_readme_history(): Use `__version__` from module
@@ -184,9 +189,6 @@ It's easier to temporarily uninstall the hooks, create the release and install t
   * 2023-12-16 - Remove PACKAGE_ROOT from app CLI
   * 2023-12-16 - Update requirements
   * 2023-12-16 - Skip test_readme_history() on CI
-
-<details><summary>Expand older history entries ...</summary>
-
 * [v0.6.0](https://github.com/jedie/cli-base-utilities/compare/v0.5.0...v0.6.0)
   * 2023-12-02 - NEW: Code style tools
 * [v0.5.0](https://github.com/jedie/cli-base-utilities/compare/v0.4.5...v0.5.0)
