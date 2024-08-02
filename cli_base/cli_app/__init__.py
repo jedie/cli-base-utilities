@@ -34,6 +34,10 @@ def cli():
     pass
 
 
+# Register all click commands, just by import all files in this package:
+import_all_files(package=__package__, init_file=__file__)
+
+
 @cli.command()
 def version():
     """Print version and exit"""
@@ -51,9 +55,6 @@ def main():
         suppress=[click],
         max_frames=2,
     )
-
-    # Register all click commands, just by import all files in this package:
-    import_all_files(package=__package__, init_file=__file__)
 
     # Execute Click CLI:
     cli.name = './cli.py'

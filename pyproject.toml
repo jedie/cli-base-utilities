@@ -15,6 +15,7 @@ dependencies = [
     "rich-click",  # https://github.com/ewels/rich-click
     "rich",  # https://github.com/Textualize/rich
     "packaging",  # https://github.com/pypa/packaging
+    "python-dateutil",  # https://github.com/dateutil/dateutil/
 
     "tomli",  # https://github.com/hukkin/tomli
     #
@@ -39,7 +40,7 @@ dev = [
     "pyflakes",  # https://github.com/PyCQA/pyflakes
     "codespell",  # https://github.com/codespell-project/codespell
     "EditorConfig",  # https://github.com/editorconfig/editorconfig-core-py
-    "safety",  # https://github.com/pyupio/safety
+    "pip-audit",  # https://github.com/pypa/pip-audit
     "mypy",  # https://github.com/python/mypy
     "twine",  # https://github.com/pypa/twine
     "pre-commit",  # https://github.com/pre-commit/pre-commit
@@ -74,6 +75,20 @@ version = {attr = "cli_base.__version__"}
 
 [tool.cli_base]
 version_module_name = "cli_base" # Used in cli_base.cli_tools.git_history.update_readme_history()
+
+
+[tool.cli_base.pip_audit]
+requirements=["requirements.dev.txt"]
+strict=true
+require_hashes=true
+ignore-vuln=[]
+
+
+[tool.bx_py_utils.doc_write]
+docstring_prefix = 'DocWrite:'
+output_base_path = './docs/'
+search_paths = ['./cli_base/']
+delete_obsolete_files = true  # Delete obsolete files in output_base_path
 
 
 [tool.darker]
@@ -159,6 +174,7 @@ applied_migrations = [
     "9a6c2db", # 2023-11-30T20:56:46+01:00
     "2f938fc", # 2024-01-16T17:26:31+01:00
     "a20f0e3", # 2024-03-12T06:17:20+01:00
+    "f8be3e0", # 2024-07-16T19:35:26+02:00
 ]
 
 [manageprojects.cookiecutter_context.cookiecutter]
