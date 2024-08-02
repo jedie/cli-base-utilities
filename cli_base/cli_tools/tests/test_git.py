@@ -17,6 +17,15 @@ from cli_base.cli_tools.test_utils.git_utils import init_git
 from cli_base.cli_tools.test_utils.logs import AssertLogs
 
 
+class MockedGit(Git):
+    def __init__(self, *, mocked_output):
+        self.mocked_output = mocked_output
+        super().__init__(cwd=Path('/mocked/'), detect_root=False)
+
+    def git_verbose_check_output(self, *args, **kwargs):
+        return self.mocked_output
+
+
 class GitTestCase(TestCase):
     @classmethod
     def setUpClass(cls) -> None:
@@ -504,3 +513,17 @@ class GitTestCase(TestCase):
                     )
                 ],
             )
+
+    def test_get_commit_date(self):
+        self.assertEqual(
+            MockedGit(mocked_output='2022-10-25 20:43:10 +0200\n').get_commit_date(),
+            parse_dt('2022-10-25T20:43:10+0200'),
+        )
+        self.assertEqual(
+            MockedGit(mocked_output='2022-10-25T20:43:10+0200\n').get_commit_date(),
+            parse_dt('2022-10-25T20:43:10+0200'),
+        )
+        self.assertEqual(
+            MockedGit(mocked_output='2024-08-02T11:14:55Z\n').get_commit_date(),
+            parse_dt('2024-08-02T11:14:55+0000'),
+        )

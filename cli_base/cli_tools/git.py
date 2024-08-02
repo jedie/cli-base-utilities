@@ -12,6 +12,7 @@ from pathlib import Path
 from shutil import which
 
 from bx_py_utils.path import assert_is_file
+from dateutil.parser import parse
 from packaging.version import InvalidVersion, Version
 
 from cli_base.cli_tools.subprocess_utils import verbose_check_call, verbose_check_output
@@ -271,8 +272,7 @@ class Git:
     def get_commit_date(self, commit='HEAD', verbose=True) -> datetime.datetime:
         output = self.git_verbose_check_output('show', '-s', '--format=%cI', commit, verbose=verbose)
         raw_date = output.strip()
-        # e.g.: "2022-10-25 20:43:10 +0200"
-        return datetime.datetime.fromisoformat(raw_date)
+        return parse(raw_date)
 
     def diff(
         self,

@@ -15,6 +15,7 @@ dependencies = [
     "rich-click",  # https://github.com/ewels/rich-click
     "rich",  # https://github.com/Textualize/rich
     "packaging",  # https://github.com/pypa/packaging
+    "python-dateutil",  # https://github.com/dateutil/dateutil/
 
     "tomli",  # https://github.com/hukkin/tomli
     #
