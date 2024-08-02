@@ -14,7 +14,7 @@ from cli_base.cli_tools.rich_utils import human_error
 from cli_base.constants import PY_BIN_PATH
 
 
-DEFAULT_TIMEOUT = 5 * 60
+DEFAULT_TIMEOUT = 15 * 60  # 15 minutes
 
 
 def make_absolute_path(path):

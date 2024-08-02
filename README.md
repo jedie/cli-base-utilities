@@ -155,7 +155,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
-* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.10.0...main)
+* [v0.10.1](https://github.com/jedie/cli-base-utilities/compare/v0.10.0...v0.10.1)
+  * 2024-08-02 - Increase default timout from 5 to 15 minutes
   * 2024-08-02 - Update pre-commit hook version to cli-base-utilities v0.10.0
 * [v0.10.0](https://github.com/jedie/cli-base-utilities/compare/v0.9.0...v0.10.0)
   * 2024-08-02 - Use dateutil in get_commit_date()
