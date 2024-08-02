@@ -17,7 +17,7 @@ pip install cli-base-utilities
 
 Some of the features are:
 
-* [`run_pip_audit()` to run `pip-audit` with configuration from `pyproject.toml`](https://github.com/boxine/bx_py_utils/blob/master/docs/pip_audit.md)
+* [`run_pip_audit()` to run `pip-audit` with configuration from `pyproject.toml`](https://github.com/jedie/cli-base-utilities/blob/main/docs/pip_audit.md)
 
 TODO: Document all features here ;)
 
@@ -155,6 +155,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.10.1...main)
+  * 2024-08-02 - Fix doc link in README.md
 * [v0.10.1](https://github.com/jedie/cli-base-utilities/compare/v0.10.0...v0.10.1)
   * 2024-08-02 - Increase default timout from 5 to 15 minutes
   * 2024-08-02 - Update pre-commit hook version to cli-base-utilities v0.10.0
@@ -164,6 +166,9 @@ It's easier to temporarily uninstall the hooks, create the release and install t
   * 2024-08-01 - Update manageprojects updates
 * [v0.9.0](https://github.com/jedie/cli-base-utilities/compare/v0.8.0...v0.9.0)
   * 2024-07-16 - Update project
+
+<details><summary>Expand older history entries ...</summary>
+
 * [v0.8.0](https://github.com/jedie/cli-base-utilities/compare/v0.7.0...v0.8.0)
   * 2024-03-12 - Bugfix publish
   * 2024-03-12 - fix tests
@@ -175,9 +180,6 @@ It's easier to temporarily uninstall the hooks, create the release and install t
   * 2024-01-16 - manageprojects updates
   * 2024-01-16 - Update requirements + datetimes ;)
   * 2023-12-17 - Bugfix .pre-commit-config.yaml
-
-<details><summary>Expand older history entries ...</summary>
-
 * [v0.7.0](https://github.com/jedie/cli-base-utilities/compare/v0.6.0...v0.7.0)
   * 2023-12-16 - Add "Update pre-commit hooks" to README
   * 2023-12-16 - Bugfix update_readme_history(): Use `__version__` from module
