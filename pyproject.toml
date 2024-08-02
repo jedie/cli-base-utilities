@@ -39,7 +39,7 @@ dev = [
     "pyflakes",  # https://github.com/PyCQA/pyflakes
     "codespell",  # https://github.com/codespell-project/codespell
     "EditorConfig",  # https://github.com/editorconfig/editorconfig-core-py
-    "safety",  # https://github.com/pyupio/safety
+    "pip-audit",  # https://github.com/pypa/pip-audit
     "mypy",  # https://github.com/python/mypy
     "twine",  # https://github.com/pypa/twine
     "pre-commit",  # https://github.com/pre-commit/pre-commit
@@ -74,6 +74,20 @@ version = {attr = "cli_base.__version__"}
 
 [tool.cli_base]
 version_module_name = "cli_base" # Used in cli_base.cli_tools.git_history.update_readme_history()
+
+
+[tool.cli_base.pip_audit]
+requirements=["requirements.dev.txt"]
+strict=true
+require_hashes=true
+ignore-vuln=[]
+
+
+[tool.bx_py_utils.doc_write]
+docstring_prefix = 'DocWrite:'
+output_base_path = './docs/'
+search_paths = ['./cli_base/']
+delete_obsolete_files = true  # Delete obsolete files in output_base_path
 
 
 [tool.darker]

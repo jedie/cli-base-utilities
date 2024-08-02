@@ -6,9 +6,20 @@
 [![Python Versions](https://img.shields.io/pypi/pyversions/cli-base-utilities)](https://github.com/jedie/cli-base-utilities/blob/main/pyproject.toml)
 [![License GPL-3.0-or-later](https://img.shields.io/pypi/l/cli-base-utilities)](https://github.com/jedie/cli-base-utilities/blob/main/LICENSE)
 
-Helpers to build a CLI program
+Helpers to build a CLI program and some useful tools for CLI programs.
 
-* https://pypi.org/project/cli-base-utilities/
+```
+pip install cli-base-utilities
+```
+
+
+## Features
+
+Some of the features are:
+
+* [`run_pip_audit()` to run `pip-audit` with configuration from `pyproject.toml`](https://github.com/boxine/bx_py_utils/blob/master/docs/pip_audit.md)
+
+TODO: Document all features here ;)
 
 
 # start development
@@ -35,8 +46,8 @@ Usage: ./dev-cli.py [OPTIONS] COMMAND [ARGS]...
 │ fix-code-style              Fix code style of all cli_base source code files via darker          │
 │ install                     Run pip-sync and install 'cli_base' via pip as editable.             │
 │ mypy                        Run Mypy (configured in pyproject.toml)                              │
+│ pip-audit                   Run pip-audit check against current requirements files               │
 │ publish                     Build and upload this project to PyPi                                │
-│ safety                      Run safety check against current requirements files                  │
 │ test                        Run unittests                                                        │
 │ tox                         Run tox                                                              │
 │ update                      Update "requirements*.txt" dependencies files                        │
@@ -144,7 +155,9 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
-* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.9.0...main)
+* [v0.10.0](https://github.com/jedie/cli-base-utilities/compare/v0.9.0...v0.10.0)
+  * 2024-08-02 - Replace "safety" by "pip-audit" and add tooling for it.
+  * 2024-08-01 - Update manageprojects updates
 * [v0.9.0](https://github.com/jedie/cli-base-utilities/compare/v0.8.0...v0.9.0)
   * 2024-07-16 - Update project
 * [v0.8.0](https://github.com/jedie/cli-base-utilities/compare/v0.7.0...v0.8.0)
