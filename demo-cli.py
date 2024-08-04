@@ -109,6 +109,8 @@ def main(argv):
         verbose_check_call(PYTHON_PATH, '-m', 'cli_base.demo', *argv[1:])
     except subprocess.CalledProcessError as err:
         sys.exit(err.returncode)
+    except KeyboardInterrupt:
+        print('Bye!')
 
 
 if __name__ == '__main__':
