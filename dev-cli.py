@@ -105,11 +105,17 @@ def main(argv):
         verbose_check_call(PIP_PATH, 'install', '--no-deps', '-e', '.')
         store_dep_hash()
 
+        # Activate git pre-commit hooks:
+        verbose_check_call(PYTHON_PATH, '-m', 'pre_commit', 'install')
+        verbose_check_call(PYTHON_PATH, '-m', 'pre_commit', 'autoupdate')
+
     # Call our entry point CLI:
     try:
         verbose_check_call(PROJECT_SHELL_SCRIPT, *argv[1:])
     except subprocess.CalledProcessError as err:
         sys.exit(err.returncode)
+    except KeyboardInterrupt:
+        print('Bye!')
 
 
 if __name__ == '__main__':

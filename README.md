@@ -155,7 +155,10 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
-* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.10.1...main)
+* [v0.10.2](https://github.com/jedie/cli-base-utilities/compare/v0.10.1...v0.10.2)
+  * 2024-08-04 - Auto activate pre commit hooks
+  * 2024-08-04 - Update demo CLI: Always update pip and pip-tools
+  * 2024-08-04 - Handle KeyboardInterrupt in cli scripts.
   * 2024-08-04 - Bugfix #50 toml2dataclass(): AttributeError: 'bool' object has no attribute 'unwrap'.
   * 2024-08-02 - Fix doc link in README.md
 * [v0.10.1](https://github.com/jedie/cli-base-utilities/compare/v0.10.0...v0.10.1)
