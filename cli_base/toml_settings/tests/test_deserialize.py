@@ -179,3 +179,30 @@ class DeserializeTestCase(TestCase):
                 "'sub_class_three' in toml config",
             ],
         )
+
+    def test_toml2dataclass_boolean_flag(self):
+        @dataclasses.dataclass
+        class BooleanExample:
+            flag: bool = False
+
+        instance = BooleanExample()
+        self.assertIs(instance.flag, False)
+
+        document = tomlkit.loads('flag = true')
+        changed = toml2dataclass(document=document, instance=instance)
+        self.assertIs(changed, False)  # both are boolean values
+        self.assertIs(instance.flag, False)  # not changed
+
+        document = tomlkit.loads('flag = "no bolean"')
+        with self.assertLogs(logger=None, level=logging.DEBUG) as logs:
+            changed = toml2dataclass(document=document, instance=instance)
+        self.assertIs(changed, True)  # String convert to boolean
+        self.assertIs(instance.flag, False)  # The default
+        self.assertEqual(
+            logs.output,
+            [
+                "ERROR:cli_base.toml_settings.deserialize:"
+                "Toml value flag='no bolean' is not a boolean"
+                " -> ignored and use default value: False"
+            ],
+        )

@@ -67,6 +67,16 @@ def toml2dataclass(*, document: TOMLDocument | Table, instance, _changed=False) 
                 _changed = True
             else:
                 setattr(instance, field_name, Path(value))
+        elif isinstance(field_value, bool):
+            if not isinstance(doc_value, bool):
+                logger.error(
+                    'Toml value %s=%r is not a boolean -> ignored and use default value: %r',
+                    field_name,
+                    doc_value,
+                    field_value,
+                )
+                setattr(instance, field_name, field_value)
+                _changed = True
         elif not isinstance(field_value, type(doc_value.unwrap())):
             logger.error(
                 'Toml value %s=%r is type %r but must be type %r -> ignored and use default value!',
