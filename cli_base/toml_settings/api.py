@@ -77,6 +77,7 @@ class TomlSettings:
 
         doc_str = self.file_path.read_text(encoding='UTF-8')
         user_settings_doc: TOMLDocument = tomlkit.loads(doc_str)
+        logger.debug(f'Loaded settings: {user_settings_doc=}')
 
         document_changed = toml2dataclass(document=user_settings_doc, instance=self.settings_dataclass)
         logger.debug(f'{document_changed=}')

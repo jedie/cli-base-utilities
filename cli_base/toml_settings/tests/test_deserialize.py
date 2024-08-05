@@ -191,9 +191,14 @@ class DeserializeTestCase(TestCase):
         document = tomlkit.loads('flag = true')
         changed = toml2dataclass(document=document, instance=instance)
         self.assertIs(changed, False)  # both are boolean values
-        self.assertIs(instance.flag, False)  # not changed
+        self.assertIs(instance.flag, True)  # takeover the value from toml file
 
-        document = tomlkit.loads('flag = "no bolean"')
+        # Test again with non boolean value:
+
+        instance = BooleanExample()
+        self.assertIs(instance.flag, False)
+
+        document = tomlkit.loads('flag = "no boolean"')
         with self.assertLogs(logger=None, level=logging.DEBUG) as logs:
             changed = toml2dataclass(document=document, instance=instance)
         self.assertIs(changed, True)  # String convert to boolean
@@ -202,7 +207,7 @@ class DeserializeTestCase(TestCase):
             logs.output,
             [
                 "ERROR:cli_base.toml_settings.deserialize:"
-                "Toml value flag='no bolean' is not a boolean"
+                "Toml value flag='no boolean' is not a boolean"
                 " -> ignored and use default value: False"
             ],
         )

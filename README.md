@@ -155,6 +155,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [v0.10.3](https://github.com/jedie/cli-base-utilities/compare/v0.10.2...v0.10.3)
+  * 2024-08-05 - Bugfix unchanable boolean flags in toml settings
 * [v0.10.2](https://github.com/jedie/cli-base-utilities/compare/v0.10.1...v0.10.2)
   * 2024-08-04 - Auto activate pre commit hooks
   * 2024-08-04 - Update demo CLI: Always update pip and pip-tools
@@ -168,11 +170,11 @@ It's easier to temporarily uninstall the hooks, create the release and install t
   * 2024-08-02 - Use dateutil in get_commit_date()
   * 2024-08-02 - Replace "safety" by "pip-audit" and add tooling for it.
   * 2024-08-01 - Update manageprojects updates
-* [v0.9.0](https://github.com/jedie/cli-base-utilities/compare/v0.8.0...v0.9.0)
-  * 2024-07-16 - Update project
 
 <details><summary>Expand older history entries ...</summary>
 
+* [v0.9.0](https://github.com/jedie/cli-base-utilities/compare/v0.8.0...v0.9.0)
+  * 2024-07-16 - Update project
 * [v0.8.0](https://github.com/jedie/cli-base-utilities/compare/v0.7.0...v0.8.0)
   * 2024-03-12 - Bugfix publish
   * 2024-03-12 - fix tests

@@ -77,6 +77,9 @@ def toml2dataclass(*, document: TOMLDocument | Table, instance, _changed=False) 
                 )
                 setattr(instance, field_name, field_value)
                 _changed = True
+            else:
+                logger.info('Take over %r for %r from user toml setting', doc_value, field_name)
+                setattr(instance, field_name, doc_value)
         elif not isinstance(field_value, type(doc_value.unwrap())):
             logger.error(
                 'Toml value %s=%r is type %r but must be type %r -> ignored and use default value!',

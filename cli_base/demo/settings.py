@@ -31,3 +31,8 @@ class DemoSettings:
 
     # Information how to setup the systemd services:
     systemd: dataclasses = dataclasses.field(default_factory=SystemdServiceInfo)
+
+    # Just some properties for testing:
+    default_on: bool = True
+    default_off: bool = False
+    text: str = 'Just a String'
