@@ -4,8 +4,13 @@ from pathlib import Path
 
 from bx_py_utils.test_utils.deny_requests import deny_any_real_request
 from rich import print  # noqa
+from typeguard import install_import_hook
 
 from cli_base.cli_tools.verbosity import MAX_LOG_LEVEL, setup_logging
+
+
+# Check type annotations via typeguard in all tests:
+install_import_hook(packages=('cli_base',))
 
 
 def pre_configure_tests() -> None:

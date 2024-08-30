@@ -156,6 +156,7 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [v0.11.0](https://github.com/jedie/cli-base-utilities/compare/v0.10.3...v0.11.0)
+  * 2024-08-30 - Apply manageprojects updates, e.g.: Set min. Python to 3.11+
   * 2024-08-30 - NEW: EncloseRuleContext
 * [v0.10.3](https://github.com/jedie/cli-base-utilities/compare/v0.10.2...v0.10.3)
   * 2024-08-05 - Bugfix unchanable boolean flags in toml settings

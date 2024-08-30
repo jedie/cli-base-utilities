@@ -17,7 +17,6 @@ from cli_base import constants
 from cli_base.autodiscover import import_all_files
 from cli_base.cli_tools.dev_tools import run_coverage, run_tox, run_unittest_cli
 from cli_base.cli_tools.version_info import print_version
-from cli_base.constants import BASE_PATH
 
 
 # Check type annotations via typeguard in all tests.
@@ -28,7 +27,7 @@ install_import_hook(packages=('cli_base',))
 logger = logging.getLogger(__name__)
 
 
-PACKAGE_ROOT = BASE_PATH.parent
+PACKAGE_ROOT = constants.BASE_PATH.parent
 assert_is_file(PACKAGE_ROOT / 'pyproject.toml')  # Exists only in cloned git repo
 
 
