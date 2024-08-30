@@ -155,6 +155,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [v0.11.0](https://github.com/jedie/cli-base-utilities/compare/v0.10.3...v0.11.0)
+  * 2024-08-30 - NEW: EncloseRuleContext
 * [v0.10.3](https://github.com/jedie/cli-base-utilities/compare/v0.10.2...v0.10.3)
   * 2024-08-05 - Bugfix unchanable boolean flags in toml settings
 * [v0.10.2](https://github.com/jedie/cli-base-utilities/compare/v0.10.1...v0.10.2)
@@ -166,13 +168,13 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 * [v0.10.1](https://github.com/jedie/cli-base-utilities/compare/v0.10.0...v0.10.1)
   * 2024-08-02 - Increase default timout from 5 to 15 minutes
   * 2024-08-02 - Update pre-commit hook version to cli-base-utilities v0.10.0
+
+<details><summary>Expand older history entries ...</summary>
+
 * [v0.10.0](https://github.com/jedie/cli-base-utilities/compare/v0.9.0...v0.10.0)
   * 2024-08-02 - Use dateutil in get_commit_date()
   * 2024-08-02 - Replace "safety" by "pip-audit" and add tooling for it.
   * 2024-08-01 - Update manageprojects updates
-
-<details><summary>Expand older history entries ...</summary>
-
 * [v0.9.0](https://github.com/jedie/cli-base-utilities/compare/v0.8.0...v0.9.0)
   * 2024-07-16 - Update project
 * [v0.8.0](https://github.com/jedie/cli-base-utilities/compare/v0.7.0...v0.8.0)

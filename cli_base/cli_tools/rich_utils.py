@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import functools
 import sys
 
 from bx_py_utils.test_utils.assertion import text_unified_diff
@@ -8,6 +9,7 @@ from rich.console import Console
 from rich.highlighter import ReprHighlighter
 from rich.panel import Panel
 from rich.pretty import Pretty
+from rich.rule import Rule
 from rich.syntax import Syntax
 from rich.text import Text
 
@@ -144,3 +146,34 @@ def human_error(
 
     if exit_code is not None:
         sys.exit(exit_code)
+
+
+class EncloseRuleContext:
+    """
+    context manager / decorator that draws a horizontal rule (line) above __enter__ and after it.
+    """
+
+    def __init__(self, title: str | Text = '', console=None, **rule_kwargs):
+        self.title = title
+        self.console = console or Console()
+        self.rule_kwargs = rule_kwargs
+
+    def __enter__(self):
+        self.console.print(Rule(title=self.title, **self.rule_kwargs))
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.console.print(Rule(**self.rule_kwargs))
+        if exc_tb:
+            return False
+
+    def __call__(self, func):
+        """
+        Use this context manager also as a decorator.
+        """
+
+        @functools.wraps(func)
+        def wrapped_func(*args, **kwargs):
+            with self:
+                return func(*args, **kwargs)
+
+        return wrapped_func
