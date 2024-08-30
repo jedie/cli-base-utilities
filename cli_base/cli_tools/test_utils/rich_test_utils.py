@@ -1,3 +1,4 @@
+import io
 import os
 import subprocess
 import sys
@@ -34,6 +35,21 @@ def get_fixed_env_copy(width: int = BASE_WIDTH, exclude_none=False) -> dict:
     if exclude_none:
         env_dict = {key: value for key, value in env_dict.items() if value is not None}
     return env_dict
+
+
+def get_fixed_console(width=50) -> Console:
+    """
+    Get a console with a defined width and no colors. Used for testing.
+    """
+    console = Console(
+        width=width,
+        file=io.StringIO(),
+        color_system=None,
+        force_terminal=True,
+        legacy_windows=False,
+        _environ={},
+    )
+    return console
 
 
 class NoColorTermEnviron(MassContextManager):
