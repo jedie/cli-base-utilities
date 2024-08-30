@@ -7,7 +7,7 @@ readme = "README.md"
 authors = [
     {name = 'Jens Diemer', email = 'github@jensdiemer.de'}
 ]
-requires-python = ">=3.9,<4"
+requires-python = ">=3.11"
 dependencies = [
     "bx_py_utils",  # https://github.com/boxine/bx_py_utils
     "tomlkit",  # https://github.com/sdispater/tomlkit
@@ -30,6 +30,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "manageprojects",  # https://github.com/jedie/manageprojects
+    "urllib3", # for bx_py_utils.test_utils.deny_requests.deny_any_real_request() in tests
     "pip-tools",  # https://github.com/jazzband/pip-tools/
     "tox",  # https://github.com/tox-dev/tox
     "coverage",  # https://github.com/nedbat/coveragepy
@@ -51,6 +52,11 @@ dev = [
     # https://github.com/pycqa/isort
     # https://github.com/pygments/pygments
     "darker[flynt, isort, color]",
+
+    # Work-a-round for: https://github.com/jazzband/pip-tools/issues/1866
+    # see also: https://github.com/jazzband/pip-tools/issues/994#issuecomment-1321226661
+    # backports.tarfile is needed for python <3.12
+    'backports.tarfile', # via jaraco-context -> keyring -> twine
 ]
 
 [project.urls]
@@ -175,6 +181,7 @@ applied_migrations = [
     "2f938fc", # 2024-01-16T17:26:31+01:00
     "a20f0e3", # 2024-03-12T06:17:20+01:00
     "f8be3e0", # 2024-07-16T19:35:26+02:00
+    "2cdc1d8", # 2024-08-25T19:00:41+02:00
 ]
 
 [manageprojects.cookiecutter_context.cookiecutter]
