@@ -155,7 +155,7 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
-* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.11.0...main)
+* [v0.12.0](https://github.com/jedie/cli-base-utilities/compare/v0.11.0...v0.12.0)
   * 2024-09-25 - Add debug log to update_readme_history call
   * 2024-09-25 - Simplify AssertCliHelpInReadme to a flat function
   * 2024-09-25 - Apply manage projects updates
