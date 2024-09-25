@@ -3,7 +3,7 @@ from manageprojects.tests.base import BaseTestCase
 from cli_base import constants
 from cli_base.cli_dev import PACKAGE_ROOT
 from cli_base.cli_tools.test_utils.assertion import assert_in
-from cli_base.cli_tools.test_utils.cli_readme import AssertCliHelpInReadme
+from cli_base.cli_tools.test_utils.cli_readme import assert_cli_help_in_readme
 from cli_base.cli_tools.test_utils.rich_test_utils import (
     assert_no_color_env,
     assert_rich_click_no_color,
@@ -43,8 +43,6 @@ class ReadmeTestCase(BaseTestCase):
         )
         cls.cli_mock.__enter__()
 
-        cls.readme_assert = AssertCliHelpInReadme(base_path=PACKAGE_ROOT, cli_epilog=constants.CLI_EPILOG)
-
     @classmethod
     def tearDownClass(cls) -> None:
         super().tearDownClass()
@@ -65,6 +63,14 @@ class ReadmeTestCase(BaseTestCase):
     def invoke_demo_cli(self, *args):
         return self.cli_mock.invoke(cli_bin=PACKAGE_ROOT / 'demo-cli.py', args=args, strip_line_prefix='Usage: ')
 
+    def assert_readme_block(self, *, text_block: str, marker: str):
+        assert_cli_help_in_readme(
+            readme_path=PACKAGE_ROOT / 'README.md',
+            text_block=text_block,
+            marker=marker,
+            cli_epilog=constants.CLI_EPILOG,
+        )
+
     def test_main_help(self):
         stdout = self.invoke_cli('--help')
         assert_in(
@@ -75,7 +81,7 @@ class ReadmeTestCase(BaseTestCase):
                 constants.CLI_EPILOG,
             ),
         )
-        self.readme_assert.assert_block(text_block=stdout, marker='app help')
+        self.assert_readme_block(text_block=stdout, marker='app help')
 
     def test_dev_help(self):
         stdout = self.invoke_dev_cli('--help')
@@ -88,7 +94,7 @@ class ReadmeTestCase(BaseTestCase):
                 constants.CLI_EPILOG,
             ),
         )
-        self.readme_assert.assert_block(text_block=stdout, marker='dev help')
+        self.assert_readme_block(text_block=stdout, marker='dev help')
 
     def test_demo_help(self):
         stdout = self.invoke_demo_cli('--help')
@@ -101,4 +107,4 @@ class ReadmeTestCase(BaseTestCase):
                 constants.CLI_EPILOG,
             ),
         )
-        self.readme_assert.assert_block(text_block=stdout, marker='demo help')
+        self.assert_readme_block(text_block=stdout, marker='demo help')
