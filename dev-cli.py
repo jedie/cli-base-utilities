@@ -33,7 +33,7 @@ else:
         sys.exit(-1)
 
 
-assert sys.version_info >= (3, 9), f'Python version {sys.version_info} is too old!'
+assert sys.version_info >= (3, 11), f'Python version {sys.version_info} is too old!'
 
 
 if sys.platform == 'win32':  # wtf
@@ -41,7 +41,7 @@ if sys.platform == 'win32':  # wtf
     BIN_NAME = 'Scripts'
     FILE_EXT = '.exe'
 else:
-    # Files under Linux/Mac and all other than Windows, e.g.: .../.venv/bin/python
+    # Files under Linux/Mac and all other than Windows, e.g.: .../.venv/bin/python3
     BIN_NAME = 'bin'
     FILE_EXT = ''
 
@@ -107,7 +107,6 @@ def main(argv):
 
         # Activate git pre-commit hooks:
         verbose_check_call(PYTHON_PATH, '-m', 'pre_commit', 'install')
-        verbose_check_call(PYTHON_PATH, '-m', 'pre_commit', 'autoupdate')
 
     # Call our entry point CLI:
     try:

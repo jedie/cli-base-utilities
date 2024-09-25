@@ -156,6 +156,7 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.11.0...main)
+  * 2024-09-25 - Apply manage projects updates
   * 2024-09-25 - Update requirements
 * [v0.11.0](https://github.com/jedie/cli-base-utilities/compare/v0.10.3...v0.11.0)
   * 2024-08-30 - Apply manageprojects updates, e.g.: Set min. Python to 3.11+
