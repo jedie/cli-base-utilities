@@ -8,6 +8,7 @@ from packaging.version import Version
 from cli_base import __version__
 from cli_base.cli_dev import PACKAGE_ROOT
 from cli_base.cli_tools.code_style import assert_code_style
+from cli_base.cli_tools.subprocess_utils import ToolsExecutor
 
 
 class ProjectSetupTestCase(TestCase):
@@ -38,3 +39,8 @@ class ProjectSetupTestCase(TestCase):
 
         max_line_length = get_py_max_line_length(package_root=PACKAGE_ROOT)
         self.assertEqual(max_line_length, 119)
+
+    def test_pre_commit_hooks(self):
+        executor = ToolsExecutor(cwd=PACKAGE_ROOT)
+        for command in ('migrate-config', 'validate-config', 'validate-manifest'):
+            executor.verbose_check_call('pre-commit', command, exit_on_error=True)
