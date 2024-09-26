@@ -11,6 +11,11 @@ bx-py-utils==104 \
     --hash=sha256:77fddff99aaf2cb558ce2974ef66d0e7a4d48cca1cbb99e43eca0d8b77fa07fc \
     --hash=sha256:c92ebc4fb122e3e3c228d984d0a1f5c3284c3da6aab1a1c753f7eb1f71bdab3a
     # via cli-base-utilities (pyproject.toml)
+click==8.1.7 \
+    --hash=sha256:8e38806544348fdafedd47e92e90aca882377a0680918dec4c80c225a0e5ed13 \
+    --hash=sha256:ae74fb96c20a0277a1d615f1e4d73c8414f5a98db8b799a7931d1582f3390c28 \
+    --hash=sha256:ca9853ad459e787e2192211578cc907e7594e294c7ccc834310722b41b9ca6de
+    # via cli-base-utilities (pyproject.toml)
 docstring-parser==0.16 \
     --hash=sha256:538beabd0af1e2db0146b6bd3caa526c35a34d61af9fd2887f3a8a27a739aa6e \
     --hash=sha256:bf0a1387354d3691d102edef7ec124f219ef639982d096e26e3b60aeffa90637

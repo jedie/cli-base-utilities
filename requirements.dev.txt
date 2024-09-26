@@ -272,10 +272,9 @@ charset-normalizer==3.3.2 \
     --hash=sha256:fd1abc0d89e30cc4e02e4064dc67fcc51bd941eb395c502aac3ec19fab46b519 \
     --hash=sha256:ff8fa367d09b717b2a17a052544193ad76cd49979c805768879cb63d9ca50561
     # via requests
-cli-base-utilities==0.12.0 \
-    --hash=sha256:5669dcbbb6052d3a1fa7c54870bfa933fb6c99faea11a7d3c46e5c2aae1c0b8e \
-    --hash=sha256:8cd55b2462f3cfa87facfffa219867ec9ed128f3e13b84090a35578c731ec9df \
-    --hash=sha256:c2a9e70886baf9a97fcd64600f1ee1dbf499bf149f84a609db3deebd17dd8161
+cli-base-utilities==0.13.0 \
+    --hash=sha256:0d630bc38cb87a1828a3a04394a8cc5b0468d70d7aaddbe46f05defebead93bd \
+    --hash=sha256:bf6bbf8a35706caeefa75dd4be161dc2379d8a1d6bebeedfb3e88317c410c95d
     # via manageprojects
 click==8.1.7 \
     --hash=sha256:8e38806544348fdafedd47e92e90aca882377a0680918dec4c80c225a0e5ed13 \
@@ -283,7 +282,7 @@ click==8.1.7 \
     --hash=sha256:ca9853ad459e787e2192211578cc907e7594e294c7ccc834310722b41b9ca6de
     # via
     #   black
-    #   cli-base-utilities
+    #   cli-base-utilities (pyproject.toml)
     #   cookiecutter
     #   manageprojects
     #   pip-tools
@@ -1003,9 +1002,7 @@ rich-click==1.8.3 \
     --hash=sha256:636d9c040d31c5eee242201b5bf4f2d358bfae4db14bb22ec1cafa717cfd02cd \
     --hash=sha256:6d75bdfa7aa9ed2c467789a0688bc6da23fbe3a143e19aa6ad3f8bac113d2ab3 \
     --hash=sha256:ef50d4087a5a4f1e7fcee7972f78775e9b33c0709a86dc10f9f5b929ba4d51b8
-    # via
-    #   cli-base-utilities
-    #   manageprojects
+    # via manageprojects
 secretstorage==3.3.3 \
     --hash=sha256:2403533ef369eca6d2ba81718576c5e0f564d5cca1b58f73a8b23e7d4eeebd77 \
     --hash=sha256:cd7ed5cdeb3e5d7f18a7651500e0fec895205ae9c0abf7e5e63f6768d69418a2 \
@@ -1080,7 +1077,9 @@ tyro==0.8.11 \
     --hash=sha256:0a8dd180e6afcd5df9d9f940b7e6225f67ceb348678d49df9df00a59576174fb \
     --hash=sha256:241d95789733107829e7ea7c24727863db2e61aa74cf9b2251c85f4e7abccd4c \
     --hash=sha256:486e6ed6672df2222303877a39a498e8f0fc762cdb9deacac67320c44a8eba45
-    # via cli-base-utilities (pyproject.toml)
+    # via
+    #   cli-base-utilities
+    #   cli-base-utilities (pyproject.toml)
 urllib3==2.2.3 \
     --hash=sha256:53042b594bc77c4b5d43f598b9eca1333bf4f884c300473192f4d4f47bab1d2d \
     --hash=sha256:ca899ca043dcb1bafa3e262d73aa25c465bfb49e0bd9dd5d59f1d0acba2f8fac \

@@ -9,7 +9,7 @@ from cli_base.tyro_commands import TyroVerbosityArgType
 
 MAX_LOG_LEVEL = 3
 
-OPTION_KWARGS_VERBOSE = dict(
+OPTION_KWARGS_VERBOSE = dict(  # Deprecated: Migrate from click to tyro ;)
     count=True,
     type=click.IntRange(0, MAX_LOG_LEVEL),
     default=0,

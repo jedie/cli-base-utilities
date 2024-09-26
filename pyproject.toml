@@ -12,6 +12,7 @@ dependencies = [
     "bx_py_utils",  # https://github.com/boxine/bx_py_utils
     "tomlkit",  # https://github.com/sdispater/tomlkit
     "tyro",  # https://github.com/brentyi/tyro
+    "click",  # For Backward compatibility TODO: Remove in future
     "rich",  # https://github.com/Textualize/rich
     "packaging",  # https://github.com/pypa/packaging
     "python-dateutil",  # https://github.com/dateutil/dateutil/
