@@ -7,61 +7,26 @@ import os
 import resource
 import sys
 import time
-from pathlib import Path
 
-import rich_click
-import rich_click as click
 from rich import print  # noqa
-from rich.console import Console
-from rich.traceback import install as rich_traceback_install
-from rich_click import RichGroup
 
 from cli_base import __version__, constants
+from cli_base.cli_tools.rich_utils import rich_traceback_install
 from cli_base.cli_tools.subprocess_utils import verbose_check_output
-from cli_base.cli_tools.verbosity import OPTION_KWARGS_VERBOSE, setup_logging
+from cli_base.cli_tools.verbosity import setup_logging
 from cli_base.demo.settings import DemoSettings, SystemdServiceInfo
 from cli_base.systemd.api import ServiceControl
 from cli_base.toml_settings.api import TomlSettings
+from cli_base.tyro_commands import TyroCommandCli, TyroVerbosityArgType
 
 
 logger = logging.getLogger(__name__)
 
 
-OPTION_ARGS_DEFAULT_TRUE = dict(is_flag=True, show_default=True, default=True)
-OPTION_ARGS_DEFAULT_FALSE = dict(is_flag=True, show_default=True, default=False)
-ARGUMENT_EXISTING_DIR = dict(
-    type=click.Path(exists=True, file_okay=False, dir_okay=True, readable=True, path_type=Path)
-)
-ARGUMENT_NOT_EXISTING_DIR = dict(
-    type=click.Path(
-        exists=False,
-        file_okay=False,
-        dir_okay=True,
-        readable=False,
-        writable=True,
-        path_type=Path,
-    )
-)
-ARGUMENT_EXISTING_FILE = dict(
-    type=click.Path(exists=True, file_okay=True, dir_okay=False, readable=True, path_type=Path)
-)
+cli = TyroCommandCli()
 
 
-class ClickGroup(RichGroup):  # FIXME: How to set the "info_name" easier?
-    def make_context(self, info_name, *args, **kwargs):
-        info_name = './cli.py'
-        return super().make_context(info_name, *args, **kwargs)
-
-
-@click.group(
-    cls=ClickGroup,
-    epilog=constants.CLI_EPILOG,
-)
-def cli():
-    pass
-
-
-@cli.command()
+@cli.register
 def version():
     """Print version and exit"""
     # Pseudo command, because the version always printed on every CLI call ;)
@@ -73,9 +38,8 @@ SETTINGS_DIR_NAME = 'cli-base-utilities'
 SETTINGS_FILE_NAME = 'cli-base-utilities-demo'
 
 
-@cli.command()
-@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
-def edit_settings(verbosity: int):
+@cli.register
+def edit_settings(verbosity: TyroVerbosityArgType):
     """
     Edit the settings file. On first call: Create the default one.
     """
@@ -87,9 +51,8 @@ def edit_settings(verbosity: int):
     ).open_in_editor()
 
 
-@cli.command()
-@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
-def print_settings(verbosity: int):
+@cli.register
+def print_settings(verbosity: TyroVerbosityArgType):
     """
     Display (anonymized) MQTT server username and password
     """
@@ -105,9 +68,8 @@ def print_settings(verbosity: int):
 # Manage systemd service commands:
 
 
-@cli.command()
-@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
-def systemd_debug(verbosity: int):
+@cli.register
+def systemd_debug(verbosity: TyroVerbosityArgType):
     """
     Print Systemd service template + context + rendered file content.
     """
@@ -123,9 +85,8 @@ def systemd_debug(verbosity: int):
     ServiceControl(info=systemd_settings).debug_systemd_config()
 
 
-@cli.command()
-@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
-def systemd_setup(verbosity: int):
+@cli.register
+def systemd_setup(verbosity: TyroVerbosityArgType):
     """
     Write Systemd service file, enable it and (re-)start the service. (May need sudo)
     """
@@ -141,9 +102,8 @@ def systemd_setup(verbosity: int):
     ServiceControl(info=systemd_settings).setup_and_restart_systemd_service()
 
 
-@cli.command()
-@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
-def systemd_remove(verbosity: int):
+@cli.register
+def systemd_remove(verbosity: TyroVerbosityArgType):
     """
     Write Systemd service file, enable it and (re-)start the service. (May need sudo)
     """
@@ -159,9 +119,8 @@ def systemd_remove(verbosity: int):
     ServiceControl(info=systemd_settings).remove_systemd_service()
 
 
-@cli.command()
-@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
-def systemd_status(verbosity: int):
+@cli.register
+def systemd_status(verbosity: TyroVerbosityArgType):
     """
     Display status of systemd service. (May need sudo)
     """
@@ -177,9 +136,8 @@ def systemd_status(verbosity: int):
     ServiceControl(info=systemd_settings).status()
 
 
-@cli.command()
-@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
-def systemd_stop(verbosity: int):
+@cli.register
+def systemd_stop(verbosity: TyroVerbosityArgType):
     """
     Stops the systemd service. (May need sudo)
     """
@@ -195,9 +153,8 @@ def systemd_stop(verbosity: int):
     ServiceControl(info=systemd_settings).stop()
 
 
-@cli.command()
-@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
-def demo_endless_loop(verbosity: int):
+@cli.register
+def demo_endless_loop(verbosity: TyroVerbosityArgType):
     """
     Just a useless example command, used in systemd DEMO: It just print some information in a endless loop.
     """
@@ -223,7 +180,7 @@ def demo_endless_loop(verbosity: int):
 ######################################################################################################
 
 
-@cli.command()
+@cli.register
 def demo_verbose_check_output_error():
     """
     DEMO for a error calling cli_base.cli_tools.subprocess_utils.verbose_check_output()
@@ -237,14 +194,9 @@ def demo_verbose_check_output_error():
 def main():
     print(f'[bold][green]cli-base-utilities[/green] DEMO cli v[cyan]{__version__}')
 
-    console = Console()
-    rich_traceback_install(
-        width=console.size.width,  # full terminal width
-        show_locals=True,
-        suppress=[click, rich_click],
-        max_frames=2,
-    )
+    rich_traceback_install()
 
-    # Execute Click CLI:
-    cli.name = './cli.py'
-    cli()
+    cli.run(
+        prog='./cli.py',
+        description=constants.CLI_EPILOG,
+    )

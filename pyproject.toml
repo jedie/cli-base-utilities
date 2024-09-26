@@ -11,8 +11,7 @@ requires-python = ">=3.11"
 dependencies = [
     "bx_py_utils",  # https://github.com/boxine/bx_py_utils
     "tomlkit",  # https://github.com/sdispater/tomlkit
-    "click",  # https://github.com/pallets/click/
-    "rich-click",  # https://github.com/ewels/rich-click
+    "tyro",  # https://github.com/brentyi/tyro
     "rich",  # https://github.com/Textualize/rich
     "packaging",  # https://github.com/pypa/packaging
     "python-dateutil",  # https://github.com/dateutil/dateutil/

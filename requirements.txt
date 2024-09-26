@@ -11,13 +11,10 @@ bx-py-utils==104 \
     --hash=sha256:77fddff99aaf2cb558ce2974ef66d0e7a4d48cca1cbb99e43eca0d8b77fa07fc \
     --hash=sha256:c92ebc4fb122e3e3c228d984d0a1f5c3284c3da6aab1a1c753f7eb1f71bdab3a
     # via cli-base-utilities (pyproject.toml)
-click==8.1.7 \
-    --hash=sha256:8e38806544348fdafedd47e92e90aca882377a0680918dec4c80c225a0e5ed13 \
-    --hash=sha256:ae74fb96c20a0277a1d615f1e4d73c8414f5a98db8b799a7931d1582f3390c28 \
-    --hash=sha256:ca9853ad459e787e2192211578cc907e7594e294c7ccc834310722b41b9ca6de
-    # via
-    #   cli-base-utilities (pyproject.toml)
-    #   rich-click
+docstring-parser==0.16 \
+    --hash=sha256:538beabd0af1e2db0146b6bd3caa526c35a34d61af9fd2887f3a8a27a739aa6e \
+    --hash=sha256:bf0a1387354d3691d102edef7ec124f219ef639982d096e26e3b60aeffa90637
+    # via tyro
 markdown-it-py==3.0.0 \
     --hash=sha256:355216845c60bd96232cd8d8c40e8f9765cc86f46880e43a8fd22dc1a1a8cab1 \
     --hash=sha256:6d00561ef69282f31c923e5520f8f7025f6c2bbd1d7796f3d730840cc54130a6 \
@@ -46,12 +43,12 @@ rich==13.8.1 \
     --hash=sha256:8260cda28e3db6bf04d2d1ef4dbc03ba80a824c88b0e7668a0f23126a424844a
     # via
     #   cli-base-utilities (pyproject.toml)
-    #   rich-click
-rich-click==1.8.3 \
-    --hash=sha256:636d9c040d31c5eee242201b5bf4f2d358bfae4db14bb22ec1cafa717cfd02cd \
-    --hash=sha256:6d75bdfa7aa9ed2c467789a0688bc6da23fbe3a143e19aa6ad3f8bac113d2ab3 \
-    --hash=sha256:ef50d4087a5a4f1e7fcee7972f78775e9b33c0709a86dc10f9f5b929ba4d51b8
-    # via cli-base-utilities (pyproject.toml)
+    #   tyro
+shtab==1.7.1 \
+    --hash=sha256:32d3d2ff9022d4c77a62492b6ec875527883891e33c6b479ba4d41a51e259983 \
+    --hash=sha256:4e4bcb02eeb82ec45920a5d0add92eac9c9b63b2804c9196c1f1fdc2d039243c \
+    --hash=sha256:60d06a16bf25f675d374b87fb0c020aaa13bc01f0e2f279541feeb7155db5141
+    # via tyro
 six==1.16.0 \
     --hash=sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926 \
     --hash=sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254
@@ -63,4 +60,9 @@ tomlkit==0.13.2 \
 typing-extensions==4.12.2 \
     --hash=sha256:04e5ca0351e0f3f85c6853954072df659d0d13fac324d0072316b67d7794700d \
     --hash=sha256:1a7ead55c7e559dd4dee8856e3a88b41225abfe1ce8df57b7c13915fe121ffb8
-    # via rich-click
+    # via tyro
+tyro==0.8.11 \
+    --hash=sha256:0a8dd180e6afcd5df9d9f940b7e6225f67ceb348678d49df9df00a59576174fb \
+    --hash=sha256:241d95789733107829e7ea7c24727863db2e61aa74cf9b2251c85f4e7abccd4c \
+    --hash=sha256:486e6ed6672df2222303877a39a498e8f0fc762cdb9deacac67320c44a8eba45
+    # via cli-base-utilities (pyproject.toml)

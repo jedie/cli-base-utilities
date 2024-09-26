@@ -55,13 +55,13 @@ class ReadmeTestCase(BaseTestCase):
         assert_rich_click_no_color(width=TERM_WIDTH)
 
     def invoke_cli(self, *args):
-        return self.cli_mock.invoke(cli_bin=PACKAGE_ROOT / 'cli.py', args=args, strip_line_prefix='Usage: ')
+        return self.cli_mock.invoke(cli_bin=PACKAGE_ROOT / 'cli.py', args=args, strip_line_prefix='usage: ')
 
     def invoke_dev_cli(self, *args):
-        return self.cli_mock.invoke(cli_bin=PACKAGE_ROOT / 'dev-cli.py', args=args, strip_line_prefix='Usage: ')
+        return self.cli_mock.invoke(cli_bin=PACKAGE_ROOT / 'dev-cli.py', args=args, strip_line_prefix='usage: ')
 
     def invoke_demo_cli(self, *args):
-        return self.cli_mock.invoke(cli_bin=PACKAGE_ROOT / 'demo-cli.py', args=args, strip_line_prefix='Usage: ')
+        return self.cli_mock.invoke(cli_bin=PACKAGE_ROOT / 'demo-cli.py', args=args, strip_line_prefix='usage: ')
 
     def assert_readme_block(self, *, text_block: str, marker: str):
         assert_cli_help_in_readme(
@@ -76,7 +76,7 @@ class ReadmeTestCase(BaseTestCase):
         assert_in(
             content=stdout,
             parts=(
-                'Usage: ./cli.py [OPTIONS] COMMAND [ARGS]...',
+                'usage: ./cli.py [-h]',
                 ' version ',
                 constants.CLI_EPILOG,
             ),
@@ -88,7 +88,7 @@ class ReadmeTestCase(BaseTestCase):
         assert_in(
             content=stdout,
             parts=(
-                'Usage: ./dev-cli.py [OPTIONS] COMMAND [ARGS]...',
+                'usage: ./dev-cli.py [-h]',
                 'fix-code-style',
                 'tox',
                 constants.CLI_EPILOG,
@@ -101,7 +101,7 @@ class ReadmeTestCase(BaseTestCase):
         assert_in(
             content=stdout,
             parts=(
-                'Usage: ./cli.py [OPTIONS] COMMAND [ARGS]...',
+                'usage: ./cli.py [-h]',
                 'edit-settings',
                 'demo-endless-loop',
                 constants.CLI_EPILOG,

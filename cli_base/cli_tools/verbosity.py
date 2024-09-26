@@ -4,6 +4,8 @@ import click
 from rich import get_console
 from rich.logging import RichHandler
 
+from cli_base.tyro_commands import TyroVerbosityArgType
+
 
 MAX_LOG_LEVEL = 3
 
@@ -16,7 +18,7 @@ OPTION_KWARGS_VERBOSE = dict(
 )
 
 
-def setup_logging(*, verbosity: int):
+def setup_logging(*, verbosity: TyroVerbosityArgType):
     log_format = '%(message)s'
     if verbosity == 0:
         level = logging.ERROR

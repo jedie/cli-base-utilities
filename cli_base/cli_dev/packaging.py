@@ -1,18 +1,17 @@
 import sys
 from pathlib import Path
 
-import click
 from manageprojects.utilities.publish import publish_package
 
 import cli_base
 from cli_base.cli_dev import PACKAGE_ROOT, cli
 from cli_base.cli_tools.dev_tools import run_unittest_cli
 from cli_base.cli_tools.subprocess_utils import verbose_check_call
-from cli_base.cli_tools.verbosity import OPTION_KWARGS_VERBOSE
 from cli_base.run_pip_audit import run_pip_audit
+from cli_base.tyro_commands import TyroVerbosityArgType
 
 
-@cli.command()
+@cli.register
 def install():
     """
     Run pip-sync and install 'cli_base' via pip as editable.
@@ -21,16 +20,15 @@ def install():
     verbose_check_call('pip', 'install', '--no-deps', '-e', '.')
 
 
-@cli.command()
-@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE)
-def pip_audit(verbosity: int):
+@cli.register
+def pip_audit(verbosity: TyroVerbosityArgType):
     """
     Run pip-audit check against current requirements files
     """
     run_pip_audit(base_path=PACKAGE_ROOT, verbosity=verbosity)
 
 
-@cli.command()
+@cli.register
 def update():
     """
     Update "requirements*.txt" dependencies files
@@ -74,7 +72,7 @@ def update():
     verbose_check_call(bin_path / 'pre-commit', 'autoupdate')
 
 
-@cli.command()
+@cli.register
 def publish():
     """
     Build and upload this project to PyPi

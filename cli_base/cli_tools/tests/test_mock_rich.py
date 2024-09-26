@@ -45,19 +45,19 @@ class MockRichTestCase(TestCase):
                 parts=(
                     '.venv/bin/cli_base_dev --help',
                     f'cli_base v{__version__}',
-                    'Usage: ./dev-cli.py',
-                    'Show this message and exit.',
+                    'usage: ./dev-cli.py',
+                    'show this help message and exit',
                 ),
             )
             assert_startswith(stdout, f'\n+ {PACKAGE_ROOT}')
 
             # Remove prefix lines:
-            stdout = cm.invoke(cli_bin=PACKAGE_ROOT / 'dev-cli.py', args=('--help',), strip_line_prefix='Usage: ')
+            stdout = cm.invoke(cli_bin=PACKAGE_ROOT / 'dev-cli.py', args=('--help',), strip_line_prefix='usage: ')
             assert_in(
                 stdout,
                 parts=(
-                    'Usage: ./dev-cli.py',
-                    'Show this message and exit.',
+                    'usage: ./dev-cli.py',
+                    'show this help message and exit',
                 ),
             )
-            assert_startswith(stdout, ' Usage: ./dev-cli.py ')
+            assert_startswith(stdout, 'usage: ./dev-cli.py [-h]')
