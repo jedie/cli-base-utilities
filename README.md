@@ -182,6 +182,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [v0.13.1](https://github.com/jedie/cli-base-utilities/compare/v0.13.0...v0.13.1)
+  * 2024-09-26 - Bugfix missing click. Add it for Backward compatibility
 * [v0.13.0](https://github.com/jedie/cli-base-utilities/compare/v0.12.0...v0.13.0)
   * 2024-09-26 - Add Helper for tyro and replace click with tyro in own CLIs
 * [v0.12.0](https://github.com/jedie/cli-base-utilities/compare/v0.11.0...v0.12.0)
@@ -192,11 +194,11 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 * [v0.11.0](https://github.com/jedie/cli-base-utilities/compare/v0.10.3...v0.11.0)
   * 2024-08-30 - Apply manageprojects updates, e.g.: Set min. Python to 3.11+
   * 2024-08-30 - NEW: EncloseRuleContext
-* [v0.10.3](https://github.com/jedie/cli-base-utilities/compare/v0.10.2...v0.10.3)
-  * 2024-08-05 - Bugfix unchanable boolean flags in toml settings
 
 <details><summary>Expand older history entries ...</summary>
 
+* [v0.10.3](https://github.com/jedie/cli-base-utilities/compare/v0.10.2...v0.10.3)
+  * 2024-08-05 - Bugfix unchanable boolean flags in toml settings
 * [v0.10.2](https://github.com/jedie/cli-base-utilities/compare/v0.10.1...v0.10.2)
   * 2024-08-04 - Auto activate pre commit hooks
   * 2024-08-04 - Update demo CLI: Always update pip and pip-tools
