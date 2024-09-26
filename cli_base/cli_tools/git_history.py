@@ -129,7 +129,12 @@ def get_git_history(
         yield from renderer.render(tags_history)
 
 
-def update_readme_history(*, verbosity: int = 0, raise_update_error: bool = False) -> bool:
+def update_readme_history(
+    *,
+    base_path: Path | None = None,
+    verbosity: int = 0,
+    raise_update_error: bool = False,
+) -> bool:
     """
     Update project history base on git commits/tags in README.md
 
@@ -147,7 +152,7 @@ def update_readme_history(*, verbosity: int = 0, raise_update_error: bool = Fals
         [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
         [comment]: <> (✂✂✂ auto generated history end ✂✂✂)
     """
-    base_path = Path.cwd()
+    base_path = base_path or Path.cwd()
     if verbosity > 2:
         print(f'{base_path=}')
 

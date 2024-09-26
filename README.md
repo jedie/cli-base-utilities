@@ -35,26 +35,33 @@ TODO: Document all features here ;)
 
 [comment]: <> (✂✂✂ auto generated dev help start ✂✂✂)
 ```
-Usage: ./dev-cli.py [OPTIONS] COMMAND [ARGS]...
+usage: ./dev-cli.py [-h]
+                    {check-code-style,coverage,fix-code-style,install,mypy,pip-audit,publish,test,
+tox,update,update-test-snapshot-files,version}
 
-╭─ Options ────────────────────────────────────────────────────────────────────────────────────────╮
-│ --help      Show this message and exit.                                                          │
-╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
-╭─ Commands ───────────────────────────────────────────────────────────────────────────────────────╮
-│ check-code-style            Check code style by calling darker + flake8                          │
-│ coverage                    Run tests and show coverage report.                                  │
-│ fix-code-style              Fix code style of all cli_base source code files via darker          │
-│ install                     Run pip-sync and install 'cli_base' via pip as editable.             │
-│ mypy                        Run Mypy (configured in pyproject.toml)                              │
-│ pip-audit                   Run pip-audit check against current requirements files               │
-│ publish                     Build and upload this project to PyPi                                │
-│ test                        Run unittests                                                        │
-│ tox                         Run tox                                                              │
-│ update                      Update "requirements*.txt" dependencies files                        │
-│ update-test-snapshot-files  Update all test snapshot files (by remove and recreate all snapshot  │
-│                             files)                                                               │
-│ version                     Print version and exit                                               │
-╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+
+╭─ options ──────────────────────────────────────────────────────────────────────────────────────╮
+│ -h, --help        show this help message and exit                                              │
+╰────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭─ subcommands ──────────────────────────────────────────────────────────────────────────────────╮
+│ {check-code-style,coverage,fix-code-style,install,mypy,pip-audit,publish,test,tox,update,upda… │
+│     check-code-style                                                                           │
+│                   Check code style by calling darker + flake8                                  │
+│     coverage      Run tests and show coverage report.                                          │
+│     fix-code-style                                                                             │
+│                   Fix code style of all cli_base source code files via darker                  │
+│     install       Run pip-sync and install 'cli_base' via pip as editable.                     │
+│     mypy          Run Mypy (configured in pyproject.toml)                                      │
+│     pip-audit     Run pip-audit check against current requirements files                       │
+│     publish       Build and upload this project to PyPi                                        │
+│     test          Run unittests                                                                │
+│     tox           Run tox                                                                      │
+│     update        Update "requirements*.txt" dependencies files                                │
+│     update-test-snapshot-files                                                                 │
+│                   Update all test snapshot files (by remove and recreate all snapshot files)   │
+│     version       Print version and exit                                                       │
+╰────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 [comment]: <> (✂✂✂ auto generated dev help end ✂✂✂)
 
@@ -63,15 +70,23 @@ Usage: ./dev-cli.py [OPTIONS] COMMAND [ARGS]...
 
 [comment]: <> (✂✂✂ auto generated app help start ✂✂✂)
 ```
-Usage: ./cli.py [OPTIONS] COMMAND [ARGS]...
+usage: ./cli.py [-h] {update-readme-history,version}
 
-╭─ Options ────────────────────────────────────────────────────────────────────────────────────────╮
-│ --help      Show this message and exit.                                                          │
-╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
-╭─ Commands ───────────────────────────────────────────────────────────────────────────────────────╮
-│ update-readme-history      Update project history base on git commits/tags in README.md          │
-│ version                    Print version and exit                                                │
-╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+
+╭─ options ──────────────────────────────────────────────────────────────────────────────────────╮
+│ -h, --help        show this help message and exit                                              │
+╰────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭─ subcommands ──────────────────────────────────────────────────────────────────────────────────╮
+│ {update-readme-history,version}                                                                │
+│     update-readme-history                                                                      │
+│                   Update project history base on git commits/tags in README.md Will be exited  │
+│                   with 1 if the README.md was updated otherwise with 0.                        │
+│                                                                                                │
+│                   Also, callable via e.g.:                                                     │
+│                       python -m cli_base update-readme-history -v                              │
+│     version       Print version and exit                                                       │
+╰────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 [comment]: <> (✂✂✂ auto generated app help end ✂✂✂)
 
@@ -80,28 +95,40 @@ Usage: ./cli.py [OPTIONS] COMMAND [ARGS]...
 
 [comment]: <> (✂✂✂ auto generated demo help start ✂✂✂)
 ```
-Usage: ./cli.py [OPTIONS] COMMAND [ARGS]...
+usage: ./cli.py [-h]
+                {demo-endless-loop,demo-verbose-check-output-error,edit-settings,print-settings,sy
+stemd-debug,systemd-remove,systemd-setup,systemd-status,systemd-stop,version}
 
-╭─ Options ────────────────────────────────────────────────────────────────────────────────────────╮
-│ --help      Show this message and exit.                                                          │
-╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
-╭─ Commands ───────────────────────────────────────────────────────────────────────────────────────╮
-│ demo-endless-loop                Just a useless example command, used in systemd DEMO: It just   │
-│                                  print some information in a endless loop.                       │
-│ demo-verbose-check-output-error  DEMO for a error calling                                        │
-│                                  cli_base.cli_tools.subprocess_utils.verbose_check_output()      │
-│ edit-settings                    Edit the settings file. On first call: Create the default one.  │
-│ print-settings                   Display (anonymized) MQTT server username and password          │
-│ systemd-debug                    Print Systemd service template + context + rendered file        │
-│                                  content.                                                        │
-│ systemd-remove                   Write Systemd service file, enable it and (re-)start the        │
-│                                  service. (May need sudo)                                        │
-│ systemd-setup                    Write Systemd service file, enable it and (re-)start the        │
-│                                  service. (May need sudo)                                        │
-│ systemd-status                   Display status of systemd service. (May need sudo)              │
-│ systemd-stop                     Stops the systemd service. (May need sudo)                      │
-│ version                          Print version and exit                                          │
-╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+
+╭─ options ──────────────────────────────────────────────────────────────────────────────────────╮
+│ -h, --help                                                                                     │
+│     show this help message and exit                                                            │
+╰────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭─ subcommands ──────────────────────────────────────────────────────────────────────────────────╮
+│ {demo-endless-loop,demo-verbose-check-output-error,edit-settings,print-settings,systemd-debug… │
+│     demo-endless-loop                                                                          │
+│     Just a useless example command, used in systemd DEMO: It just print some information in a  │
+│     endless loop.                                                                              │
+│     demo-verbose-check-output-error                                                            │
+│     DEMO for a error calling cli_base.cli_tools.subprocess_utils.verbose_check_output()        │
+│     edit-settings                                                                              │
+│     Edit the settings file. On first call: Create the default one.                             │
+│     print-settings                                                                             │
+│     Display (anonymized) MQTT server username and password                                     │
+│     systemd-debug                                                                              │
+│     Print Systemd service template + context + rendered file content.                          │
+│     systemd-remove                                                                             │
+│     Write Systemd service file, enable it and (re-)start the service. (May need sudo)          │
+│     systemd-setup                                                                              │
+│     Write Systemd service file, enable it and (re-)start the service. (May need sudo)          │
+│     systemd-status                                                                             │
+│     Display status of systemd service. (May need sudo)                                         │
+│     systemd-stop                                                                               │
+│     Stops the systemd service. (May need sudo)                                                 │
+│     version                                                                                    │
+│     Print version and exit                                                                     │
+╰────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 [comment]: <> (✂✂✂ auto generated demo help end ✂✂✂)
 
@@ -155,6 +182,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [v0.13.0](https://github.com/jedie/cli-base-utilities/compare/v0.12.0...v0.13.0)
+  * 2024-09-26 - Add Helper for tyro and replace click with tyro in own CLIs
 * [v0.12.0](https://github.com/jedie/cli-base-utilities/compare/v0.11.0...v0.12.0)
   * 2024-09-25 - Add debug log to update_readme_history call
   * 2024-09-25 - Simplify AssertCliHelpInReadme to a flat function
@@ -165,15 +194,15 @@ It's easier to temporarily uninstall the hooks, create the release and install t
   * 2024-08-30 - NEW: EncloseRuleContext
 * [v0.10.3](https://github.com/jedie/cli-base-utilities/compare/v0.10.2...v0.10.3)
   * 2024-08-05 - Bugfix unchanable boolean flags in toml settings
+
+<details><summary>Expand older history entries ...</summary>
+
 * [v0.10.2](https://github.com/jedie/cli-base-utilities/compare/v0.10.1...v0.10.2)
   * 2024-08-04 - Auto activate pre commit hooks
   * 2024-08-04 - Update demo CLI: Always update pip and pip-tools
   * 2024-08-04 - Handle KeyboardInterrupt in cli scripts.
   * 2024-08-04 - Bugfix #50 toml2dataclass(): AttributeError: 'bool' object has no attribute 'unwrap'.
   * 2024-08-02 - Fix doc link in README.md
-
-<details><summary>Expand older history entries ...</summary>
-
 * [v0.10.1](https://github.com/jedie/cli-base-utilities/compare/v0.10.0...v0.10.1)
   * 2024-08-02 - Increase default timout from 5 to 15 minutes
   * 2024-08-02 - Update pre-commit hook version to cli-base-utilities v0.10.0
