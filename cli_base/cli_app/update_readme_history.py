@@ -4,7 +4,7 @@ from pathlib import Path
 
 from rich import print  # noqa
 
-from cli_base.cli_app import cli
+from cli_base.cli_app import app
 from cli_base.cli_tools import git_history
 from cli_base.cli_tools.verbosity import setup_logging
 from cli_base.tyro_commands import TyroVerbosityArgType
@@ -13,7 +13,7 @@ from cli_base.tyro_commands import TyroVerbosityArgType
 logger = logging.getLogger(__name__)
 
 
-@cli.register
+@app.command
 def update_readme_history(verbosity: TyroVerbosityArgType):
     """
     Update project history base on git commits/tags in README.md

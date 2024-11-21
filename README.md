@@ -95,9 +95,9 @@ usage: ./cli.py [-h] {update-readme-history,version}
 
 [comment]: <> (✂✂✂ auto generated demo help start ✂✂✂)
 ```
-usage: ./cli.py [-h]
-                {demo-endless-loop,demo-verbose-check-output-error,edit-settings,print-settings,sy
-stemd-debug,systemd-remove,systemd-setup,systemd-status,systemd-stop,version}
+usage: ./demo-cli.py [-h]
+                     {demo-endless-loop,demo-verbose-check-output-error,edit-settings,print-settin
+gs,systemd-debug,systemd-remove,systemd-setup,systemd-status,systemd-stop,version}
 
 
 
@@ -189,6 +189,7 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [v0.14.0](https://github.com/jedie/cli-base-utilities/compare/v0.13.1...v0.14.0)
+  * 2024-11-21 - Use tyro.extras.SubcommandApp()
   * 2024-11-21 - Update "install" command and use uv
   * 2024-11-21 - Switch from pip-tools to uv
 * [v0.13.1](https://github.com/jedie/cli-base-utilities/compare/v0.13.0...v0.13.1)

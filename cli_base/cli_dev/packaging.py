@@ -3,7 +3,7 @@ import logging
 from manageprojects.utilities.publish import publish_package
 
 import cli_base
-from cli_base.cli_dev import PACKAGE_ROOT, cli
+from cli_base.cli_dev import PACKAGE_ROOT, app
 from cli_base.cli_tools.dev_tools import run_unittest_cli
 from cli_base.cli_tools.subprocess_utils import ToolsExecutor
 from cli_base.cli_tools.verbosity import setup_logging
@@ -14,7 +14,7 @@ from cli_base.tyro_commands import TyroVerbosityArgType
 logger = logging.getLogger(__name__)
 
 
-@cli.register
+@app.command
 def install():
     """
     Run pip-sync and install 'cli_base' via pip as editable.
@@ -24,7 +24,7 @@ def install():
     tools_executor.verbose_check_call('pip', 'install', '--no-deps', '-e', '.')
 
 
-@cli.register
+@app.command
 def pip_audit(verbosity: TyroVerbosityArgType):
     """
     Run pip-audit check against current requirements files
@@ -33,7 +33,7 @@ def pip_audit(verbosity: TyroVerbosityArgType):
     run_pip_audit(base_path=PACKAGE_ROOT, verbosity=verbosity)
 
 
-@cli.register
+@app.command
 def update(verbosity: TyroVerbosityArgType):
     """
     Update "requirements*.txt" dependencies files
@@ -55,7 +55,7 @@ def update(verbosity: TyroVerbosityArgType):
     tools_executor.verbose_check_call('pre-commit', 'autoupdate')
 
 
-@cli.register
+@app.command
 def publish():
     """
     Build and upload this project to PyPi

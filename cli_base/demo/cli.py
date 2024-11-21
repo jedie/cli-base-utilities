@@ -9,6 +9,7 @@ import sys
 import time
 
 from rich import print  # noqa
+from tyro.extras import SubcommandApp
 
 from cli_base import __version__, constants
 from cli_base.cli_tools.rich_utils import rich_traceback_install
@@ -17,16 +18,16 @@ from cli_base.cli_tools.verbosity import setup_logging
 from cli_base.demo.settings import DemoSettings, SystemdServiceInfo
 from cli_base.systemd.api import ServiceControl
 from cli_base.toml_settings.api import TomlSettings
-from cli_base.tyro_commands import TyroCommandCli, TyroVerbosityArgType
+from cli_base.tyro_commands import TyroVerbosityArgType
 
 
 logger = logging.getLogger(__name__)
 
 
-cli = TyroCommandCli()
+app = SubcommandApp()
 
 
-@cli.register
+@app.command
 def version():
     """Print version and exit"""
     # Pseudo command, because the version always printed on every CLI call ;)
@@ -38,7 +39,7 @@ SETTINGS_DIR_NAME = 'cli-base-utilities'
 SETTINGS_FILE_NAME = 'cli-base-utilities-demo'
 
 
-@cli.register
+@app.command
 def edit_settings(verbosity: TyroVerbosityArgType):
     """
     Edit the settings file. On first call: Create the default one.
@@ -51,7 +52,7 @@ def edit_settings(verbosity: TyroVerbosityArgType):
     ).open_in_editor()
 
 
-@cli.register
+@app.command
 def print_settings(verbosity: TyroVerbosityArgType):
     """
     Display (anonymized) MQTT server username and password
@@ -68,7 +69,7 @@ def print_settings(verbosity: TyroVerbosityArgType):
 # Manage systemd service commands:
 
 
-@cli.register
+@app.command
 def systemd_debug(verbosity: TyroVerbosityArgType):
     """
     Print Systemd service template + context + rendered file content.
@@ -85,7 +86,7 @@ def systemd_debug(verbosity: TyroVerbosityArgType):
     ServiceControl(info=systemd_settings).debug_systemd_config()
 
 
-@cli.register
+@app.command
 def systemd_setup(verbosity: TyroVerbosityArgType):
     """
     Write Systemd service file, enable it and (re-)start the service. (May need sudo)
@@ -102,7 +103,7 @@ def systemd_setup(verbosity: TyroVerbosityArgType):
     ServiceControl(info=systemd_settings).setup_and_restart_systemd_service()
 
 
-@cli.register
+@app.command
 def systemd_remove(verbosity: TyroVerbosityArgType):
     """
     Write Systemd service file, enable it and (re-)start the service. (May need sudo)
@@ -119,7 +120,7 @@ def systemd_remove(verbosity: TyroVerbosityArgType):
     ServiceControl(info=systemd_settings).remove_systemd_service()
 
 
-@cli.register
+@app.command
 def systemd_status(verbosity: TyroVerbosityArgType):
     """
     Display status of systemd service. (May need sudo)
@@ -136,7 +137,7 @@ def systemd_status(verbosity: TyroVerbosityArgType):
     ServiceControl(info=systemd_settings).status()
 
 
-@cli.register
+@app.command
 def systemd_stop(verbosity: TyroVerbosityArgType):
     """
     Stops the systemd service. (May need sudo)
@@ -153,7 +154,7 @@ def systemd_stop(verbosity: TyroVerbosityArgType):
     ServiceControl(info=systemd_settings).stop()
 
 
-@cli.register
+@app.command
 def demo_endless_loop(verbosity: TyroVerbosityArgType):
     """
     Just a useless example command, used in systemd DEMO: It just print some information in a endless loop.
@@ -180,7 +181,7 @@ def demo_endless_loop(verbosity: TyroVerbosityArgType):
 ######################################################################################################
 
 
-@cli.register
+@app.command
 def demo_verbose_check_output_error():
     """
     DEMO for a error calling cli_base.cli_tools.subprocess_utils.verbose_check_output()
@@ -196,7 +197,12 @@ def main():
 
     rich_traceback_install()
 
-    cli.run(
-        prog='./cli.py',
+    # Work-a-round for: https://github.com/brentyi/tyro/issues/205
+    app._subcommands = {k.replace('_', '-'): v for k, v in app._subcommands.items()}
+
+    app.cli(
+        prog='./demo-cli.py',
         description=constants.CLI_EPILOG,
+        use_underscores=False,  # use hyphens instead of underscores
+        sort_subcommands=True,
     )

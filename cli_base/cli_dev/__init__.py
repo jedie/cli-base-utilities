@@ -8,6 +8,7 @@ import sys
 
 from bx_py_utils.path import assert_is_file
 from typeguard import install_import_hook
+from tyro.extras import SubcommandApp
 
 import cli_base
 from cli_base import constants
@@ -15,7 +16,6 @@ from cli_base.autodiscover import import_all_files
 from cli_base.cli_tools.dev_tools import run_coverage, run_tox, run_unittest_cli
 from cli_base.cli_tools.rich_utils import rich_traceback_install
 from cli_base.cli_tools.version_info import print_version
-from cli_base.tyro_commands import TyroCommandCli
 
 
 # Check type annotations via typeguard in all tests.
@@ -33,14 +33,14 @@ PACKAGE_ROOT = constants.BASE_PATH.parent
 assert_is_file(PACKAGE_ROOT / 'pyproject.toml')  # Exists only in cloned git repo
 
 
-cli = TyroCommandCli()
+app = SubcommandApp()
 
 
 # Register all CLI commands, just by import all files in this package:
 import_all_files(package=__package__, init_file=__file__)
 
 
-@cli.register
+@app.command
 def version():
     """Print version and exit"""
     # Pseudo command, because the version always printed on every CLI call ;)
@@ -63,7 +63,12 @@ def main():
         if real_func := command_map.get(command):
             real_func(argv=sys.argv, exit_after_run=True)
 
-    cli.run(
+    # Work-a-round for: https://github.com/brentyi/tyro/issues/205
+    app._subcommands = {k.replace('_', '-'): v for k, v in app._subcommands.items()}
+
+    app.cli(
         prog='./dev-cli.py',
         description=constants.CLI_EPILOG,
+        use_underscores=False,  # use hyphens instead of underscores
+        sort_subcommands=True,
     )
