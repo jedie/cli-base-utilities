@@ -189,6 +189,7 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [v0.14.0](https://github.com/jedie/cli-base-utilities/compare/v0.13.1...v0.14.0)
+  * 2024-11-21 - Expand Github tests with Python 3.13
   * 2024-11-21 - Use tyro.extras.SubcommandApp()
   * 2024-11-21 - Update "install" command and use uv
   * 2024-11-21 - Switch from pip-tools to uv
