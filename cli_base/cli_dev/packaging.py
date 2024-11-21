@@ -5,7 +5,7 @@ from manageprojects.utilities.publish import publish_package
 import cli_base
 from cli_base.cli_dev import PACKAGE_ROOT, cli
 from cli_base.cli_tools.dev_tools import run_unittest_cli
-from cli_base.cli_tools.subprocess_utils import ToolsExecutor, verbose_check_call
+from cli_base.cli_tools.subprocess_utils import ToolsExecutor
 from cli_base.cli_tools.verbosity import setup_logging
 from cli_base.run_pip_audit import run_pip_audit
 from cli_base.tyro_commands import TyroVerbosityArgType
@@ -19,8 +19,9 @@ def install():
     """
     Run pip-sync and install 'cli_base' via pip as editable.
     """
-    verbose_check_call('pip-sync', PACKAGE_ROOT / 'requirements.dev.txt')
-    verbose_check_call('pip', 'install', '--no-deps', '-e', '.')
+    tools_executor = ToolsExecutor(cwd=PACKAGE_ROOT)
+    tools_executor.verbose_check_call('uv', 'sync')
+    tools_executor.verbose_check_call('pip', 'install', '--no-deps', '-e', '.')
 
 
 @cli.register
