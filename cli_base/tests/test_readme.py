@@ -101,7 +101,7 @@ class ReadmeTestCase(BaseTestCase):
         assert_in(
             content=stdout,
             parts=(
-                'usage: ./cli.py [-h]',
+                'usage: ./demo-cli.py [-h]',
                 'edit-settings',
                 'demo-endless-loop',
                 constants.CLI_EPILOG,
