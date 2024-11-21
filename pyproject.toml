@@ -17,12 +17,16 @@ dependencies = [
     "packaging",  # https://github.com/pypa/packaging
     "python-dateutil",  # https://github.com/dateutil/dateutil/
 ]
-[project.optional-dependencies]
+
+[dependency-groups]
 dev = [
     "manageprojects",  # https://github.com/jedie/manageprojects
     "urllib3", # for bx_py_utils.test_utils.deny_requests.deny_any_real_request() in tests
-    "pip-tools",  # https://github.com/jazzband/pip-tools/
+    "uv",  # https://github.com/astral-sh/uv
+    "setuptools",  # https://github.com/pypa/setuptools
+    "build",  # https://github.com/pypa/build
     "tox",  # https://github.com/tox-dev/tox
+    "tox-uv",  # https://github.com/tox-dev/tox-uv
     "coverage",  # https://github.com/nedbat/coveragepy
     "autopep8",  # https://github.com/hhatto/autopep8
     "pyupgrade",  # https://github.com/asottile/pyupgrade
@@ -48,15 +52,6 @@ dev = [
     # backports.tarfile is needed for python <3.12
     'backports.tarfile', # via jaraco-context -> keyring -> twine
 ]
-
-[tool.pip-tools.compile]
-index-url="https://pypi.org/simple"
-extra-index-url=["https://www.piwheels.org/simple"] # Add hashes of piwheels packages, too!
-generate-hashes = true
-# https://pip-tools.readthedocs.io/en/stable/#deprecations
-allow-unsafe = true
-resolver="backtracking"
-strip-extras = true
 
 [project.urls]
 Documentation = "https://github.com/jedie/cli-base-utilities"
@@ -106,9 +101,6 @@ diff = false
 check = false
 stdout = false
 isort = true
-lint = [
-    "flake8",
-]
 log_level = "INFO"
 
 
@@ -143,21 +135,16 @@ exclude_lines = [
 
 
 [tool.tox]  # https://tox.wiki/en/latest/config.html#pyproject-toml
-legacy_tox_ini = """
-[tox]
-isolated_build = True
-envlist = py{313,312,311}
-skip_missing_interpreters = True
+isolated_build = true
+env_list = ["3.13", "3.12", "3.11"]
+skip_missing_interpreters = true
 
-[testenv]
-passenv = *
-skip_install = true
-commands_pre =
-    pip install -U pip-tools
-    pip-sync requirements.dev.txt
-commands =
-    python3 -m coverage run --context='{envname}'
-"""
+[tool.tox.env_run_base]
+runner = "uv-venv-lock-runner"
+with_dev = true
+commands = [
+    ["python3", "-m", "coverage", "run", "--context", "'{envname}'"]
+]
 
 
 [tool.mypy]
@@ -173,7 +160,7 @@ exclude = ['.venv', 'tests']
 initial_revision = "a264778"
 initial_date = 2023-05-07T13:44:43+02:00
 cookiecutter_template = "https://github.com/jedie/cookiecutter_templates/"
-cookiecutter_directory = "piptools-python"
+cookiecutter_directory = "uv-python"
 applied_migrations = [
     "034be26", # 2023-08-05T21:37:12+02:00
     "9a6c2db", # 2023-11-30T20:56:46+01:00
@@ -182,6 +169,7 @@ applied_migrations = [
     "f8be3e0", # 2024-07-16T19:35:26+02:00
     "2cdc1d8", # 2024-08-25T19:00:41+02:00
     "ae7c1d3", # 2024-09-25T22:26:25+02:00
+    "e9e2dae", # 2024-11-14T17:59:23+01:00
 ]
 
 [manageprojects.cookiecutter_context.cookiecutter]
