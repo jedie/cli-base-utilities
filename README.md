@@ -177,11 +177,19 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 .../cli-base-utilities$ .venv/bin/pre-commit install
 ```
 
+# Backwards-incompatible changes
+
+## v0.14 - Switch from pip-tools to uv
+
+`cli_base.run_pip_audit.run_pip_audit()` works now with `uv` base projects instead of `pip-tools`.
+
 
 # history
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [v0.14.0](https://github.com/jedie/cli-base-utilities/compare/v0.13.1...v0.14.0)
+  * 2024-11-21 - Switch from pip-tools to uv
 * [v0.13.1](https://github.com/jedie/cli-base-utilities/compare/v0.13.0...v0.13.1)
   * 2024-09-26 - Bugfix missing click. Add it for Backward compatibility
 * [v0.13.0](https://github.com/jedie/cli-base-utilities/compare/v0.12.0...v0.13.0)
@@ -191,12 +199,12 @@ It's easier to temporarily uninstall the hooks, create the release and install t
   * 2024-09-25 - Simplify AssertCliHelpInReadme to a flat function
   * 2024-09-25 - Apply manage projects updates
   * 2024-09-25 - Update requirements
-* [v0.11.0](https://github.com/jedie/cli-base-utilities/compare/v0.10.3...v0.11.0)
-  * 2024-08-30 - Apply manageprojects updates, e.g.: Set min. Python to 3.11+
-  * 2024-08-30 - NEW: EncloseRuleContext
 
 <details><summary>Expand older history entries ...</summary>
 
+* [v0.11.0](https://github.com/jedie/cli-base-utilities/compare/v0.10.3...v0.11.0)
+  * 2024-08-30 - Apply manageprojects updates, e.g.: Set min. Python to 3.11+
+  * 2024-08-30 - NEW: EncloseRuleContext
 * [v0.10.3](https://github.com/jedie/cli-base-utilities/compare/v0.10.2...v0.10.3)
   * 2024-08-05 - Bugfix unchanable boolean flags in toml settings
 * [v0.10.2](https://github.com/jedie/cli-base-utilities/compare/v0.10.1...v0.10.2)
