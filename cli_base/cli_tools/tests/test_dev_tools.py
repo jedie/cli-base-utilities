@@ -8,7 +8,7 @@ from manageprojects.test_utils.subprocess import SimpleRunReturnCallback, Subpro
 from cli_base.cli_dev import PACKAGE_ROOT
 from cli_base.cli_tools.dev_tools import EraseCoverageData, run_coverage, run_tox, run_unittest_cli
 from cli_base.cli_tools.test_utils.assertion import assert_in
-from cli_base.cli_tools.test_utils.rich_test_utils import NoColorRichClickCli
+from cli_base.cli_tools.test_utils.rich_test_utils import NoColorTermEnviron, invoke
 from cli_base.constants import PY_BIN_PATH
 
 
@@ -44,8 +44,8 @@ class DevToolsTestCase(TestCase):
         )
 
     def test_run_unittest_via_cli(self):
-        with NoColorRichClickCli() as cm:
-            stdout = cm.invoke(cli_bin=PACKAGE_ROOT / 'dev-cli.py', args=('test', '--help'))
+        with NoColorTermEnviron():
+            stdout = invoke(cli_bin=PACKAGE_ROOT / 'dev-cli.py', args=('test', '--help'))
         assert_in(
             stdout,
             parts=(
@@ -70,8 +70,8 @@ class DevToolsTestCase(TestCase):
         )
 
     def test_run_tox_via_cli(self):
-        with NoColorRichClickCli() as cm:
-            stdout = cm.invoke(cli_bin=PACKAGE_ROOT / 'dev-cli.py', args=('tox', '--help'))
+        with NoColorTermEnviron():
+            stdout = invoke(cli_bin=PACKAGE_ROOT / 'dev-cli.py', args=('tox', '--help'))
         assert_in(
             stdout,
             parts=(
@@ -107,8 +107,8 @@ class DevToolsTestCase(TestCase):
         )
 
     def test_run_coverage_via_cli(self):
-        with NoColorRichClickCli() as cm:
-            stdout = cm.invoke(cli_bin=PACKAGE_ROOT / 'dev-cli.py', args=('coverage', '--help'))
+        with NoColorTermEnviron():
+            stdout = invoke(cli_bin=PACKAGE_ROOT / 'dev-cli.py', args=('coverage', '--help'))
         assert_in(
             stdout,
             parts=(
