@@ -188,6 +188,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.14.0...main)
+  * 2024-12-03 - Remove tyro work-a-round
 * [v0.14.0](https://github.com/jedie/cli-base-utilities/compare/v0.13.1...v0.14.0)
   * 2024-11-21 - Use tyro.extras.SubcommandApp()
   * 2024-11-21 - Update "install" command and use uv
@@ -196,14 +198,14 @@ It's easier to temporarily uninstall the hooks, create the release and install t
   * 2024-09-26 - Bugfix missing click. Add it for Backward compatibility
 * [v0.13.0](https://github.com/jedie/cli-base-utilities/compare/v0.12.0...v0.13.0)
   * 2024-09-26 - Add Helper for tyro and replace click with tyro in own CLIs
+
+<details><summary>Expand older history entries ...</summary>
+
 * [v0.12.0](https://github.com/jedie/cli-base-utilities/compare/v0.11.0...v0.12.0)
   * 2024-09-25 - Add debug log to update_readme_history call
   * 2024-09-25 - Simplify AssertCliHelpInReadme to a flat function
   * 2024-09-25 - Apply manage projects updates
   * 2024-09-25 - Update requirements
-
-<details><summary>Expand older history entries ...</summary>
-
 * [v0.11.0](https://github.com/jedie/cli-base-utilities/compare/v0.10.3...v0.11.0)
   * 2024-08-30 - Apply manageprojects updates, e.g.: Set min. Python to 3.11+
   * 2024-08-30 - NEW: EncloseRuleContext
