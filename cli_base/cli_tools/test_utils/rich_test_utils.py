@@ -2,6 +2,7 @@ import io
 import os
 import subprocess
 import sys
+import warnings
 from unittest.mock import patch
 
 import rich
@@ -91,39 +92,56 @@ class NoColorEnvRichClick(NoColorEnvRich):
         ]
 
 
+def invoke(
+    *,
+    cli_bin,
+    args,
+    strip_line_prefix: str = '',
+    exit_on_error: bool = True,
+    strip_ansi: bool = True,
+) -> str:
+    assert_is_file(cli_bin)
+
+    stdout = verbose_check_output(
+        cli_bin,
+        *args,
+        cwd=cli_bin.parent,
+        exit_on_error=exit_on_error,
+    )
+
+    if strip_ansi:
+        stdout = strip_ansi_codes(stdout)
+
+    if strip_line_prefix:
+        # Skip header lines:
+        lines = stdout.splitlines()
+        found = False
+        for pos, line in enumerate(lines):
+            if line.lstrip().startswith(strip_line_prefix):
+                stdout = '\n'.join(lines[pos:])
+                found = True
+                break
+
+        assert found is True, f'Line that starts with {strip_line_prefix=} not found in: {stdout!r}'
+
+        stdout = '\n'.join(line.rstrip() for line in stdout.splitlines())
+
+    return stdout
+
+
 class NoColorRichClickCli(NoColorEnvRichClick):
     """
     Context manager to get the output of a rich-click CLI command.
     To re-evaluate module-level code, call the CLI via a subprocess.
     """
 
-    def invoke(self, *, cli_bin, args, strip_line_prefix: str = '', exit_on_error=True) -> str:
-        assert_is_file(cli_bin)
-
-        stdout = verbose_check_output(
-            cli_bin,
-            *args,
-            cwd=cli_bin.parent,
-            exit_on_error=exit_on_error,
+    def invoke(self, *args, **kwargs):
+        warnings.warn(
+            'This context manager is deprecated. Use invoke() instead.',
+            DeprecationWarning,
+            stacklevel=2,
         )
-
-        stdout = strip_ansi_codes(stdout)  # FIXME: Needed on github CI, why?!?
-
-        if strip_line_prefix:
-            # Skip header lines:
-            lines = stdout.splitlines()
-            found = False
-            for pos, line in enumerate(lines):
-                if line.lstrip().startswith(strip_line_prefix):
-                    stdout = '\n'.join(lines[pos:])
-                    found = True
-                    break
-
-            assert found is True, f'Line that starts with {strip_line_prefix=} not found in: {stdout!r}'
-
-            stdout = '\n'.join(line.rstrip() for line in stdout.splitlines())
-
-        return stdout
+        return invoke(*args, **kwargs)
 
 
 def assert_no_color_env(*, width: int) -> None:
