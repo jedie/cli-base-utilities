@@ -1,9 +1,10 @@
 import logging
-import shutil
 import subprocess
 import sys
 
 from rich import print  # noqa
+
+from cli_base.cli_tools.path_utils import which
 
 
 logger = logging.getLogger(__name__)
@@ -23,7 +24,7 @@ def open_editor_for(file_path):
     Try to open the given file in a editor.
     """
     for command in COMMANDS:
-        if bin := shutil.which(command):
+        if bin := which(command):
             logger.info('Call: "%s %s"', bin, file_path)
             try:
                 return subprocess.check_call([bin, file_path])
