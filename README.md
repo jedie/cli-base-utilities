@@ -188,7 +188,7 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
-* [v0.15.0](https://github.com/jedie/cli-base-utilities/compare/v0.14.0...v0.15.0)
+* [v0.15.1](https://github.com/jedie/cli-base-utilities/compare/v0.14.0...v0.15.1)
   * 2025-01-17 - Remove pip-tools work-a-round and update requirements
   * 2024-12-03 - Restructure cli test utils
   * 2024-12-03 - Remove tyro work-a-round
