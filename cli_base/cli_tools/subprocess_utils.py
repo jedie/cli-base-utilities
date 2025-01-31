@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import os
-import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -10,6 +9,7 @@ from bx_py_utils.path import assert_is_dir, assert_is_file
 from rich import print  # noqa
 from rich.console import Console
 
+from cli_base.cli_tools.path_utils import which
 from cli_base.cli_tools.rich_utils import human_error
 from cli_base.constants import PY_BIN_PATH
 
@@ -112,12 +112,9 @@ def prepare_popenargs(popenargs, cwd=None):
     command_path = Path(popenargs[0])
     if not command_path.is_file():
         # Lookup in current venv bin path first:
-        command = shutil.which(str(command_path), path=str(PY_BIN_PATH))
+        command = which(str(command_path))
         if not command:
-            # Search in PATH for this command that doesn't point to a existing file:
-            command = shutil.which(str(command_path))
-            if not command:
-                raise FileNotFoundError(f'Command "{popenargs[0]}" not found in PATH!')
+            raise FileNotFoundError(f'Command "{popenargs[0]}" not found in PATH!')
 
         command = make_absolute_path(path=command)
 

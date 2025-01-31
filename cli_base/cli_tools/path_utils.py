@@ -8,6 +8,8 @@ from pathlib import Path
 from bx_py_utils.environ import OverrideEnviron
 from bx_py_utils.path import assert_is_file
 
+from cli_base.constants import PY_BIN_PATH
+
 
 logger = logging.getLogger(__name__)
 
@@ -68,3 +70,22 @@ def backup(file_path: Path, max_try=100) -> Path:
             shutil.copyfile(file_path, bak_file_candidate)
             return bak_file_candidate
     raise RuntimeError('No backup made: Maximum attempts to find a file name failed.')
+
+
+def which(tool_name: str, mode=os.F_OK | os.X_OK, path: Path | None = None) -> Path | None:
+    """
+    A shutil.which() that will look into a virtualenv bin path first.
+    """
+    # If a virtualenv is use, check first in this bin path:
+    path = path or PY_BIN_PATH
+    bin_path_str = str(path)
+    if bin_path_str not in os.environ['PATH']:
+        if tool_path := shutil.which(tool_name, mode=mode, path=bin_path_str):
+            logger.debug('%r found in: %s', tool_name, tool_path)
+            return Path(tool_path)
+
+    if tool_path := shutil.which(tool_name, mode=mode):
+        logger.debug('%r found in PATH: %s', tool_name, tool_path)
+        return Path(tool_path)
+
+    logger.debug('%r not found!', tool_name)

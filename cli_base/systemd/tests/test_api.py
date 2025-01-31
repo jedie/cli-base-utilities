@@ -7,8 +7,9 @@ from bx_py_utils.path import assert_is_file
 from bx_py_utils.test_utils.redirect import RedirectOut
 from manageprojects.test_utils.subprocess import SubprocessCallMock
 
-from cli_base.cli_tools import subprocess_utils
+from cli_base.cli_tools import path_utils
 from cli_base.cli_tools.test_utils.assertion import assert_in
+from cli_base.cli_tools.test_utils.shutil_mocks import ShutilWhichMock
 from cli_base.demo.settings import SystemdServiceInfo
 from cli_base.systemd.api import ServiceControl
 from cli_base.systemd.test_utils.mock_systemd_info import MockSystemdServiceInfo
@@ -29,11 +30,6 @@ def call_no_systemd_exit(func):
             )
         else:
             raise AssertionError(f'No sys.exit() calling: {func.__name__=}')
-
-
-class MockedShutilWhich:
-    def which(self, command, path=None):
-        return f'/usr/bin/{command}'
 
 
 class SystemdApiTestCase(TestCase):
@@ -73,9 +69,11 @@ class SystemdApiTestCase(TestCase):
                         ),
                     )
 
-            with SubprocessCallMock() as mock, patch.object(
-                subprocess_utils, 'shutil', MockedShutilWhich()
-            ), RedirectOut() as buffer:
+            with (
+                SubprocessCallMock() as mock,
+                patch.object(path_utils, 'shutil', ShutilWhichMock(command_map={'systemctl': '/usr/bin/systemctl'})),
+                RedirectOut() as buffer,
+            ):
                 service_control.setup_and_restart_systemd_service()
 
             assert_in(
