@@ -5,6 +5,7 @@ from unittest import TestCase
 import tomlkit
 from tomlkit import TOMLDocument
 
+from cli_base.constants import PY313
 from cli_base.toml_settings.serialize import dataclass2toml, dataclass2toml_str
 from cli_base.toml_settings.tests.fixtures import ComplexExample, PathExample, SimpleExample
 
@@ -50,15 +51,27 @@ class SerializeTestCase(TestCase):
         self.assertEqual(document.unwrap(), {'path': '/foo/bar'})
 
         doc_str = tomlkit.dumps(document, sort_keys=False).rstrip()
-        self.assertEqual(
-            doc_str,
-            inspect.cleandoc(
-                '''
-                # PathExample(path: pathlib.Path = PosixPath('/foo/bar'))
-                path = "/foo/bar"
-                '''
-            ),
-        )
+        if PY313:
+            # FIXME: The "._local." part is just ugly :(
+            self.assertEqual(
+                doc_str,
+                inspect.cleandoc(
+                    '''
+                    # PathExample(path: pathlib._local.Path = PosixPath('/foo/bar'))
+                    path = "/foo/bar"
+                    '''
+                ),
+            )
+        else:
+            self.assertEqual(
+                doc_str,
+                inspect.cleandoc(
+                    '''
+                    # PathExample(path: pathlib.Path = PosixPath('/foo/bar'))
+                    path = "/foo/bar"
+                    '''
+                ),
+            )
 
     def test_dataclass2toml_inheritance(self):
         instance = ComplexExample()
