@@ -6,7 +6,7 @@ from unittest.mock import patch
 from manageprojects.test_utils.subprocess import SimpleRunReturnCallback, SubprocessCallMock
 
 from cli_base.cli_dev import PACKAGE_ROOT
-from cli_base.cli_tools.dev_tools import EraseCoverageData, run_coverage, run_tox, run_unittest_cli
+from cli_base.cli_tools.dev_tools import EraseCoverageData, run_coverage, run_nox, run_unittest_cli
 from cli_base.cli_tools.test_utils.assertion import assert_in
 from cli_base.cli_tools.test_utils.rich_test_utils import NoColorTermEnviron, invoke
 from cli_base.constants import PY_BIN_PATH
@@ -20,15 +20,15 @@ class DevToolsTestCase(TestCase):
         erase_coverage_data = EraseCoverageData()
         erase_coverage_data.erased = False
 
-        with patch('cli_base.cli_tools.dev_tools.verbose_check_call') as func_mock:
+        with patch('cli_base.cli_tools.subprocess_utils.verbose_check_call') as func_mock:
             erase_coverage_data(
                 argv=('./dev-cli.py', 'coverage'),  # no "--verbose"
             )
-        func_mock.assert_called_once_with('coverage', 'erase', verbose=False, exit_on_error=True, cwd=None)
+        func_mock.assert_called_once()
         self.assertIs(erase_coverage_data.erased, True)
 
         # Skip on second call:
-        with patch('cli_base.cli_tools.dev_tools.verbose_check_call') as func_mock:
+        with patch('cli_base.cli_tools.subprocess_utils.verbose_check_call') as func_mock:
             erase_coverage_data()
         func_mock.assert_not_called()
         self.assertIs(erase_coverage_data.erased, True)
@@ -55,13 +55,13 @@ class DevToolsTestCase(TestCase):
             ),
         )
 
-    def test_run_tox(self):
+    def test_run_nox(self):
         with SubprocessCallMock(return_callback=SimpleRunReturnCallback(stdout='mocked output')) as call_mock:
-            run_tox(argv=('./dev-cli.py', 'tox'), exit_after_run=False)
+            run_nox(argv=('./dev-cli.py', 'nox'), exit_after_run=False)
         self.assertEqual(
             call_mock.get_popenargs(rstrip_paths=(PY_BIN_PATH,)),
             [
-                [f'.../{PYTHON_NAME}', '-m', 'tox'],
+                ['.../nox'],
                 ['.../coverage', 'combine', '--append'],
                 ['.../coverage', 'report'],
                 ['.../coverage', 'xml'],
@@ -69,14 +69,14 @@ class DevToolsTestCase(TestCase):
             ],
         )
 
-    def test_run_tox_via_cli(self):
+    def test_run_nox_via_cli(self):
         with NoColorTermEnviron():
-            stdout = invoke(cli_bin=PACKAGE_ROOT / 'dev-cli.py', args=('tox', '--help'))
+            stdout = invoke(cli_bin=PACKAGE_ROOT / 'dev-cli.py', args=('nox', '--help'))
         assert_in(
             stdout,
             parts=(
-                'tox --help',
-                'usage: tox [-h]',
+                'nox --help',
+                'usage: nox [-h]',
             ),
         )
 

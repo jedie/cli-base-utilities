@@ -36,8 +36,8 @@ TODO: Document all features here ;)
 [comment]: <> (✂✂✂ auto generated dev help start ✂✂✂)
 ```
 usage: ./dev-cli.py [-h]
-                    {check-code-style,coverage,fix-code-style,install,mypy,pip-audit,publish,test,
-tox,update,update-test-snapshot-files,version}
+                    {check-code-style,coverage,fix-code-style,install,mypy,nox,pip-audit,publish,t
+est,update,update-test-snapshot-files,version}
 
 
 
@@ -45,7 +45,7 @@ tox,update,update-test-snapshot-files,version}
 │ -h, --help        show this help message and exit                                              │
 ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
 ╭─ subcommands ──────────────────────────────────────────────────────────────────────────────────╮
-│ {check-code-style,coverage,fix-code-style,install,mypy,pip-audit,publish,test,tox,update,upda… │
+│ {check-code-style,coverage,fix-code-style,install,mypy,nox,pip-audit,publish,test,update,upda… │
 │     check-code-style                                                                           │
 │                   Check code style by calling darker + flake8                                  │
 │     coverage      Run tests and show coverage report.                                          │
@@ -53,10 +53,10 @@ tox,update,update-test-snapshot-files,version}
 │                   Fix code style of all cli_base source code files via darker                  │
 │     install       Run pip-sync and install 'cli_base' via pip as editable.                     │
 │     mypy          Run Mypy (configured in pyproject.toml)                                      │
+│     nox           Run nox                                                                      │
 │     pip-audit     Run pip-audit check against current requirements files                       │
 │     publish       Build and upload this project to PyPi                                        │
 │     test          Run unittests                                                                │
-│     tox           Run tox                                                                      │
 │     update        Update "requirements*.txt" dependencies files                                │
 │     update-test-snapshot-files                                                                 │
 │                   Update all test snapshot files (by remove and recreate all snapshot files)   │
@@ -188,6 +188,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [v0.17.0](https://github.com/jedie/cli-base-utilities/compare/v0.16.0...v0.17.0)
+  * 2025-02-12 - migrate from tox to nox
 * [v0.16.0](https://github.com/jedie/cli-base-utilities/compare/v0.15.1...v0.16.0)
   * 2025-01-17 - +lookup_python_tool()
 * [v0.15.1](https://github.com/jedie/cli-base-utilities/compare/v0.15.0...v0.15.1)
@@ -195,13 +197,13 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 * [v0.15.0](https://github.com/jedie/cli-base-utilities/compare/v0.14.0...v0.15.0)
   * 2024-12-03 - Restructure cli test utils
   * 2024-12-03 - Remove tyro work-a-round
+
+<details><summary>Expand older history entries ...</summary>
+
 * [v0.14.0](https://github.com/jedie/cli-base-utilities/compare/v0.13.1...v0.14.0)
   * 2024-11-21 - Use tyro.extras.SubcommandApp()
   * 2024-11-21 - Update "install" command and use uv
   * 2024-11-21 - Switch from pip-tools to uv
-
-<details><summary>Expand older history entries ...</summary>
-
 * [v0.13.1](https://github.com/jedie/cli-base-utilities/compare/v0.13.0...v0.13.1)
   * 2024-09-26 - Bugfix missing click. Add it for Backward compatibility
 * [v0.13.0](https://github.com/jedie/cli-base-utilities/compare/v0.12.0...v0.13.0)

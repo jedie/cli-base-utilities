@@ -229,8 +229,10 @@ class ToolsExecutor:
     Call tools from current Python /.venv/bin/ path.
     """
 
-    def __init__(self, cwd: Path | str):
-        if not isinstance(cwd, Path):
+    def __init__(self, cwd: Path | str | None = None):
+        if not cwd:
+            cwd = Path.cwd()
+        elif not isinstance(cwd, Path):
             cwd = Path(cwd)
         assert_is_dir(cwd)
         self.cwd = cwd

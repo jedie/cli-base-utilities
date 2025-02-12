@@ -85,7 +85,7 @@ class ReadmeTestCase(BaseTestCase):
             parts=(
                 'usage: ./dev-cli.py [-h]',
                 'fix-code-style',
-                'tox',
+                'nox',
                 constants.CLI_EPILOG,
             ),
         )
