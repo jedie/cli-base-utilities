@@ -45,7 +45,8 @@ est,update,update-test-snapshot-files,version}
 │ -h, --help        show this help message and exit                                              │
 ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
 ╭─ subcommands ──────────────────────────────────────────────────────────────────────────────────╮
-│ {check-code-style,coverage,fix-code-style,install,mypy,nox,pip-audit,publish,test,update,upda… │
+│ {check-code-style,coverage,fix-code-style,install,mypy,nox,pip-audit,publish,test,update,updat │
+│ e-test-snapshot-files,version}                                                                 │
 │     check-code-style                                                                           │
 │                   Check code style by calling darker + flake8                                  │
 │     coverage      Run tests and show coverage report.                                          │
@@ -106,7 +107,8 @@ gs,systemd-debug,systemd-remove,systemd-setup,systemd-status,systemd-stop,versio
 │     show this help message and exit                                                            │
 ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
 ╭─ subcommands ──────────────────────────────────────────────────────────────────────────────────╮
-│ {demo-endless-loop,demo-verbose-check-output-error,edit-settings,print-settings,systemd-debug… │
+│ {demo-endless-loop,demo-verbose-check-output-error,edit-settings,print-settings,systemd-debug, │
+│ systemd-remove,systemd-setup,systemd-status,systemd-stop,version}                              │
 │     demo-endless-loop                                                                          │
 │     Just a useless example command, used in systemd DEMO: It just print some information in a  │
 │     endless loop.                                                                              │
@@ -188,7 +190,7 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
-* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.17.0...main)
+* [v0.17.1](https://github.com/jedie/cli-base-utilities/compare/v0.17.0...v0.17.1)
   * 2025-06-02 - Update requirements
   * 2025-06-02 - Execute "pre-commit autoupdate" only if "pre-commit" is installed
 * [v0.17.0](https://github.com/jedie/cli-base-utilities/compare/v0.16.0...v0.17.0)
