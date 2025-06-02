@@ -189,6 +189,7 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.17.0...main)
+  * 2025-06-02 - Update requirements
   * 2025-06-02 - Execute "pre-commit autoupdate" only if "pre-commit" is installed
 * [v0.17.0](https://github.com/jedie/cli-base-utilities/compare/v0.16.0...v0.17.0)
   * 2025-02-12 - migrate from tox to nox
