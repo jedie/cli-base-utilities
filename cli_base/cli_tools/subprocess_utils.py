@@ -257,6 +257,10 @@ class ToolsExecutor:
             **kwargs,
         )
 
+    def is_executable(self, file_name: str) -> bool:
+        bin_path = PY_BIN_PATH / file_name
+        return bin_path.is_file() and os.access(bin_path, os.X_OK)
+
     def verbose_check_call(self, file_name: str, *popenargs, **kwargs):
         return self._call(verbose_check_call, file_name, *popenargs, **kwargs)
 
