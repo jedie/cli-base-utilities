@@ -191,6 +191,7 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.17.1...main)
+  * 2025-06-16 - WIP: Fix DEMO cli
   * 2025-06-16 - Update requirements
 * [v0.17.1](https://github.com/jedie/cli-base-utilities/compare/v0.17.0...v0.17.1)
   * 2025-06-02 - Update requirements

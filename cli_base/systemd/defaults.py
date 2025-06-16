@@ -1,6 +1,5 @@
 import getpass
 import os
-import sys
 from pathlib import Path
 
 from cli_base.constants import BASE_PATH
@@ -20,7 +19,3 @@ get_user_group = get_user_name
 
 def get_work_directory() -> Path:
     return Path().cwd()
-
-
-def get_demo_exec_start() -> str:
-    return f'{sys.executable} -m cli_base_app publish-loop'

@@ -8,7 +8,6 @@ from bx_py_utils.path import assert_is_dir, assert_is_file
 from cli_base.cli_tools.rich_utils import human_error
 from cli_base.cli_tools.string_utils import slugify
 from cli_base.systemd.defaults import (
-    get_demo_exec_start,
     get_template_path,
     get_user_group,
     get_user_name,
@@ -26,13 +25,13 @@ class BaseSystemdServiceTemplateContext:
     Context values for the systemd service file content
     """
 
-    verbose_service_name: str  # Must be set in child class!
+    # Must be set in child class:
+    verbose_service_name: str
+    exec_start: str
 
     user: str = dataclasses.field(default_factory=get_user_name)
     group: str = dataclasses.field(default_factory=get_user_group)
     work_dir: Path = dataclasses.field(default_factory=get_work_directory)
-
-    exec_start: str = dataclasses.field(default_factory=get_demo_exec_start)
 
     # Optional values, will be automatically filled:
     syslog_identifier: str = None

@@ -8,6 +8,7 @@
 """
 
 import hashlib
+import os
 import shlex
 import subprocess
 import sys
@@ -46,7 +47,7 @@ else:
     FILE_EXT = ''
 
 BASE_PATH = Path(__file__).parent
-VENV_PATH = BASE_PATH / '.venv'
+VENV_PATH = BASE_PATH / '.venv-app'
 BIN_PATH = VENV_PATH / BIN_NAME
 PYTHON_PATH = BIN_PATH / f'python3{FILE_EXT}'
 PIP_PATH = BIN_PATH / f'pip{FILE_EXT}'
@@ -57,7 +58,7 @@ DEP_HASH_PATH = VENV_PATH / '.dep_hash'
 
 # script file defined in pyproject.toml as [console_scripts]
 # (Under Windows: ".exe" not added!)
-PROJECT_SHELL_SCRIPT = BIN_PATH / 'cli_base_dev'
+PROJECT_SHELL_SCRIPT = BIN_PATH / 'cli_base_app'
 
 
 def get_dep_hash():
@@ -91,6 +92,9 @@ def main(argv):
         builder = venv.EnvBuilder(symlinks=True, upgrade=True, with_pip=True)
         builder.create(env_dir=VENV_PATH)
 
+    # Set environment variable for uv to use '.venv-app' as project environment:
+    os.environ['UV_PROJECT_ENVIRONMENT'] = str(VENV_PATH.absolute())
+
     if not PROJECT_SHELL_SCRIPT.is_file() or not venv_up2date():
         # Update pip
         verbose_check_call(PYTHON_PATH, '-m', 'pip', 'install', '-U', 'pip')
@@ -99,7 +103,7 @@ def main(argv):
         verbose_check_call(PYTHON_PATH, '-m', 'pip', 'install', '-U', 'uv')
 
         # install requirements
-        verbose_check_call(UV_PATH, 'sync')
+        verbose_check_call(UV_PATH, 'sync', '--frozen', '--no-dev')
 
         # install project
         verbose_check_call(PIP_PATH, 'install', '--no-deps', '-e', '.')
