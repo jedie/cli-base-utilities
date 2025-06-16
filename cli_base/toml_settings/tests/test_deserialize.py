@@ -152,6 +152,7 @@ class DeserializeTestCase(TestCase):
             inspect.cleandoc(
                 '''
                 foo = "bar"
+
                 [sub_class_one]
                 number = 123
 
