@@ -136,6 +136,20 @@ class ServiceControl:
     def stop(self):
         self.call_systemctl('stop')
 
+    def logs(self, follow: bool = True):
+        """
+        Show systemd service logs.
+        """
+        exit_if_systemd_not_available(self.info)
+        args = ['journalctl', '-u', self.service_name]
+        if follow:
+            args.append('-f')
+        try:
+            verbose_check_call(*args)
+        except CalledProcessError as err:
+            self.sudo_hint_exception_exit(err)
+            raise
+
     def reload_daemon(self, with_service_name=False):
         self.call_systemctl('daemon-reload', with_service_name=with_service_name)
 

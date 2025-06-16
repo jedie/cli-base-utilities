@@ -98,38 +98,39 @@ usage: ./cli.py [-h] {update-readme-history,version}
 ```
 usage: ./demo-cli.py [-h]
                      {demo-endless-loop,demo-verbose-check-output-error,edit-settings,print-settin
-gs,systemd-debug,systemd-remove,systemd-setup,systemd-status,systemd-stop,version}
+gs,systemd-debug,systemd-logs,systemd-remove,systemd-setup,systemd-status,systemd-stop,version}
 
 
 
 ╭─ options ──────────────────────────────────────────────────────────────────────────────────────╮
-│ -h, --help                                                                                     │
-│     show this help message and exit                                                            │
+│ -h, --help        show this help message and exit                                              │
 ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
 ╭─ subcommands ──────────────────────────────────────────────────────────────────────────────────╮
 │ {demo-endless-loop,demo-verbose-check-output-error,edit-settings,print-settings,systemd-debug, │
-│ systemd-remove,systemd-setup,systemd-status,systemd-stop,version}                              │
+│ systemd-logs,systemd-remove,systemd-setup,systemd-status,systemd-stop,version}                 │
 │     demo-endless-loop                                                                          │
-│     Just a useless example command, used in systemd DEMO: It just print some information in a  │
-│     endless loop.                                                                              │
+│                   Just a useless example command, used in systemd DEMO: It just print some     │
+│                   information in a endless loop.                                               │
 │     demo-verbose-check-output-error                                                            │
-│     DEMO for a error calling cli_base.cli_tools.subprocess_utils.verbose_check_output()        │
+│                   DEMO for a error calling                                                     │
+│                   cli_base.cli_tools.subprocess_utils.verbose_check_output()                   │
 │     edit-settings                                                                              │
-│     Edit the settings file. On first call: Create the default one.                             │
+│                   Edit the settings file. On first call: Create the default one.               │
 │     print-settings                                                                             │
-│     Display (anonymized) MQTT server username and password                                     │
+│                   Display (anonymized) MQTT server username and password                       │
 │     systemd-debug                                                                              │
-│     Print Systemd service template + context + rendered file content.                          │
+│                   Print Systemd service template + context + rendered file content.            │
+│     systemd-logs  List and follow logs of systemd service. (May need sudo)                     │
 │     systemd-remove                                                                             │
-│     Write Systemd service file, enable it and (re-)start the service. (May need sudo)          │
+│                   Write Systemd service file, enable it and (re-)start the service. (May need  │
+│                   sudo)                                                                        │
 │     systemd-setup                                                                              │
-│     Write Systemd service file, enable it and (re-)start the service. (May need sudo)          │
+│                   Write Systemd service file, enable it and (re-)start the service. (May need  │
+│                   sudo)                                                                        │
 │     systemd-status                                                                             │
-│     Display status of systemd service. (May need sudo)                                         │
-│     systemd-stop                                                                               │
-│     Stops the systemd service. (May need sudo)                                                 │
-│     version                                                                                    │
-│     Print version and exit                                                                     │
+│                   Display status of systemd service. (May need sudo)                           │
+│     systemd-stop  Stops the systemd service. (May need sudo)                                   │
+│     version       Print version and exit                                                       │
 ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 [comment]: <> (✂✂✂ auto generated demo help end ✂✂✂)
@@ -190,7 +191,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
-* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.17.1...main)
+* [v0.18.0](https://github.com/jedie/cli-base-utilities/compare/v0.17.1...v0.18.0)
+  * 2025-06-16 - Add helper to display logs from systemd service
   * 2025-06-16 - Update requirements
 * [v0.17.1](https://github.com/jedie/cli-base-utilities/compare/v0.17.0...v0.17.1)
   * 2025-06-02 - Update requirements
