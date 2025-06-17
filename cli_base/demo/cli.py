@@ -138,6 +138,23 @@ def systemd_status(verbosity: TyroVerbosityArgType):
 
 
 @app.command
+def systemd_logs(verbosity: TyroVerbosityArgType):
+    """
+    List and follow logs of systemd service. (May need sudo)
+    """
+    setup_logging(verbosity=verbosity)
+    toml_settings = TomlSettings(
+        dir_name=SETTINGS_DIR_NAME,
+        file_name=SETTINGS_FILE_NAME,
+        settings_dataclass=DemoSettings(),
+    )
+    user_settings: DemoSettings = toml_settings.get_user_settings(debug=True)
+    systemd_settings: SystemdServiceInfo = user_settings.systemd
+
+    ServiceControl(info=systemd_settings).logs()
+
+
+@app.command
 def systemd_stop(verbosity: TyroVerbosityArgType):
     """
     Stops the systemd service. (May need sudo)

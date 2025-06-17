@@ -112,6 +112,7 @@ class SystemdApiTestCase(TestCase):
             sorted(functions),
             [
                 'enable',
+                'logs',
                 'reload_daemon',
                 'remove_service_file',
                 'remove_systemd_service',
