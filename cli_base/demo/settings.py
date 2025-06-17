@@ -1,6 +1,11 @@
 import dataclasses
+import sys
 
 from cli_base.systemd.data_classes import BaseSystemdServiceInfo, BaseSystemdServiceTemplateContext
+
+
+def get_demo_exec_start() -> str:
+    return f'{sys.executable} -m cli_base.demo demo-endless-loop'
 
 
 @dataclasses.dataclass
@@ -10,6 +15,7 @@ class SystemdServiceTemplateContext(BaseSystemdServiceTemplateContext):
     """
 
     verbose_service_name: str = 'CLI-Base Demo'
+    exec_start: str = dataclasses.field(default_factory=get_demo_exec_start)
 
 
 @dataclasses.dataclass
