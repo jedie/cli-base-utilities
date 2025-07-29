@@ -191,6 +191,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [v0.20.0rc1](https://github.com/jedie/cli-base-utilities/compare/v0.19.0...v0.20.0rc1)
+  * 2025-07-29 - Fix git history caused by github
 * [v0.19.0](https://github.com/jedie/cli-base-utilities/compare/v0.18.0...v0.19.0)
   * 2025-07-29 - Expand Git() around commit message
   * 2025-07-29 - Update requirements
@@ -200,11 +202,11 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 * [v0.17.1](https://github.com/jedie/cli-base-utilities/compare/v0.17.0...v0.17.1)
   * 2025-06-02 - Update requirements
   * 2025-06-02 - Execute "pre-commit autoupdate" only if "pre-commit" is installed
-* [v0.17.0](https://github.com/jedie/cli-base-utilities/compare/v0.16.0...v0.17.0)
-  * 2025-02-12 - migrate from tox to nox
 
 <details><summary>Expand older history entries ...</summary>
 
+* [v0.17.0](https://github.com/jedie/cli-base-utilities/compare/v0.16.0...v0.17.0)
+  * 2025-02-12 - migrate from tox to nox
 * [v0.16.0](https://github.com/jedie/cli-base-utilities/compare/v0.15.1...v0.16.0)
   * 2025-01-17 - +lookup_python_tool()
 * [v0.15.1](https://github.com/jedie/cli-base-utilities/compare/v0.15.0...v0.15.1)
