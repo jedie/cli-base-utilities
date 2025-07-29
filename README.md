@@ -191,6 +191,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.18.0...main)
+  * 2025-07-29 - Update requirements
 * [v0.18.0](https://github.com/jedie/cli-base-utilities/compare/v0.17.1...v0.18.0)
   * 2025-06-16 - Add helper to display logs from systemd service
   * 2025-06-16 - Update requirements
@@ -199,11 +201,11 @@ It's easier to temporarily uninstall the hooks, create the release and install t
   * 2025-06-02 - Execute "pre-commit autoupdate" only if "pre-commit" is installed
 * [v0.17.0](https://github.com/jedie/cli-base-utilities/compare/v0.16.0...v0.17.0)
   * 2025-02-12 - migrate from tox to nox
-* [v0.16.0](https://github.com/jedie/cli-base-utilities/compare/v0.15.1...v0.16.0)
-  * 2025-01-17 - +lookup_python_tool()
 
 <details><summary>Expand older history entries ...</summary>
 
+* [v0.16.0](https://github.com/jedie/cli-base-utilities/compare/v0.15.1...v0.16.0)
+  * 2025-01-17 - +lookup_python_tool()
 * [v0.15.1](https://github.com/jedie/cli-base-utilities/compare/v0.15.0...v0.15.1)
   * 2025-01-17 - Remove pip-tools work-a-round and update requirements
 * [v0.15.0](https://github.com/jedie/cli-base-utilities/compare/v0.14.0...v0.15.0)
