@@ -7,12 +7,24 @@ from unittest import TestCase
 
 from bx_py_utils.test_utils.datetime import parse_dt
 from bx_py_utils.test_utils.snapshot import assert_text_snapshot
-from manageprojects.test_utils.subprocess import SimpleRunReturnCallback, SubprocessCallMock
+from manageprojects.test_utils.subprocess import (
+    SimpleRunReturnCallback,
+    SubprocessCallMock,
+)
 from manageprojects.utilities.temp_path import TemporaryDirectory
 from packaging.version import Version
 
 from cli_base.cli_dev import PACKAGE_ROOT
-from cli_base.cli_tools.git import Git, GitHistoryEntry, GithubInfo, GitlabInfo, GitLogLine, GitTagInfo, GitTagInfos
+from cli_base.cli_tools.git import (
+    Git,
+    GitCommitMessage,
+    GitHistoryEntry,
+    GithubInfo,
+    GitlabInfo,
+    GitLogLine,
+    GitTagInfo,
+    GitTagInfos,
+)
 from cli_base.cli_tools.test_utils.git_utils import init_git
 from cli_base.cli_tools.test_utils.logs import AssertLogs
 
@@ -529,3 +541,25 @@ class GitTestCase(TestCase):
             MockedGit(mocked_output='2024-08-02T11:14:55Z\n').get_commit_date(),
             parse_dt('2024-08-02T11:14:55+0000'),
         )
+
+    def test_commit_message(self):
+        with TemporaryDirectory(prefix='test_commit_message_') as temp_path:
+            git = Git(cwd=temp_path, detect_root=False)
+            git.init()
+            Path(temp_path, 'foobar.txt').touch()
+            git.add('.', verbose=False)
+            git.commit(
+                comment=GitCommitMessage(
+                    summary='A Commit Message',
+                    description='With some text...',
+                ),
+                verbose=False,
+            )
+
+            self.assertEqual(
+                git.get_commit_message(),
+                GitCommitMessage(
+                    summary='A Commit Message',
+                    description='With some text...',
+                ),
+            )

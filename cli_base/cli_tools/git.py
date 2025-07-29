@@ -80,6 +80,12 @@ class GitLogLine:
         return self.date < other.date
 
 
+@dataclasses.dataclass
+class GitCommitMessage:
+    summary: str
+    description: str
+
+
 class GitLogLineUtil:
     """
     Helper to parse git log lines into a GitLogLine object.
@@ -349,10 +355,30 @@ class Git:
         output = self.git_verbose_check_output('add', spec, verbose=verbose, exit_on_error=True)
         assert not output, f'Seems there is an error: {output}'
 
-    def commit(self, comment, verbose=True) -> str:
+    def commit(self, comment: str | GitCommitMessage, verbose=True) -> str:
+        if isinstance(comment, GitCommitMessage):
+            comment = f'{comment.summary}\n\n{comment.description}'
         output = self.git_verbose_check_output('commit', '--message', comment, verbose=verbose, exit_on_error=True)
-        assert comment in output, f'Seems there is an error: {output}'
+        message = comment.split('\n', 1)[0]  # use only the first line of the comment
+        assert message in output, f'{message=} not in {output=}'
         return output
+
+    def get_commit_message(self, no=-1) -> GitCommitMessage:
+        output = self.git_verbose_check_output(
+            'log',
+            f'{no}',
+            '--format="%B"',  # raw body (unwrapped subject and body)
+        )
+        output = output.strip(' \n"\'')
+        if '\n\n' in output:
+            summary, description = output.split('\n\n', 1)
+        else:
+            # There is no description ;)
+            summary = output.strip()
+            description = ''
+
+        msg = GitCommitMessage(summary=summary.strip(), description=description.strip())
+        return msg
 
     def reflog(self, verbose=True) -> str:
         return self.git_verbose_check_output('reflog', verbose=verbose, exit_on_error=True)
