@@ -191,7 +191,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
-* [v0.20.0rc1](https://github.com/jedie/cli-base-utilities/compare/v0.19.0...v0.20.0rc1)
+* [v0.20.0](https://github.com/jedie/cli-base-utilities/compare/v0.19.0...v0.20.0)
+  * 2025-08-04 - Release v0.20.0
   * 2025-08-04 - Fix git history caused by github
 * [v0.19.0](https://github.com/jedie/cli-base-utilities/compare/v0.18.0...v0.19.0)
   * 2025-07-29 - Expand Git() around commit message
