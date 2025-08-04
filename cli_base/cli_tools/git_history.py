@@ -60,6 +60,19 @@ class TagHistoryRenderer:
                 return True
         return False
 
+    @classmethod
+    def clean_log_comment(cls, comment: str) -> str:
+        """
+        GitHub may add suffixes like "(#123)" to the commit message.
+        We remove them here, e.g.:
+        >>> TagHistoryRenderer.clean_log_comment('Fix a problem (#123)')
+        'Fix a problem'
+        >>> TagHistoryRenderer.clean_log_comment('A commit. (fixed #456)')
+        'A commit. (fixed #456)'
+        """
+        comment = re.sub(r'\s*\(\#\d+\)\s*$', '', comment)  # Remove "(#123)" at the end
+        return comment
+
     def render(self, tags_history: list[GitHistoryEntry]) -> Iterable[str]:
         collapsed = False
         for count, entry in enumerate(tags_history):
@@ -87,8 +100,10 @@ class TagHistoryRenderer:
                 if self.skip(log_line.comment):
                     continue
 
-                # Remove duplicate git commits, e.g.: serveral "update requirements" commits ;)
-                cleaned_comment = clean_text(log_line.comment)
+                commit_comment = self.clean_log_comment(log_line.comment)
+
+                # Remove duplicate git commits, e.g.: several "update requirements" commits ;)
+                cleaned_comment = clean_text(commit_comment)
                 if cleaned_comment in seen_comments:
                     continue
                 seen_comments.add(cleaned_comment)
@@ -97,7 +112,7 @@ class TagHistoryRenderer:
                     author = f' {log_line.author}'
                 else:
                     author = ''
-                yield f'  * {log_line.date.isoformat()}{author} - {log_line.comment}'
+                yield f'  * {log_line.date.isoformat()}{author} - {commit_comment}'
 
         if collapsed:
             yield '\n</details>\n'
