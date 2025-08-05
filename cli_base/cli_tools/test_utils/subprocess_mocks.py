@@ -15,7 +15,8 @@ class MockToolsExecutor(MassContextManager):
 
         self.calls = []
 
-    def __call__(self):
+    def __call__(self, cwd=None):
+        self.cwd = cwd
         return self
 
     def _store_call(self, file_name: str, popenargs, kwargs):

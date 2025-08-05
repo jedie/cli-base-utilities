@@ -1,8 +1,8 @@
 from cli_base.cli_tools.subprocess_utils import ToolsExecutor
 
 
-def call_tools_executor():
-    executor = ToolsExecutor()
+def call_tools_executor(cwd=None):
+    executor = ToolsExecutor(cwd=cwd)
 
     return_code = executor.verbose_check_call('foo')
     assert return_code == 0, f'{return_code=}'
