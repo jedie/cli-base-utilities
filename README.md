@@ -191,6 +191,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [v0.21.1](https://github.com/jedie/cli-base-utilities/compare/v0.21.0...v0.21.1)
+  * 2025-08-05 - Enhance MockToolsExecutor and accept "cwd", too.
 * [v0.21.0](https://github.com/jedie/cli-base-utilities/compare/v0.20.0...v0.21.0)
   * 2025-08-05 - NEW: Helper to mock `ToolsExecutor` in tests.
 * [v0.20.0](https://github.com/jedie/cli-base-utilities/compare/v0.19.0...v0.20.0)
@@ -199,12 +201,12 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 * [v0.19.0](https://github.com/jedie/cli-base-utilities/compare/v0.18.0...v0.19.0)
   * 2025-07-29 - Expand Git() around commit message
   * 2025-07-29 - Update requirements
-* [v0.18.0](https://github.com/jedie/cli-base-utilities/compare/v0.17.1...v0.18.0)
-  * 2025-06-16 - Add helper to display logs from systemd service
-  * 2025-06-16 - Update requirements
 
 <details><summary>Expand older history entries ...</summary>
 
+* [v0.18.0](https://github.com/jedie/cli-base-utilities/compare/v0.17.1...v0.18.0)
+  * 2025-06-16 - Add helper to display logs from systemd service
+  * 2025-06-16 - Update requirements
 * [v0.17.1](https://github.com/jedie/cli-base-utilities/compare/v0.17.0...v0.17.1)
   * 2025-06-02 - Update requirements
   * 2025-06-02 - Execute "pre-commit autoupdate" only if "pre-commit" is installed

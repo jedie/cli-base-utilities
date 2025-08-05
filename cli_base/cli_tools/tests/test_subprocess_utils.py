@@ -43,3 +43,15 @@ class ToolsExecutorTestCase(unittest.TestCase):
                 {'file_name': 'Bar', 'kwargs': {'cwd': '/some/where/else'}},
             ],
         )
+        self.assertIs(mock.cwd, None)
+
+        with MockToolsExecutor(
+            target=tools_executer_test_helper,
+            return_codes={'foo': 0},
+            outputs={
+                'Foo': 'Foo 1.2.3\n',
+                'Bar': 'Bar was called',
+            },
+        ) as mock:
+            tools_executer_test_helper.call_tools_executor(cwd='/some/where/')
+        self.assertIs(mock.cwd, '/some/where/')
