@@ -1,11 +1,11 @@
+from collections.abc import Iterable
 import dataclasses
 import logging
-from collections.abc import Iterable
 from pathlib import Path
 
-import tomlkit
 from rich import print  # noqa
 from rich.console import Console
+import tomlkit
 from tomlkit import TOMLDocument
 
 from cli_base.cli_tools.path_utils import backup, expand_user

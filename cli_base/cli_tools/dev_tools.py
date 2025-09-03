@@ -1,9 +1,9 @@
 import contextlib
 import os
-import sys
-import warnings
 from pathlib import Path
 from subprocess import CalledProcessError
+import sys
+import warnings
 
 from cli_base.cli_tools.subprocess_utils import ToolsExecutor, verbose_check_call
 

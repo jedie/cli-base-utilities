@@ -36,8 +36,8 @@ TODO: Document all features here ;)
 [comment]: <> (✂✂✂ auto generated dev help start ✂✂✂)
 ```
 usage: ./dev-cli.py [-h]
-                    {check-code-style,coverage,fix-code-style,install,mypy,nox,pip-audit,publish,t
-est,update,update-test-snapshot-files,version}
+                    {coverage,install,lint,mypy,nox,pip-audit,publish,test,update,update-test-snap
+shot-files,version}
 
 
 
@@ -45,20 +45,17 @@ est,update,update-test-snapshot-files,version}
 │ -h, --help        show this help message and exit                                              │
 ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
 ╭─ subcommands ──────────────────────────────────────────────────────────────────────────────────╮
-│ {check-code-style,coverage,fix-code-style,install,mypy,nox,pip-audit,publish,test,update,updat │
-│ e-test-snapshot-files,version}                                                                 │
-│     check-code-style                                                                           │
-│                   Check code style by calling darker + flake8                                  │
+│ {coverage,install,lint,mypy,nox,pip-audit,publish,test,update,update-test-snapshot-files,versi │
+│ on}                                                                                            │
 │     coverage      Run tests and show coverage report.                                          │
-│     fix-code-style                                                                             │
-│                   Fix code style of all cli_base source code files via darker                  │
 │     install       Run pip-sync and install 'cli_base' via pip as editable.                     │
+│     lint          Check/fix code style by run: "ruff check --fix"                              │
 │     mypy          Run Mypy (configured in pyproject.toml)                                      │
 │     nox           Run nox                                                                      │
 │     pip-audit     Run pip-audit check against current requirements files                       │
 │     publish       Build and upload this project to PyPi                                        │
 │     test          Run unittests                                                                │
-│     update        Update "requirements*.txt" dependencies files                                │
+│     update        Update dependencies (uv.lock) and git pre-commit hooks                       │
 │     update-test-snapshot-files                                                                 │
 │                   Update all test snapshot files (by remove and recreate all snapshot files)   │
 │     version       Print version and exit                                                       │
@@ -191,6 +188,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [v0.22.0](https://github.com/jedie/cli-base-utilities/compare/v0.21.1...v0.22.0)
+  * 2025-09-03 - Use ruff instead of darker
 * [v0.21.1](https://github.com/jedie/cli-base-utilities/compare/v0.21.0...v0.21.1)
   * 2025-08-05 - Enhance MockToolsExecutor and accept "cwd", too.
 * [v0.21.0](https://github.com/jedie/cli-base-utilities/compare/v0.20.0...v0.21.0)
@@ -198,12 +197,12 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 * [v0.20.0](https://github.com/jedie/cli-base-utilities/compare/v0.19.0...v0.20.0)
   * 2025-08-04 - Release v0.20.0
   * 2025-08-04 - Fix git history caused by github
-* [v0.19.0](https://github.com/jedie/cli-base-utilities/compare/v0.18.0...v0.19.0)
-  * 2025-07-29 - Expand Git() around commit message
-  * 2025-07-29 - Update requirements
 
 <details><summary>Expand older history entries ...</summary>
 
+* [v0.19.0](https://github.com/jedie/cli-base-utilities/compare/v0.18.0...v0.19.0)
+  * 2025-07-29 - Expand Git() around commit message
+  * 2025-07-29 - Update requirements
 * [v0.18.0](https://github.com/jedie/cli-base-utilities/compare/v0.17.1...v0.18.0)
   * 2025-06-16 - Add helper to display logs from systemd service
   * 2025-06-16 - Update requirements

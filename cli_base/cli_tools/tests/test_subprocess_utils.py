@@ -1,5 +1,5 @@
-import unittest
 from pathlib import Path
+import unittest
 
 from cli_base.cli_tools.subprocess_utils import ToolsExecutor
 from cli_base.cli_tools.test_utils.assertion import assert_startswith

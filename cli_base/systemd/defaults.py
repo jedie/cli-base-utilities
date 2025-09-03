@@ -1,7 +1,7 @@
 import getpass
 import os
-import sys
 from pathlib import Path
+import sys
 
 from cli_base.constants import BASE_PATH
 
