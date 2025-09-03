@@ -1,9 +1,9 @@
 import getpass
 import os
+from pathlib import Path
 import shlex
 import sys
 import tempfile
-from pathlib import Path
 
 from bx_py_utils.environ import OverrideEnviron
 

@@ -6,8 +6,8 @@
 from __future__ import annotations
 
 import logging
-import tempfile
 from pathlib import Path
+import tempfile
 
 from bx_py_utils.pyproject_toml import get_pyproject_config
 

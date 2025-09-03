@@ -13,8 +13,5 @@ class CodeStyleTestCase(TestCase):
             assert_code_style(package_root=PACKAGE_ROOT)
         self.assertEqual(
             call_mock.get_popenargs(rstrip_paths=(PY_BIN_PATH,)),
-            [
-                ['.../darker', '--quiet', '--no-color', '--check'],
-                ['.../flake8'],
-            ],
+            [['.../ruff', 'check', '--fix']]
         )

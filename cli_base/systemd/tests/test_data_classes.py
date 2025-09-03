@@ -1,5 +1,5 @@
-import tempfile
 from pathlib import Path
+import tempfile
 from unittest import TestCase
 
 from cli_base.demo.settings import SystemdServiceInfo

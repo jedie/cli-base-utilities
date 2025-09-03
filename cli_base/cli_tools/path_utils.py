@@ -1,9 +1,9 @@
 import getpass
 import logging
 import os
+from pathlib import Path
 import pwd
 import shutil
-from pathlib import Path
 
 from bx_py_utils.environ import OverrideEnviron
 from bx_py_utils.path import assert_is_file

@@ -1,8 +1,8 @@
 import datetime
 import filecmp
 import inspect
-import shutil
 from pathlib import Path
+import shutil
 from unittest import TestCase
 
 from bx_py_utils.test_utils.datetime import parse_dt
@@ -95,7 +95,7 @@ class GitTestCase(TestCase):
             file_dt2 = self.own_git.get_file_dt('cli.py', with_tz=False)
             self.assertIsInstance(file_dt2, datetime.datetime)
             self.assertGreater(file_dt2, datetime.datetime(2023, 1, 1))
-            self.assertLess(file_dt2, datetime.datetime(2025, 1, 1))
+            self.assertLess(file_dt2, datetime.datetime(2026, 1, 1))
 
         git_bin = shutil.which('git')
         with SubprocessCallMock() as call_mock:

@@ -1,7 +1,7 @@
+from collections.abc import Iterable
 import dataclasses
 import inspect
 import textwrap
-from collections.abc import Iterable
 
 from bx_py_utils.anonymize import anonymize
 from rich import print  # noqa
@@ -10,13 +10,14 @@ from rich.style import Style
 
 from cli_base.toml_settings.data_class_utils import iter_dataclass
 
+
 DEFAULT_STYLE = Style(bgcolor='#090909')
 
 
 def print_dataclasses(*, instance, anonymize_keys: Iterable, indent=0, style=DEFAULT_STYLE, console=None) -> set[str]:
     console = console or Console()
 
-    console.print(f'{" "*indent}[magenta]{instance.__class__.__name__}[/magenta]:', style=style)
+    console.print(f'{" " * indent}[magenta]{instance.__class__.__name__}[/magenta]:', style=style)
 
     indent += 2
 
@@ -37,5 +38,5 @@ def print_dataclasses(*, instance, anonymize_keys: Iterable, indent=0, style=DEF
             if field_name in anonymize_keys:
                 field_value = anonymize(field_value)
                 anonymized.add(field_name)
-            console.print(f'{" "*indent}* [cyan]{field_name}[/cyan] = {field_value!r}', style=style)
+            console.print(f'{" " * indent}* [cyan]{field_name}[/cyan] = {field_value!r}', style=style)
     return anonymized

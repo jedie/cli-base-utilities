@@ -84,8 +84,9 @@ class ReadmeTestCase(BaseTestCase):
             content=stdout,
             parts=(
                 'usage: ./dev-cli.py [-h]',
-                'fix-code-style',
+                'lint',
                 'nox',
+                'publish',
                 constants.CLI_EPILOG,
             ),
         )

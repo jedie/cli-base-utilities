@@ -1,6 +1,6 @@
 import os
-import unittest.util
 from pathlib import Path
+import unittest.util
 
 from bx_py_utils.test_utils.deny_requests import deny_any_real_request
 from rich import print  # noqa
