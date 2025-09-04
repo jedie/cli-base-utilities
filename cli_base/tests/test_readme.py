@@ -6,7 +6,6 @@ from cli_base.cli_tools.test_utils.assertion import assert_in
 from cli_base.cli_tools.test_utils.cli_readme import assert_cli_help_in_readme
 from cli_base.cli_tools.test_utils.rich_test_utils import (
     assert_no_color_env,
-    assert_rich_click_no_color,
     assert_rich_no_color,
     assert_subprocess_rich_diagnose_no_color,
     invoke,
@@ -44,7 +43,6 @@ class ReadmeTestCase(BaseTestCase):
             assert_no_color_env(width=width)
             assert_subprocess_rich_diagnose_no_color(width=width)
             assert_rich_no_color(width=width)
-            assert_rich_click_no_color(width=width)
 
     def invoke_cli(self, *args):
         with get_cli_mock():

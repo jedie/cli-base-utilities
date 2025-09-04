@@ -1,18 +1,16 @@
 import io
 import os
+import re
 import subprocess
 import sys
 from unittest.mock import patch
-import warnings
 
 from bx_py_utils.environ import OverrideEnviron
 from bx_py_utils.path import assert_is_file
 from bx_py_utils.test_utils.context_managers import MassContextManager
-from click._compat import strip_ansi as strip_ansi_codes
 import rich
 from rich import get_console
 from rich.console import Console, get_windows_console_features
-import rich_click
 
 from cli_base.cli_tools.subprocess_utils import verbose_check_output
 from cli_base.cli_tools.test_utils.assertion import assert_in
@@ -79,17 +77,12 @@ class NoColorEnvRich(NoColorTermEnviron):
         ]
 
 
-class NoColorEnvRichClick(NoColorEnvRich):
-    """
-    Context manager for rich-click to deactivate terminal colors and fix the terminal width
-    """
+# Borrowed from click:
+_ansi_re = re.compile(r'\033\[[;?0-9]*[a-zA-Z]')
 
-    def __init__(self, width: int = BASE_WIDTH):
-        super().__init__(width)
-        self.mocks += [
-            patch.object(rich_click.rich_click, 'MAX_WIDTH', width),
-            patch.object(rich_click.rich_click, 'FORCE_TERMINAL', False),
-        ]
+
+def strip_ansi_codes(value: str) -> str:
+    return _ansi_re.sub('', value)
 
 
 def invoke(
@@ -129,21 +122,6 @@ def invoke(
     return stdout
 
 
-class NoColorRichClickCli(NoColorEnvRichClick):
-    """
-    Context manager to get the output of a rich-click CLI command.
-    To re-evaluate module-level code, call the CLI via a subprocess.
-    """
-
-    def invoke(self, *args, **kwargs):
-        warnings.warn(
-            'This context manager is deprecated. Use invoke() instead.',
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        return invoke(*args, **kwargs)
-
-
 def assert_no_color_env(*, width: int) -> None:
     assert os.environ['COLUMNS'] == str(width), f'{os.environ["COLUMNS"]=} is not "{width=}"'
     assert os.environ['TERM'] == 'dump', f'{os.environ["TERM"]=} is not "dump"'
@@ -181,8 +159,3 @@ def assert_rich_no_color(*, width: int) -> None:
     new_console = Console()
     assert new_console._width == width, f'{new_console._width=} is not {width=}'
     assert new_console.no_color is True
-
-
-def assert_rich_click_no_color(*, width: int) -> None:
-    assert rich_click.rich_click.MAX_WIDTH == width, f'{rich_click.rich_click.MAX_WIDTH=} is not "{width}"'
-    assert rich_click.rich_click.FORCE_TERMINAL is False, f'{rich_click.rich_click.FORCE_TERMINAL=} is not False'

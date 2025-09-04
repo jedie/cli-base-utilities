@@ -11,7 +11,7 @@ from cli_base.cli_tools.git import NoGitRepoError
 from cli_base.cli_tools.git_history import get_git_history, update_readme_history
 from cli_base.cli_tools.test_utils.assertion import assert_in
 from cli_base.cli_tools.test_utils.environment_fixtures import MockCurrentWorkDir
-from cli_base.cli_tools.test_utils.rich_test_utils import NoColorEnvRichClick
+from cli_base.cli_tools.test_utils.rich_test_utils import NoColorEnvRich
 
 
 class GitHistoryTestCase(BaseTestCase):
@@ -35,7 +35,7 @@ class GitHistoryTestCase(BaseTestCase):
     # https://github.com/boxine/bx_py_utils/pull/164/files#diff-421e2a471c4deb91b133844c2caffb339a68dbebf82a65e798bbdf68b3b4013c
     @typeguard.suppress_type_checks
     def test_update_readme_history(self):
-        with NoColorEnvRichClick(), MockCurrentWorkDir(prefix='test_update_readme_history') as mocked_cwd:
+        with NoColorEnvRich(), MockCurrentWorkDir(prefix='test_update_readme_history') as mocked_cwd:
             temp_path = mocked_cwd.temp_path
 
             with self.assertRaises(FileNotFoundError) as cm:

@@ -1,6 +1,5 @@
 import logging
 
-import click
 from rich import get_console
 from rich.logging import RichHandler
 
@@ -8,14 +7,6 @@ from cli_base.tyro_commands import TyroVerbosityArgType
 
 
 MAX_LOG_LEVEL = 3
-
-OPTION_KWARGS_VERBOSE = dict(  # Deprecated: Migrate from click to tyro ;)
-    count=True,
-    type=click.IntRange(0, MAX_LOG_LEVEL),
-    default=0,
-    help='Verbosity level; Accepts integer value e.g.: "--verbose 2" or can be count e.g.: "-vv" ',
-    show_default=True,
-)
 
 
 def setup_logging(*, verbosity: TyroVerbosityArgType):
