@@ -1,8 +1,8 @@
-from cli_base.cli_tools.test_utils.rich_test_utils import BASE_WIDTH, NoColorRichClickCli
+from cli_base.cli_tools.test_utils.rich_test_utils import BASE_WIDTH, NoColorEnvRich
 from cli_base.toml_settings.test_utils.data_class_utils import MockTomlSettings
 
 
-class TomlSettingsCliMock(NoColorRichClickCli):
+class TomlSettingsCliMock(NoColorEnvRich):
     """
     IMPORTANT: We must ensure that no local user settings added to the help text
     So we can't directly invoke_click() here, because user settings are read and
