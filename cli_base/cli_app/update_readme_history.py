@@ -14,11 +14,11 @@ logger = logging.getLogger(__name__)
 
 
 @app.command
-def update_readme_history(auto_commit: bool = True, verbosity: TyroVerbosityArgType = 1) -> None:
+def update_readme_history(verbosity: TyroVerbosityArgType = 1) -> None:
     """
     Update project history base on git commits/tags in README.md
 
-    Will be exited with 1 if the README.md was updated otherwise with 0.
+    Will always exist with exit code 0 because changed README is auto added to git.
 
     Also, callable via e.g.:
         python -m cli_base update-readme-history -v
@@ -26,15 +26,8 @@ def update_readme_history(auto_commit: bool = True, verbosity: TyroVerbosityArgT
     setup_logging(verbosity=verbosity)
 
     logger.debug('%s called. CWD: %s', __name__, Path.cwd())
-    updated = git_history.update_readme_history(
-        auto_commit=auto_commit,
-        verbosity=verbosity,
-    )
-    if auto_commit:
-        logger.info('Auto commit is enabled. Always exit with 0.')
-        exit_code = 0
-    else:
-        exit_code = 1 if updated else 0
-    if verbosity:
-        print(f'{exit_code=}')
+    git_history.update_readme_history(verbosity=verbosity)
+
+    exit_code = 0  # Always exit with 0 because changed README is added to git.
+    print(f'Exit with {exit_code=}')
     sys.exit(exit_code)

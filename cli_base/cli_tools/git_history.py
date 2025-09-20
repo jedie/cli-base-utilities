@@ -146,7 +146,6 @@ def get_git_history(
 def update_readme_history(
     *,
     base_path: Path | None = None,
-    auto_commit: bool = True,
     verbosity: int = 0,
     raise_update_error: bool = False,
 ) -> bool:
@@ -222,10 +221,7 @@ def update_readme_history(
         new_mtime = readme_md_path.stat().st_mtime
         if new_mtime > old_mtime:
             print(f'History in {readme_md_path} updated.')
-            if auto_commit:
-                # Auto commit the changed README file
-                git.add(readme_md_path)
-                git.commit(amend=True, no_edit=True)
+            git.add(readme_md_path)
             return True
         else:
             raise
