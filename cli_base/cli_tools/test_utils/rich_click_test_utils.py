@@ -17,6 +17,11 @@ class NoColorEnvRichClick(NoColorEnvRich):
 
     def __init__(self, width: int = BASE_WIDTH):
         super().__init__(width)
+        warnings.warn(
+            'This context manager is deprecated.',
+            DeprecationWarning,
+            stacklevel=2,
+        )
         self.mocks += [
             patch.object(rich_click.rich_click, 'MAX_WIDTH', width),
             patch.object(rich_click.rich_click, 'FORCE_TERMINAL', False),

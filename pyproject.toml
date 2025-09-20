@@ -34,6 +34,7 @@ dev = [
     "pre-commit",  # https://github.com/pre-commit/pre-commit
     "typeguard",  # https://github.com/agronholm/typeguard/
     "click",  # For Backward compatibility TODO: Remove in future
+    "rich_click",  # For Backward compatibility TODO: Remove in future
 ]
 
 [project.urls]
