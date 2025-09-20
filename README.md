@@ -189,6 +189,7 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.23.2...main)
+  * 2025-09-20 - pre-commit config: Remove "default_install_hook_types"
   * 2025-09-20 - Update README: Always exit with 0 and always add (but no amend commit) changed README
   * 2025-09-20 - Update requirements
 * [v0.23.2](https://github.com/jedie/cli-base-utilities/compare/v0.23.1...v0.23.2)
