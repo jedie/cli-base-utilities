@@ -223,6 +223,7 @@ def update_readme_history(
         if new_mtime > old_mtime:
             print(f'History in {readme_md_path} updated.')
             if auto_commit:
+                # Auto commit the changed README file
                 git.add(readme_md_path)
                 git.commit(amend=True, no_edit=True)
             return True

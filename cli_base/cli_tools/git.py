@@ -231,7 +231,7 @@ class Git:
     def __init__(
         self,
         *,
-        cwd: Path|None=None,
+        cwd: Path | None = None,
         detect_root: bool = True,
         env_overrides: dict | None = None,  # e.g.: {'GIT_SSH_COMMAND':'ssh -v", ...}
     ):

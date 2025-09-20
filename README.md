@@ -189,6 +189,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [v0.23.1](https://github.com/jedie/cli-base-utilities/compare/v0.23.0...v0.23.1)
+  * 2025-09-20 - Enhance pre-commit hook: Auto commit the changed README file
+  * 2025-09-20 - update/add PyCharm run configs
   * 2025-09-20 - add pycharm .run file
   * 2025-09-20 - Remove obsolete ".flake8" file
   * 2025-09-20 - Update requirements and fix tests
