@@ -12,7 +12,7 @@ from bx_py_utils.pyproject_toml import get_pyproject_config
 from packaging.version import Version
 from rich import print  # noqa
 
-from cli_base.cli_tools.git import Git, GitHistoryEntry, GithubInfo, GitlabInfo, get_git
+from cli_base.cli_tools.git import Git, GitHistoryEntry, GithubInfo, GitlabInfo
 
 
 def clean_text(text: str) -> str:
@@ -120,8 +120,8 @@ class TagHistoryRenderer:
 
 def get_git_history(
     *,
+    git: Git,
     current_version: str,
-    cwd: Path | None = None,
     add_author: bool = True,
     skip_prefixes: tuple[str, ...] = ('Release as', 'Prepare release'),
     verbose: bool = False,
@@ -129,7 +129,6 @@ def get_git_history(
     """
     Generate a project history base on git commits/tags.
     """
-    git: Git = get_git(cwd=cwd)
     main_branch_name = git.get_main_branch_name(verbose=False)
     project_info = git.get_project_info(verbose=False)
     if project_info:
@@ -147,6 +146,7 @@ def get_git_history(
 def update_readme_history(
     *,
     base_path: Path | None = None,
+    auto_commit: bool = True,
     verbosity: int = 0,
     raise_update_error: bool = False,
 ) -> bool:
@@ -167,7 +167,8 @@ def update_readme_history(
         [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
         [comment]: <> (✂✂✂ auto generated history end ✂✂✂)
     """
-    base_path = base_path or Path.cwd()
+    git: Git = Git(cwd=base_path, detect_root=True)
+    base_path = git.cwd
     if verbosity > 2:
         print(f'{base_path=}')
 
@@ -197,7 +198,9 @@ def update_readme_history(
     if verbosity > 1:
         print(f'{current_version=}')
 
+    git = Git()
     git_history = get_git_history(
+        git=git,
         current_version=current_version,
         add_author=False,
         verbose=verbosity > 1,
@@ -219,6 +222,9 @@ def update_readme_history(
         new_mtime = readme_md_path.stat().st_mtime
         if new_mtime > old_mtime:
             print(f'History in {readme_md_path} updated.')
+            if auto_commit:
+                git.add(readme_md_path)
+                git.commit(amend=True, no_edit=True)
             return True
         else:
             raise
@@ -230,7 +236,9 @@ def update_readme_history(
 if __name__ == '__main__':
     from cli_base import __version__
 
-    for line in get_git_history(current_version=__version__):
+    git = Git()
+    git_history = get_git_history(git=git, current_version=__version__)
+    for line in git_history:
         print(line)
 
     from cli_base.cli_dev import PACKAGE_ROOT

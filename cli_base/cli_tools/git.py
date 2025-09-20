@@ -217,28 +217,42 @@ def get_git_root(path: Path):
 
 
 def get_git(cwd: None | Path = None) -> Git:
+    warnings.warn(
+        'get_git() is deprecated. Use Git(cwd, detect_root=True) instead.',
+        DeprecationWarning,
+        stacklevel=2,
+    )
     if not cwd:
         cwd = Path.cwd()
     return Git(cwd=cwd, detect_root=True)
 
 
 class Git:
-    def __init__(self, *, cwd: Path, detect_root: bool = True):
+    def __init__(
+        self,
+        *,
+        cwd: Path|None=None,
+        detect_root: bool = True,
+        env_overrides: dict | None = None,  # e.g.: {'GIT_SSH_COMMAND':'ssh -v", ...}
+    ):
+        self.cwd = cwd or Path.cwd()
         if detect_root:
-            self.cwd = get_git_root(cwd)
+            self.cwd = get_git_root(self.cwd)
             if not self.cwd:
                 raise NoGitRepoError(cwd)
-        else:
-            self.cwd = cwd
 
         self.git_bin = which('git')
         if not self.git_bin:
             raise GitBinNotFoundError()
 
         self.env = dict(os.environ)
+
         # no translated git command output ;)
         self.env['LANG'] = 'en_US.UTF-8'
         self.env['LANGUAGE'] = 'en_US'
+
+        if env_overrides:
+            self.env.update(env_overrides)
 
     def git_verbose_check_call(self, *popenargs, **kwargs):
         popenargs = [self.git_bin, *popenargs]
@@ -355,12 +369,30 @@ class Git:
         output = self.git_verbose_check_output('add', spec, verbose=verbose, exit_on_error=True)
         assert not output, f'Seems there is an error: {output}'
 
-    def commit(self, comment: str | GitCommitMessage, verbose=True) -> str:
-        if isinstance(comment, GitCommitMessage):
-            comment = f'{comment.summary}\n\n{comment.description}'
-        output = self.git_verbose_check_output('commit', '--message', comment, verbose=verbose, exit_on_error=True)
-        message = comment.split('\n', 1)[0]  # use only the first line of the comment
-        assert message in output, f'{message=} not in {output=}'
+    def commit(
+        self,
+        comment: str | GitCommitMessage | None = None,
+        amend: bool = False,
+        no_edit: bool = False,
+        no_verify: bool = False,
+        verbose: bool = True,
+    ) -> str:
+        popen_args = ('commit',)
+        if comment:
+            if isinstance(comment, GitCommitMessage):
+                comment = f'{comment.summary}\n\n{comment.description}'
+            popen_args += ('--message', comment)
+        if amend:
+            popen_args += ('--amend',)
+        if no_edit:
+            popen_args += ('--no-edit',)
+        if no_verify:
+            popen_args += ('--no-verify',)
+
+        output = self.git_verbose_check_output(*popen_args, verbose=verbose, exit_on_error=True)
+        if comment:
+            message = comment.split('\n', 1)[0]  # use only the first line of the comment
+            assert message in output, f'{message=} not in {output=}'
         return output
 
     def get_commit_message(self, no=-1) -> GitCommitMessage:
