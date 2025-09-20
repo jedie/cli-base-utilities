@@ -30,7 +30,11 @@ def update_readme_history(auto_commit: bool = True, verbosity: TyroVerbosityArgT
         auto_commit=auto_commit,
         verbosity=verbosity,
     )
-    exit_code = 1 if updated else 0
+    if auto_commit:
+        logger.info('Auto commit is enabled. Always exit with 0.')
+        exit_code = 0
+    else:
+        exit_code = 1 if updated else 0
     if verbosity:
         print(f'{exit_code=}')
     sys.exit(exit_code)
