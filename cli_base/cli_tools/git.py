@@ -222,8 +222,6 @@ def get_git(cwd: None | Path = None) -> Git:
         DeprecationWarning,
         stacklevel=2,
     )
-    if not cwd:
-        cwd = Path.cwd()
     return Git(cwd=cwd, detect_root=True)
 
 
@@ -235,11 +233,12 @@ class Git:
         detect_root: bool = True,
         env_overrides: dict | None = None,  # e.g.: {'GIT_SSH_COMMAND':'ssh -v", ...}
     ):
-        self.cwd = cwd or Path.cwd()
+        initial_cwd = cwd or Path.cwd()
+        self.cwd = initial_cwd
         if detect_root:
             self.cwd = get_git_root(self.cwd)
             if not self.cwd:
-                raise NoGitRepoError(cwd)
+                raise NoGitRepoError(initial_cwd)
 
         self.git_bin = which('git')
         if not self.git_bin:
@@ -672,6 +671,9 @@ class Git:
 
     def get_project_info(self, name='origin', action_type='push', verbose=True) -> GithubInfo | GitlabInfo | None:
         url = self.get_remote_url(name=name, action_type=action_type, verbose=verbose)
+        if not url:
+            logger.warning('No git remote url found')
+            return
         if not url.endswith('.git'):
             logger.info('Non git url: %r', url)
             return
