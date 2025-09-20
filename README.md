@@ -188,6 +188,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.23.3...main)
+  * 2025-09-20 - Update requirements
 * [v0.23.3](https://github.com/jedie/cli-base-utilities/compare/v0.23.2...v0.23.3)
   * 2025-09-20 - pre-commit config: Remove "default_install_hook_types"
   * 2025-09-20 - Update README: Always exit with 0 and always add (but no amend commit) changed README
@@ -202,11 +204,11 @@ It's easier to temporarily uninstall the hooks, create the release and install t
   * 2025-09-20 - add pycharm .run file
   * 2025-09-20 - Remove obsolete ".flake8" file
   * 2025-09-20 - Update requirements and fix tests
-* [v0.23.0](https://github.com/jedie/cli-base-utilities/compare/v0.22.0...v0.23.0)
-  * 2025-09-04 - separate click CLI test tools and deprecate them all
 
 <details><summary>Expand older history entries ...</summary>
 
+* [v0.23.0](https://github.com/jedie/cli-base-utilities/compare/v0.22.0...v0.23.0)
+  * 2025-09-04 - separate click CLI test tools and deprecate them all
 * [v0.22.0](https://github.com/jedie/cli-base-utilities/compare/v0.21.1...v0.22.0)
   * 2025-09-03 - Use ruff instead of darker
 * [v0.21.1](https://github.com/jedie/cli-base-utilities/compare/v0.21.0...v0.21.1)
