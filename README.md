@@ -78,8 +78,8 @@ usage: ./cli.py [-h] {update-readme-history,version}
 ╭─ subcommands ──────────────────────────────────────────────────────────────────────────────────╮
 │ {update-readme-history,version}                                                                │
 │     update-readme-history                                                                      │
-│                   Update project history base on git commits/tags in README.md Will be exited  │
-│                   with 1 if the README.md was updated otherwise with 0.                        │
+│                   Update project history base on git commits/tags in README.md Will always     │
+│                   exist with exit code 0 because changed README is auto added to git.          │
 │                                                                                                │
 │                   Also, callable via e.g.:                                                     │
 │                       python -m cli_base update-readme-history -v                              │
@@ -188,7 +188,9 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
-* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.23.2...main)
+* [v0.23.3](https://github.com/jedie/cli-base-utilities/compare/v0.23.2...v0.23.3)
+  * 2025-09-20 - pre-commit config: Remove "default_install_hook_types"
+  * 2025-09-20 - Update README: Always exit with 0 and always add (but no amend commit) changed README
   * 2025-09-20 - Update requirements
 * [v0.23.2](https://github.com/jedie/cli-base-utilities/compare/v0.23.1...v0.23.2)
   * 2025-09-20 - Always exit with 0 if "auto-commit" is on.
