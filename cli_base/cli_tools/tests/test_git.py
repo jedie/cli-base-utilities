@@ -24,7 +24,9 @@ from cli_base.cli_tools.git import (
     GitLogLine,
     GitTagInfo,
     GitTagInfos,
+    NoGitRepoError,
 )
+from cli_base.cli_tools.test_utils.environment_fixtures import MockCurrentWorkDir
 from cli_base.cli_tools.test_utils.git_utils import init_git
 from cli_base.cli_tools.test_utils.logs import AssertLogs
 
@@ -45,6 +47,21 @@ class GitTestCase(TestCase):
         cls.own_git = Git(cwd=PACKAGE_ROOT, detect_root=True)
         git_root_path = cls.own_git.cwd
         assert git_root_path == PACKAGE_ROOT, f'{git_root_path=} is not {PACKAGE_ROOT=}'
+
+    def test_detect_cwd(self):
+        with MockCurrentWorkDir(prefix='test_detect_cwd') as mocked_cwd:
+            temp_path = mocked_cwd.temp_path
+            with self.assertRaises(NoGitRepoError) as cm:
+                Git()
+            self.assertEqual(str(cm.exception), f'"{temp_path}" is not a git repository')
+
+            with self.assertRaises(NoGitRepoError) as cm:
+                Git(cwd=temp_path)
+            self.assertEqual(str(cm.exception), f'"{temp_path}" is not a git repository')
+
+            # e.g.: "git.init()" should be used:
+            git = Git(cwd=temp_path, detect_root=False)
+            self.assertEqual(git.cwd, temp_path)
 
     def test_config(self):
         with TemporaryDirectory(prefix='test_init_git_') as temp_path:

@@ -7,7 +7,7 @@ from manageprojects.tests.base import BaseTestCase
 import typeguard
 
 import cli_base
-from cli_base.cli_tools.git import NoGitRepoError
+from cli_base.cli_tools.git import Git, GitError, NoGitRepoError
 from cli_base.cli_tools.git_history import get_git_history, update_readme_history
 from cli_base.cli_tools.test_utils.assertion import assert_in
 from cli_base.cli_tools.test_utils.environment_fixtures import MockCurrentWorkDir
@@ -16,7 +16,9 @@ from cli_base.cli_tools.test_utils.rich_test_utils import NoColorEnvRich
 
 class GitHistoryTestCase(BaseTestCase):
     def test_get_git_history_happy_path(self):
-        result = '\n'.join(get_git_history(current_version=cli_base.__version__, add_author=False))
+        git = Git()
+        git_history = get_git_history(git=git, current_version=cli_base.__version__, add_author=False)
+        result = '\n'.join(git_history)
         self.assert_in_content(
             got=result,
             parts=(
@@ -25,7 +27,8 @@ class GitHistoryTestCase(BaseTestCase):
             ),
         )
 
-        result = '\n'.join(get_git_history(current_version=cli_base.__version__, add_author=True))
+        git_history = get_git_history(git=git, current_version=cli_base.__version__, add_author=True)
+        result = '\n'.join(git_history)
         self.assert_in_content(
             got=result,
             parts=('  * 2023-10-08 JensDiemer - NEW: Generate a project history base on git commits/tags.',),
@@ -38,6 +41,15 @@ class GitHistoryTestCase(BaseTestCase):
         with NoColorEnvRich(), MockCurrentWorkDir(prefix='test_update_readme_history') as mocked_cwd:
             temp_path = mocked_cwd.temp_path
 
+            with self.assertRaises(NoGitRepoError) as cm:
+                update_readme_history()
+            self.assertEqual(str(cm.exception), f'"{temp_path}" is not a git repository')
+
+            # Initialize a git repo:
+            git = Git(cwd=temp_path, detect_root=False)
+            git.init()
+
+            # pyproject.toml is missing:
             with self.assertRaises(FileNotFoundError) as cm:
                 update_readme_history()
             self.assertIn('/pyproject.toml', str(cm.exception))
@@ -45,6 +57,7 @@ class GitHistoryTestCase(BaseTestCase):
             pyproject_toml_path = temp_path / 'pyproject.toml'
             pyproject_toml_path.touch()
 
+            # README.md is missing:
             with self.assertRaises(FileNotFoundError) as cm:
                 update_readme_history()
             self.assertIn('/README.md', str(cm.exception))
@@ -64,31 +77,33 @@ class GitHistoryTestCase(BaseTestCase):
 
             pyproject_toml_path.write_text('[tool.cli_base]\nversion_module_name = "cli_base"\n')
 
-            with self.assertRaises(NoGitRepoError) as cm:
+            with self.assertRaises(GitError) as cm:
                 update_readme_history()
-            self.assertIn('is not a git repository', str(cm.exception))
+            self.assertEqual(str(cm.exception), 'Git main branch not found in: []')
 
-            with patch(
-                'cli_base.cli_tools.git_history.get_git_history',
-                return_value=['mocked', 'get_git_history()'],
-            ):
-                with self.assertRaises(AssertionError) as cm:
-                    update_readme_history()
-                self.assertIn(
-                    "Start marker '[comment]: <> (✂✂✂ auto generated history start ✂✂✂)' not found ", str(cm.exception)
-                )
+            git.add('.', verbose=False)
+            git.commit(comment='Update pyproject.toml', verbose=False)
 
-                readme_path.write_text(inspect.cleandoc("""
-                        before content
-                        [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
-                        [comment]: <> (✂✂✂ auto generated history end ✂✂✂)
-                        after content
-                        """))
+            with self.assertRaises(AssertionError) as cm:
+                update_readme_history()
+            self.assertIn(
+                "Start marker '[comment]: <> (✂✂✂ auto generated history start ✂✂✂)' not found ", str(cm.exception)
+            )
 
-                # The mtime will be checked. This test may be to fast to have a mtime difference.
-                # So set a very old mtime:
-                os.utime(readme_path, (123, 456))
+            readme_path.write_text(
+                inspect.cleandoc("""
+                    before content
+                    [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
+                    [comment]: <> (✂✂✂ auto generated history end ✂✂✂)
+                    after content
+                """)
+            )
 
+            # The mtime will be checked. This test may be to fast to have a mtime difference.
+            # So set a very old mtime:
+            os.utime(readme_path, (123, 456))
+
+            with patch('cli_base.cli_tools.git_history.get_git_history', return_value=['mocked', 'get_git_history()']):
                 with RedirectOut() as buffer:
                     updated = update_readme_history()
                 self.assertIs(updated, True)
@@ -108,6 +123,6 @@ class GitHistoryTestCase(BaseTestCase):
                 # Call again, without changes:
                 with RedirectOut() as buffer:
                     updated = update_readme_history()
-                self.assertIs(updated, False)
                 self.assertEqual(buffer.stderr, '')
                 self.assertIn('/README.md is up-to-date', buffer.stdout)
+                self.assertIs(updated, False)
