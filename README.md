@@ -188,6 +188,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [v0.23.2](https://github.com/jedie/cli-base-utilities/compare/v0.23.1...v0.23.2)
+  * 2025-09-20 - Always exit with 0 if "auto-commit" is on.
 * [v0.23.1](https://github.com/jedie/cli-base-utilities/compare/v0.23.0...v0.23.1)
   * 2025-09-20 - Update git history tests
   * 2025-09-20 - Bugfix Git detection and error messages
@@ -200,11 +202,11 @@ It's easier to temporarily uninstall the hooks, create the release and install t
   * 2025-09-04 - separate click CLI test tools and deprecate them all
 * [v0.22.0](https://github.com/jedie/cli-base-utilities/compare/v0.21.1...v0.22.0)
   * 2025-09-03 - Use ruff instead of darker
-* [v0.21.1](https://github.com/jedie/cli-base-utilities/compare/v0.21.0...v0.21.1)
-  * 2025-08-05 - Enhance MockToolsExecutor and accept "cwd", too.
 
 <details><summary>Expand older history entries ...</summary>
 
+* [v0.21.1](https://github.com/jedie/cli-base-utilities/compare/v0.21.0...v0.21.1)
+  * 2025-08-05 - Enhance MockToolsExecutor and accept "cwd", too.
 * [v0.21.0](https://github.com/jedie/cli-base-utilities/compare/v0.20.0...v0.21.0)
   * 2025-08-05 - NEW: Helper to mock `ToolsExecutor` in tests.
 * [v0.20.0](https://github.com/jedie/cli-base-utilities/compare/v0.19.0...v0.20.0)
