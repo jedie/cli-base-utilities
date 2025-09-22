@@ -193,6 +193,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [v0.24.0](https://github.com/jedie/cli-base-utilities/compare/v0.23.3...v0.24.0)
+  * 2025-09-22 - Check README in CI, too
+  * 2025-09-22 - NEW: setup_tyro_shell_completion(): Helper to setup shell completion for Tyro CLIs
   * 2025-09-22 - Don't use rich_traceback_install() in own CLI
   * 2025-09-20 - Update requirements
 * [v0.23.3](https://github.com/jedie/cli-base-utilities/compare/v0.23.2...v0.23.3)
