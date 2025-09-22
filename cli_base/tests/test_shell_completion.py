@@ -1,6 +1,5 @@
 from pathlib import Path
 import re
-import shutil
 from unittest import TestCase
 
 from bx_py_utils.environ import OverrideEnviron
@@ -28,9 +27,14 @@ def patch_file_content(file_path: Path, source: str, target: str) -> int:
 class ShellCompleteTestCase(TestCase):
     def test_happy_path(self):
         snapshot_path = Path(__file__).parent / 'shell_complete_snapshots'
-        if snapshot_path.exists():
-            shutil.rmtree(snapshot_path)
-        snapshot_path.mkdir(exist_ok=False)
+        
+        completion_user_file_path = snapshot_path / '.bash_completion'
+        if completion_user_file_path.exists():
+            # The content will be appended, because match detection doesn't work
+            # because of replaced paths. So just remove the file. To recreation
+            # is tested below.
+            completion_user_file_path.unlink()
+
         with OverrideEnviron(HOME=str(snapshot_path)):
             verbose_check_output(PACKAGE_ROOT / 'dev-cli.py', 'shell-completion')
             verbose_check_output(PACKAGE_ROOT / 'cli.py', 'shell-completion')
