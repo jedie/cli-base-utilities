@@ -12,7 +12,6 @@ from rich import print  # noqa
 from tyro.extras import SubcommandApp
 
 from cli_base import __version__, constants
-from cli_base.cli_tools.rich_utils import rich_traceback_install
 from cli_base.cli_tools.subprocess_utils import verbose_check_output
 from cli_base.cli_tools.verbosity import setup_logging
 from cli_base.demo.settings import DemoSettings, SystemdServiceInfo
@@ -211,11 +210,6 @@ def demo_verbose_check_output_error():
 
 def main():
     print(f'[bold][green]cli-base-utilities[/green] DEMO cli v[cyan]{__version__}')
-
-    rich_traceback_install()
-
-    # Work-a-round for: https://github.com/brentyi/tyro/issues/205
-    app._subcommands = {k.replace('_', '-'): v for k, v in app._subcommands.items()}
 
     app.cli(
         prog='./demo-cli.py',

@@ -36,8 +36,8 @@ TODO: Document all features here ;)
 [comment]: <> (✂✂✂ auto generated dev help start ✂✂✂)
 ```
 usage: ./dev-cli.py [-h]
-                    {coverage,install,lint,mypy,nox,pip-audit,publish,test,update,update-test-snap
-shot-files,version}
+                    {coverage,install,lint,mypy,nox,pip-audit,publish,shell-completion,test,update
+,update-test-snapshot-files,version}
 
 
 
@@ -45,8 +45,8 @@ shot-files,version}
 │ -h, --help        show this help message and exit                                              │
 ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
 ╭─ subcommands ──────────────────────────────────────────────────────────────────────────────────╮
-│ {coverage,install,lint,mypy,nox,pip-audit,publish,test,update,update-test-snapshot-files,versi │
-│ on}                                                                                            │
+│ {coverage,install,lint,mypy,nox,pip-audit,publish,shell-completion,test,update,update-test-sna │
+│ pshot-files,version}                                                                           │
 │     coverage      Run tests and show coverage report.                                          │
 │     install       Run pip-sync and install 'cli_base' via pip as editable.                     │
 │     lint          Check/fix code style by run: "ruff check --fix"                              │
@@ -54,6 +54,8 @@ shot-files,version}
 │     nox           Run nox                                                                      │
 │     pip-audit     Run pip-audit check against current requirements files                       │
 │     publish       Build and upload this project to PyPi                                        │
+│     shell-completion                                                                           │
+│                   Setup shell completion for this dev CLI (Currently only for bash shell)      │
 │     test          Run unittests                                                                │
 │     update        Update dependencies (uv.lock) and git pre-commit hooks                       │
 │     update-test-snapshot-files                                                                 │
@@ -68,7 +70,7 @@ shot-files,version}
 
 [comment]: <> (✂✂✂ auto generated app help start ✂✂✂)
 ```
-usage: ./cli.py [-h] {update-readme-history,version}
+usage: ./cli.py [-h] {shell-completion,update-readme-history,version}
 
 
 
@@ -76,7 +78,9 @@ usage: ./cli.py [-h] {update-readme-history,version}
 │ -h, --help        show this help message and exit                                              │
 ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
 ╭─ subcommands ──────────────────────────────────────────────────────────────────────────────────╮
-│ {update-readme-history,version}                                                                │
+│ {shell-completion,update-readme-history,version}                                               │
+│     shell-completion                                                                           │
+│                   Setup shell completion for this CLI (Currently only for bash shell)          │
 │     update-readme-history                                                                      │
 │                   Update project history base on git commits/tags in README.md Will always     │
 │                   exist with exit code 0 because changed README is auto added to git.          │
@@ -188,7 +192,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
-* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.23.3...main)
+* [v0.24.0](https://github.com/jedie/cli-base-utilities/compare/v0.23.3...v0.24.0)
+  * 2025-09-22 - Don't use rich_traceback_install() in own CLI
   * 2025-09-20 - Update requirements
 * [v0.23.3](https://github.com/jedie/cli-base-utilities/compare/v0.23.2...v0.23.3)
   * 2025-09-20 - pre-commit config: Remove "default_install_hook_types"
