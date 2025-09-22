@@ -1,0 +1,6 @@
+
+# Added by {CWD}/cli_base/cli_tools/shell_completion.py for cli_base_utilities_dev_cli:
+source "{HOME}/.local/share/bash-completion/completions/cli_base_utilities_dev_cli.sh"
+
+# Added by {CWD}/cli_base/cli_tools/shell_completion.py for cli_base_utilities_app_cli:
+source "{HOME}/.local/share/bash-completion/completions/cli_base_utilities_app_cli.sh"
