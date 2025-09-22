@@ -1,0 +1,75 @@
+from pathlib import Path
+import re
+import shutil
+from unittest import TestCase
+
+from bx_py_utils.environ import OverrideEnviron
+from bx_py_utils.path import assert_is_file
+from shtab import wordify
+
+from cli_base.cli_dev import PACKAGE_ROOT
+from cli_base.cli_tools.subprocess_utils import verbose_check_output
+
+
+def patch_file_content(file_path: Path, source: str, target: str) -> int:
+    """
+    Replace all occurrences of `source` with `target` in the given file.
+    returns the number of replacements made.
+    """
+    assert_is_file(file_path)
+    content = file_path.read_text()
+    content, count = re.subn(re.escape(source), target, content)
+    if count > 0:
+        print(f'{count=} replacement of {source=} ')
+        file_path.write_text(content)
+    return count
+
+
+class ShellCompleteTestCase(TestCase):
+    def test_happy_path(self):
+        snapshot_path = Path(__file__).parent / 'shell_complete_snapshots'
+        if snapshot_path.exists():
+            shutil.rmtree(snapshot_path)
+        snapshot_path.mkdir(exist_ok=False)
+        with OverrideEnviron(HOME=str(snapshot_path)):
+            verbose_check_output(PACKAGE_ROOT / 'dev-cli.py', 'shell-completion')
+            verbose_check_output(PACKAGE_ROOT / 'cli.py', 'shell-completion')
+
+        self.assertEqual(
+            patch_file_content(
+                file_path=snapshot_path / '.bash_completion',
+                source=str(snapshot_path),
+                target='{HOME}',
+            ),
+            2,
+        )
+        cwd_str = str(PACKAGE_ROOT)
+        self.assertEqual(
+            patch_file_content(
+                file_path=snapshot_path / '.bash_completion',
+                source=cwd_str,
+                target='{CWD}',
+            ),
+            2,
+        )
+        for file_name in (
+            'cli_base_utilities_app_cli.sh',
+            'cli_base_utilities_dev_cli.sh',
+        ):
+            self.assertGreater(
+                patch_file_content(
+                    file_path=snapshot_path / '.local/share/bash-completion/completions' / file_name,
+                    source=wordify(cwd_str),
+                    target='_CWD_',
+                ),
+                10,
+            )
+            self.assertEqual(
+                patch_file_content(
+                    file_path=snapshot_path / '.local/share/bash-completion/completions' / file_name,
+                    source=cwd_str,
+                    target='{CWD}',
+                ),
+                1,
+            )
+
