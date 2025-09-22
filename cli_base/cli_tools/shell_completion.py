@@ -11,12 +11,35 @@ import shutil
 import sys
 import textwrap
 
+from bx_py_utils.path import assert_is_file
 from rich import print  # noqa
 
 from cli_base.cli_tools.subprocess_utils import verbose_check_output
 
 
 logger = logging.getLogger(__name__)
+TYRO_WRITE_COMPLETION_ARG = '--tyro-write-completion'
+
+
+def fix_completion_prog(prog: str) -> str:
+    """
+    DocWrite: shell_completion.md ## fix_completion_prog()
+    When Tyro writes completion file, use the full path to the CLI program.
+    So that the completion match only for this program.
+    e.g.: Usage of more than one "./cli.py" in different folders ;)
+
+    So build your app like this:
+    ```python
+    app.cli(
+        prog=fix_completion_prog('./cli.py'),
+        ...
+    )
+    ```
+    """
+    if '--tyro-write-completion' in sys.argv:
+        prog = Path(prog).resolve()
+        assert_is_file(prog)
+    return prog
 
 
 def append_file(file_path: Path, content: str) -> bool:
@@ -83,7 +106,7 @@ def setup_bash_completion(prog_name: str, remove: bool):
         logger.info('Writing completion script to %s', completion_file_path)
         verbose_check_output(
             sys.argv[0],
-            '--tyro-write-completion',
+            TYRO_WRITE_COMPLETION_ARG,
             'bash',
             completion_file_path,
             verbose=False,
