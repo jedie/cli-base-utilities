@@ -192,7 +192,7 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
-* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.24.0...main)
+* [v0.24.1](https://github.com/jedie/cli-base-utilities/compare/v0.24.0...v0.24.1)
   * 2025-09-22 - Add integration tests for shell complete with snapshots
   * 2025-09-22 - fix shell-complete and match full cli program path
   * 2025-09-22 - suffix prog name to differate between app/dev cli
