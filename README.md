@@ -192,6 +192,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.24.0...main)
+  * 2025-09-22 - suffix prog name to differate between app/dev cli
 * [v0.24.0](https://github.com/jedie/cli-base-utilities/compare/v0.23.3...v0.24.0)
   * 2025-09-22 - Check README in CI, too
   * 2025-09-22 - NEW: setup_tyro_shell_completion(): Helper to setup shell completion for Tyro CLIs
@@ -203,6 +205,9 @@ It's easier to temporarily uninstall the hooks, create the release and install t
   * 2025-09-20 - Update requirements
 * [v0.23.2](https://github.com/jedie/cli-base-utilities/compare/v0.23.1...v0.23.2)
   * 2025-09-20 - Always exit with 0 if "auto-commit" is on.
+
+<details><summary>Expand older history entries ...</summary>
+
 * [v0.23.1](https://github.com/jedie/cli-base-utilities/compare/v0.23.0...v0.23.1)
   * 2025-09-20 - Update git history tests
   * 2025-09-20 - Bugfix Git detection and error messages
@@ -211,9 +216,6 @@ It's easier to temporarily uninstall the hooks, create the release and install t
   * 2025-09-20 - add pycharm .run file
   * 2025-09-20 - Remove obsolete ".flake8" file
   * 2025-09-20 - Update requirements and fix tests
-
-<details><summary>Expand older history entries ...</summary>
-
 * [v0.23.0](https://github.com/jedie/cli-base-utilities/compare/v0.22.0...v0.23.0)
   * 2025-09-04 - separate click CLI test tools and deprecate them all
 * [v0.22.0](https://github.com/jedie/cli-base-utilities/compare/v0.21.1...v0.22.0)

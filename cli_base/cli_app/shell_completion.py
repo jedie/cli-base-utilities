@@ -18,6 +18,6 @@ def shell_completion(verbosity: TyroVerbosityArgType = 1, remove: bool = False) 
     """
     setup_logging(verbosity=verbosity)
     setup_tyro_shell_completion(
-        prog_name='cli_base_utilities',
+        prog_name='cli_base_utilities_app_cli',
         remove=remove,
     )
