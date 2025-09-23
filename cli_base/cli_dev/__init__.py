@@ -14,7 +14,6 @@ import cli_base
 from cli_base import constants
 from cli_base.autodiscover import import_all_files
 from cli_base.cli_tools.dev_tools import run_coverage, run_nox, run_unittest_cli
-from cli_base.cli_tools.shell_completion import fix_completion_prog
 from cli_base.cli_tools.version_info import print_version
 
 
@@ -62,7 +61,7 @@ def main():
             real_func(argv=sys.argv, exit_after_run=True)
 
     app.cli(
-        prog=fix_completion_prog('./dev-cli.py'),
+        prog='./dev-cli.py',
         description=constants.CLI_EPILOG,
         use_underscores=False,  # use hyphens instead of underscores
         sort_subcommands=True,

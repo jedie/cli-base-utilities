@@ -4,7 +4,6 @@ from unittest import TestCase
 
 from bx_py_utils.environ import OverrideEnviron
 from bx_py_utils.path import assert_is_file
-from shtab import wordify
 
 from cli_base.cli_dev import PACKAGE_ROOT
 from cli_base.cli_tools.subprocess_utils import verbose_check_output
@@ -27,7 +26,7 @@ def patch_file_content(file_path: Path, source: str, target: str) -> int:
 class ShellCompleteTestCase(TestCase):
     def test_happy_path(self):
         snapshot_path = Path(__file__).parent / 'shell_complete_snapshots'
-        
+
         completion_user_file_path = snapshot_path / '.bash_completion'
         if completion_user_file_path.exists():
             # The content will be appended, because match detection doesn't work
@@ -56,24 +55,10 @@ class ShellCompleteTestCase(TestCase):
             ),
             2,
         )
-        for file_name in (
-            'cli_base_utilities_app_cli.sh',
-            'cli_base_utilities_dev_cli.sh',
+        for file_path in (
+            snapshot_path / '.local/share/bash-completion/completions/cli_base_utilities_app_cli.sh',
+            snapshot_path / '.local/share/bash-completion/completions/cli_base_utilities_dev_cli.sh',
+            snapshot_path / '.zfunc/_cli_base_utilities_app_cli.zsh',
+            snapshot_path / '.zfunc/_cli_base_utilities_dev_cli.zsh',
         ):
-            self.assertGreater(
-                patch_file_content(
-                    file_path=snapshot_path / '.local/share/bash-completion/completions' / file_name,
-                    source=wordify(cwd_str),
-                    target='_CWD_',
-                ),
-                10,
-            )
-            self.assertEqual(
-                patch_file_content(
-                    file_path=snapshot_path / '.local/share/bash-completion/completions' / file_name,
-                    source=cwd_str,
-                    target='{CWD}',
-                ),
-                1,
-            )
-
+            assert_is_file(file_path)
