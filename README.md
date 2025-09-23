@@ -55,7 +55,7 @@ usage: ./dev-cli.py [-h]
 │     pip-audit     Run pip-audit check against current requirements files                       │
 │     publish       Build and upload this project to PyPi                                        │
 │     shell-completion                                                                           │
-│                   Setup shell completion for this dev CLI (Currently only for bash shell)      │
+│                   Setup shell completion for this dev CLI                                      │
 │     test          Run unittests                                                                │
 │     update        Update dependencies (uv.lock) and git pre-commit hooks                       │
 │     update-test-snapshot-files                                                                 │
@@ -80,7 +80,7 @@ usage: ./cli.py [-h] {shell-completion,update-readme-history,version}
 ╭─ subcommands ──────────────────────────────────────────────────────────────────────────────────╮
 │ {shell-completion,update-readme-history,version}                                               │
 │     shell-completion                                                                           │
-│                   Setup shell completion for this CLI (Currently only for bash shell)          │
+│                   Setup shell completion for this CLI                                          │
 │     update-readme-history                                                                      │
 │                   Update project history base on git commits/tags in README.md Will always     │
 │                   exist with exit code 0 because changed README is auto added to git.          │
@@ -192,6 +192,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [v0.25.0](https://github.com/jedie/cli-base-utilities/compare/v0.24.1...v0.25.0)
+  * 2025-09-23 - Shell completion: Remove fix_completion_prog() and add support for Z-Shell
 * [v0.24.1](https://github.com/jedie/cli-base-utilities/compare/v0.24.0...v0.24.1)
   * 2025-09-22 - Fix tests: don't remove the ".gitignore" file
   * 2025-09-22 - Add integration tests for shell complete with snapshots
@@ -206,11 +208,11 @@ It's easier to temporarily uninstall the hooks, create the release and install t
   * 2025-09-20 - pre-commit config: Remove "default_install_hook_types"
   * 2025-09-20 - Update README: Always exit with 0 and always add (but no amend commit) changed README
   * 2025-09-20 - Update requirements
-* [v0.23.2](https://github.com/jedie/cli-base-utilities/compare/v0.23.1...v0.23.2)
-  * 2025-09-20 - Always exit with 0 if "auto-commit" is on.
 
 <details><summary>Expand older history entries ...</summary>
 
+* [v0.23.2](https://github.com/jedie/cli-base-utilities/compare/v0.23.1...v0.23.2)
+  * 2025-09-20 - Always exit with 0 if "auto-commit" is on.
 * [v0.23.1](https://github.com/jedie/cli-base-utilities/compare/v0.23.0...v0.23.1)
   * 2025-09-20 - Update git history tests
   * 2025-09-20 - Bugfix Git detection and error messages
