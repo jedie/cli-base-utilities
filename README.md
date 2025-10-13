@@ -48,14 +48,14 @@ usage: ./dev-cli.py [-h]
 │ {coverage,install,lint,mypy,nox,pip-audit,publish,shell-completion,test,update,update-test-sna │
 │ pshot-files,version}                                                                           │
 │     coverage      Run tests and show coverage report.                                          │
-│     install       Run pip-sync and install 'cli_base' via pip as editable.                     │
+│     install       Install requirements and 'cli_base' via pip as editable.                     │
 │     lint          Check/fix code style by run: "ruff check --fix"                              │
 │     mypy          Run Mypy (configured in pyproject.toml)                                      │
 │     nox           Run nox                                                                      │
 │     pip-audit     Run pip-audit check against current requirements files                       │
 │     publish       Build and upload this project to PyPi                                        │
 │     shell-completion                                                                           │
-│                   Setup shell completion for this dev CLI                                      │
+│                   Setup shell completion for this CLI (Currently only for bash and zsh)        │
 │     test          Run unittests                                                                │
 │     update        Update dependencies (uv.lock) and git pre-commit hooks                       │
 │     update-test-snapshot-files                                                                 │
@@ -80,7 +80,7 @@ usage: ./cli.py [-h] {shell-completion,update-readme-history,version}
 ╭─ subcommands ──────────────────────────────────────────────────────────────────────────────────╮
 │ {shell-completion,update-readme-history,version}                                               │
 │     shell-completion                                                                           │
-│                   Setup shell completion for this CLI                                          │
+│                   Setup shell completion for this CLI (Currently only for bash and zsh)        │
 │     update-readme-history                                                                      │
 │                   Update project history base on git commits/tags in README.md Will always     │
 │                   exist with exit code 0 because changed README is auto added to git.          │
@@ -193,6 +193,7 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.25.0...main)
+  * 2025-10-13 - -cli_base/cli_dev/update_readme_history.py and update test snapshots
   * 2025-10-13 - Fix code style
   * 2025-10-13 - Update requirements
   * 2025-10-13 - Apply manageproject template updates

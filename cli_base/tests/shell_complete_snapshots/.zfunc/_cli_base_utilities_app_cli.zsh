@@ -5,7 +5,7 @@
 
 _shtab_tyro___cli_py_commands() {
   local _commands=(
-    "shell-completion:Setup shell completion for this CLI"
+    "shell-completion:Setup shell completion for this CLI (Currently only for bash and zsh)"
     "update-readme-history:Update project history base on git commits\/tags in README.md Will always exist with exit code 0 because changed README is auto added to git."
     "version:Print version and exit"
   )
