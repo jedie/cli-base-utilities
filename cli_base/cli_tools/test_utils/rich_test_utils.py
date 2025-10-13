@@ -5,10 +5,10 @@ import subprocess
 import sys
 from unittest.mock import patch
 
+import rich
 from bx_py_utils.environ import OverrideEnviron
 from bx_py_utils.path import assert_is_file
 from bx_py_utils.test_utils.context_managers import MassContextManager
-import rich
 from rich import get_console
 from rich.console import Console, get_windows_console_features
 

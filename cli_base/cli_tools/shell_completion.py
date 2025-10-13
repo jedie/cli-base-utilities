@@ -5,10 +5,10 @@ Helper to setup shell completion for a Tyro based CLI program.
 
 import logging
 import os
-from pathlib import Path
 import re
 import sys
 import textwrap
+from pathlib import Path
 
 from rich import print  # noqa
 

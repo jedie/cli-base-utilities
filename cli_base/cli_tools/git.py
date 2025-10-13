@@ -2,14 +2,14 @@ from __future__ import annotations
 
 import dataclasses
 import datetime
-from functools import total_ordering
 import logging
 import os
-from pathlib import Path
 import re
-from shutil import which
 import subprocess  # nosec B404
 import warnings
+from functools import total_ordering
+from pathlib import Path
+from shutil import which
 
 from bx_py_utils.path import assert_is_file
 from dateutil.parser import parse

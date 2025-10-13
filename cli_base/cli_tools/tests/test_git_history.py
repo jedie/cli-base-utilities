@@ -2,9 +2,9 @@ import inspect
 import os
 from unittest.mock import patch
 
+import typeguard
 from bx_py_utils.test_utils.redirect import RedirectOut
 from manageprojects.tests.base import BaseTestCase
-import typeguard
 
 import cli_base
 from cli_base.cli_tools.git import Git, GitError, NoGitRepoError

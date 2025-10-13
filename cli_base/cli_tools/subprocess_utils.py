@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 import os
-from pathlib import Path
 import subprocess
 import sys
+from pathlib import Path
 
 from bx_py_utils.path import assert_is_dir, assert_is_file
 from rich import print  # noqa

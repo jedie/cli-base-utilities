@@ -1,6 +1,6 @@
 import os
-from pathlib import Path
 import tempfile
+from pathlib import Path
 from unittest import TestCase
 
 from cli_base.cli_tools.path_utils import backup, expand_user, which

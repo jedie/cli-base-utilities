@@ -1,8 +1,8 @@
 from __future__ import annotations
 
+import sys
 from pathlib import Path
 from subprocess import CalledProcessError
-import sys
 
 from cli_base.cli_tools.subprocess_utils import ToolsExecutor
 

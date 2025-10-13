@@ -6,13 +6,13 @@
 _shtab_tyro___dev_cli_py_commands() {
   local _commands=(
     "coverage:Run tests and show coverage report."
-    "install:Run pip-sync and install \'cli_base\' via pip as editable."
+    "install:Install requirements and \'cli_base\' via pip as editable."
     "lint:Check\/fix code style by run\: \"ruff check --fix\""
     "mypy:Run Mypy (configured in pyproject.toml)"
     "nox:Run nox"
     "pip-audit:Run pip-audit check against current requirements files"
     "publish:Build and upload this project to PyPi"
-    "shell-completion:Setup shell completion for this dev CLI"
+    "shell-completion:Setup shell completion for this CLI (Currently only for bash and zsh)"
     "test:Run unittests"
     "update:Update dependencies (uv.lock) and git pre-commit hooks"
     "update-test-snapshot-files:Update all test snapshot files (by remove and recreate all snapshot files)"
