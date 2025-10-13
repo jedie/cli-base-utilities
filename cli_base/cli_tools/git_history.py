@@ -1,10 +1,10 @@
 from __future__ import annotations
 
-from collections.abc import Iterable
 import importlib
 import os
-from pathlib import Path
 import re
+from collections.abc import Iterable
+from pathlib import Path
 
 from bx_py_utils.auto_doc import assert_readme_block
 from bx_py_utils.path import assert_is_file

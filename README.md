@@ -193,6 +193,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.25.0...main)
+  * 2025-10-13 - Fix code style
+  * 2025-10-13 - Update requirements
   * 2025-10-13 - Apply manageproject template updates
 * [v0.25.0](https://github.com/jedie/cli-base-utilities/compare/v0.24.1...v0.25.0)
   * 2025-09-23 - Shell completion: Remove fix_completion_prog() and add support for Z-Shell

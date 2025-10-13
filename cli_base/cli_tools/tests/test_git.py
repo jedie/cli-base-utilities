@@ -1,8 +1,8 @@
 import datetime
 import filecmp
 import inspect
-from pathlib import Path
 import shutil
+from pathlib import Path
 from unittest import TestCase
 
 from bx_py_utils.test_utils.datetime import parse_dt

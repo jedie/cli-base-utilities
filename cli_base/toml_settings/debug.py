@@ -1,7 +1,7 @@
-from collections.abc import Iterable
 import dataclasses
 import inspect
 import textwrap
+from collections.abc import Iterable
 
 from bx_py_utils.anonymize import anonymize
 from rich import print  # noqa

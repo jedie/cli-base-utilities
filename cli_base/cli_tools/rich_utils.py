@@ -3,6 +3,7 @@ from __future__ import annotations
 import functools
 import sys
 
+import tyro
 from bx_py_utils.test_utils.assertion import text_unified_diff
 from pygments.lexer import Lexer
 from rich.console import Console
@@ -13,7 +14,6 @@ from rich.rule import Rule
 from rich.syntax import Syntax
 from rich.text import Text
 from rich.traceback import install as install_rich_traceback
-import tyro
 
 
 def rich_traceback_install(
