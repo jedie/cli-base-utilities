@@ -192,6 +192,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.25.0...main)
+  * 2025-10-13 - Apply manageproject template updates
 * [v0.25.0](https://github.com/jedie/cli-base-utilities/compare/v0.24.1...v0.25.0)
   * 2025-09-23 - Shell completion: Remove fix_completion_prog() and add support for Z-Shell
 * [v0.24.1](https://github.com/jedie/cli-base-utilities/compare/v0.24.0...v0.24.1)
@@ -204,13 +206,13 @@ It's easier to temporarily uninstall the hooks, create the release and install t
   * 2025-09-22 - NEW: setup_tyro_shell_completion(): Helper to setup shell completion for Tyro CLIs
   * 2025-09-22 - Don't use rich_traceback_install() in own CLI
   * 2025-09-20 - Update requirements
+
+<details><summary>Expand older history entries ...</summary>
+
 * [v0.23.3](https://github.com/jedie/cli-base-utilities/compare/v0.23.2...v0.23.3)
   * 2025-09-20 - pre-commit config: Remove "default_install_hook_types"
   * 2025-09-20 - Update README: Always exit with 0 and always add (but no amend commit) changed README
   * 2025-09-20 - Update requirements
-
-<details><summary>Expand older history entries ...</summary>
-
 * [v0.23.2](https://github.com/jedie/cli-base-utilities/compare/v0.23.1...v0.23.2)
   * 2025-09-20 - Always exit with 0 if "auto-commit" is on.
 * [v0.23.1](https://github.com/jedie/cli-base-utilities/compare/v0.23.0...v0.23.1)

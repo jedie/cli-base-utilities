@@ -4,6 +4,7 @@ CLI for usage
 
 import logging
 import sys
+from collections.abc import Sequence
 
 from rich import print  # noqa
 from tyro.extras import SubcommandApp
@@ -29,11 +30,12 @@ def version():
     sys.exit(0)
 
 
-def main():
+def main(args: Sequence[str] | None = None):
     print_version(cli_base)
     app.cli(
         prog='./cli.py',
         description=constants.CLI_EPILOG,
         use_underscores=False,  # use hyphens instead of underscores
         sort_subcommands=True,
+        args=args,
     )

@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 @app.command
 def install():
     """
-    Run pip-sync and install 'cli_base' via pip as editable.
+    Install requirements and 'cli_base' via pip as editable.
     """
     tools_executor = ToolsExecutor(cwd=PACKAGE_ROOT)
     tools_executor.verbose_check_call('uv', 'sync')

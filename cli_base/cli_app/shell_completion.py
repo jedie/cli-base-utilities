@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 @app.command
 def shell_completion(verbosity: TyroVerbosityArgType = 1, remove: bool = False) -> None:
     """
-    Setup shell completion for this CLI
+    Setup shell completion for this CLI (Currently only for bash shell)
     """
     setup_logging(verbosity=verbosity)
     setup_tyro_shell_completion(

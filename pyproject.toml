@@ -22,7 +22,7 @@ dev = [
     "manageprojects",  # https://github.com/jedie/manageprojects
     "urllib3", # for bx_py_utils.test_utils.deny_requests.deny_any_real_request() in tests
     "uv",  # https://github.com/astral-sh/uv
-    "setuptools",  # https://github.com/pypa/setuptools
+    "hatchling",  # https://github.com/pypa/hatch/tree/master/backend
     "nox",  # https://github.com/wntrblm/nox
     "coverage",  # https://github.com/nedbat/coveragepy
     "ruff", # https://github.com/astral-sh/ruff
@@ -45,27 +45,28 @@ Source = "https://github.com/jedie/cli-base-utilities"
 cli_base_app = "cli_base.__main__:main"
 cli_base_dev = "cli_base.cli_dev:main"
 
+
 [build-system]
-requires = ["setuptools>=61.0", "setuptools_scm>=7.1"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.setuptools.packages.find]
-where = ["."]
-include = ["cli_base*"]
+[tool.hatch.build.targets.wheel]
+packages = ["cli_base"]
 
-[tool.setuptools.dynamic]
-version = {attr = "cli_base.__version__"}
+[tool.hatch.version]
+path = "cli_base/__init__.py"
 
 
 [tool.cli_base]
 version_module_name = "cli_base" # Used in cli_base.cli_tools.git_history.update_readme_history()
 
-
 [tool.cli_base.pip_audit]
 requirements=["requirements.dev.txt"]
 strict=true
 require_hashes=true
-ignore-vuln=[]
+ignore-vuln=[
+    "GHSA-4xh5-x5gv-qwph",  # https://github.com/advisories/GHSA-4xh5-x5gv-qwph
+]
 
 
 [tool.bx_py_utils.doc_write]
@@ -95,9 +96,8 @@ ignore = [
 ]
 
 [tool.ruff.lint.isort]
-# https://docs.astral.sh/ruff/rules/#isort-i
+# https://docs.astral.sh/ruff/settings/#lintisort
 lines-after-imports = 2
-force-sort-within-sections = true
 
 [tool.ruff.format]
 quote-style = "single"
@@ -146,6 +146,7 @@ applied_migrations = [
     "2cdc1d8", # 2024-08-25T19:00:41+02:00
     "ae7c1d3", # 2024-09-25T22:26:25+02:00
     "e9e2dae", # 2024-11-14T17:59:23+01:00
+    "4d9f75b", # 2025-10-13T12:11:18+02:00
 ]
 
 [manageprojects.cookiecutter_context.cookiecutter]
