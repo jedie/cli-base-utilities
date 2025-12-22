@@ -612,6 +612,14 @@ class Git:
             result.append((status, filepath))
         return result
 
+    def changed_files(self, verbose=True) -> list:
+        """
+        Returns the changed files, if any.
+        """
+        output = self.git_verbose_check_output('status', '--porcelain', verbose=verbose, exit_on_error=True)
+        changed_files = sorted(self.cwd / line.strip().partition(' ')[2].strip() for line in output.splitlines())
+        return changed_files
+
     def get_raw_branch_names(self, verbose=True) -> list[str]:
         output = self.git_verbose_check_output('branch', '--no-color', verbose=verbose)
         branches = output.splitlines()

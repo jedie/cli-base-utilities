@@ -580,3 +580,17 @@ class GitTestCase(TestCase):
                     description='With some text...',
                 ),
             )
+
+    def test_changed_files(self):
+        with TemporaryDirectory(prefix='test_changed_files_') as temp_path:
+            git = Git(cwd=temp_path, detect_root=False)
+            git.init()
+            Path(temp_path, 'foo.txt').touch()
+            Path(temp_path, 'bar.txt').touch()
+            self.assertEqual(
+                git.changed_files(),
+                [
+                    temp_path / 'bar.txt',
+                    temp_path / 'foo.txt',
+                ],
+            )

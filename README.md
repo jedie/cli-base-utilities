@@ -35,33 +35,31 @@ TODO: Document all features here ;)
 
 [comment]: <> (✂✂✂ auto generated dev help start ✂✂✂)
 ```
-usage: ./dev-cli.py [-h]
-                    {coverage,install,lint,mypy,nox,pip-audit,publish,shell-completion,test,update
-,update-test-snapshot-files,version}
+usage: ./dev-cli.py [-h] {coverage,install,lint,mypy,nox,pip-audit,publish,shell-completion,test,update,update-test-snapshot-files,version}
 
 
 
-╭─ options ──────────────────────────────────────────────────────────────────────────────────────╮
-│ -h, --help        show this help message and exit                                              │
-╰────────────────────────────────────────────────────────────────────────────────────────────────╯
-╭─ subcommands ──────────────────────────────────────────────────────────────────────────────────╮
-│ {coverage,install,lint,mypy,nox,pip-audit,publish,shell-completion,test,update,update-test-sna │
-│ pshot-files,version}                                                                           │
-│     coverage      Run tests and show coverage report.                                          │
-│     install       Install requirements and 'cli_base' via pip as editable.                     │
-│     lint          Check/fix code style by run: "ruff check --fix"                              │
-│     mypy          Run Mypy (configured in pyproject.toml)                                      │
-│     nox           Run nox                                                                      │
-│     pip-audit     Run pip-audit check against current requirements files                       │
-│     publish       Build and upload this project to PyPi                                        │
-│     shell-completion                                                                           │
-│                   Setup shell completion for this CLI (Currently only for bash and zsh)        │
-│     test          Run unittests                                                                │
-│     update        Update dependencies (uv.lock) and git pre-commit hooks                       │
-│     update-test-snapshot-files                                                                 │
-│                   Update all test snapshot files (by remove and recreate all snapshot files)   │
-│     version       Print version and exit                                                       │
-╰────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭─ options ────────────────────────────────────────────────────────────────────────────────╮
+│ -h, --help    show this help message and exit                                            │
+╰──────────────────────────────────────────────────────────────────────────────────────────╯
+╭─ subcommands ────────────────────────────────────────────────────────────────────────────╮
+│ (required)                                                                               │
+│   • coverage  Run tests and show coverage report.                                        │
+│   • install   Install requirements and 'cli_base' via pip as editable.                   │
+│   • lint      Check/fix code style by run: "ruff check --fix"                            │
+│   • mypy      Run Mypy (configured in pyproject.toml)                                    │
+│   • nox       Run nox                                                                    │
+│   • pip-audit                                                                            │
+│               Run pip-audit check against current requirements files                     │
+│   • publish   Build and upload this project to PyPi                                      │
+│   • shell-completion                                                                     │
+│               Setup shell completion for this CLI (Currently only for bash and zsh)      │
+│   • test      Run unittests                                                              │
+│   • update    Update dependencies (uv.lock) and git pre-commit hooks                     │
+│   • update-test-snapshot-files                                                           │
+│               Update all test snapshot files (by remove and recreate all snapshot files) │
+│   • version   Print version and exit                                                     │
+╰──────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 [comment]: <> (✂✂✂ auto generated dev help end ✂✂✂)
 
@@ -74,21 +72,21 @@ usage: ./cli.py [-h] {shell-completion,update-readme-history,version}
 
 
 
-╭─ options ──────────────────────────────────────────────────────────────────────────────────────╮
-│ -h, --help        show this help message and exit                                              │
-╰────────────────────────────────────────────────────────────────────────────────────────────────╯
-╭─ subcommands ──────────────────────────────────────────────────────────────────────────────────╮
-│ {shell-completion,update-readme-history,version}                                               │
-│     shell-completion                                                                           │
-│                   Setup shell completion for this CLI (Currently only for bash and zsh)        │
-│     update-readme-history                                                                      │
-│                   Update project history base on git commits/tags in README.md Will always     │
-│                   exist with exit code 0 because changed README is auto added to git.          │
-│                                                                                                │
-│                   Also, callable via e.g.:                                                     │
-│                       python -m cli_base update-readme-history -v                              │
-│     version       Print version and exit                                                       │
-╰────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭─ options ────────────────────────────────────────────────────────────────────────────────────────╮
+│ -h, --help   show this help message and exit                                                     │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭─ subcommands ────────────────────────────────────────────────────────────────────────────────────╮
+│ (required)                                                                                       │
+│   • shell-completion                                                                             │
+│              Setup shell completion for this CLI (Currently only for bash and zsh)               │
+│   • update-readme-history                                                                        │
+│              Update project history base on git commits/tags in README.md Will always exist with │
+│              exit code 0 because changed README is auto added to git.                            │
+│                                                                                                  │
+│              Also, callable via e.g.:                                                            │
+│                  python -m cli_base update-readme-history -v                                     │
+│   • version  Print version and exit                                                              │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 [comment]: <> (✂✂✂ auto generated app help end ✂✂✂)
 
@@ -97,42 +95,36 @@ usage: ./cli.py [-h] {shell-completion,update-readme-history,version}
 
 [comment]: <> (✂✂✂ auto generated demo help start ✂✂✂)
 ```
-usage: ./demo-cli.py [-h]
-                     {demo-endless-loop,demo-verbose-check-output-error,edit-settings,print-settin
-gs,systemd-debug,systemd-logs,systemd-remove,systemd-setup,systemd-status,systemd-stop,version}
+usage: ./demo-cli.py [-h] {demo-endless-loop,demo-verbose-check-output-error,edit-settings,print-settings,systemd-debug,systemd-logs,systemd-remove,systemd-setup,systemd-status,systemd-stop,version}
 
 
 
-╭─ options ──────────────────────────────────────────────────────────────────────────────────────╮
-│ -h, --help        show this help message and exit                                              │
-╰────────────────────────────────────────────────────────────────────────────────────────────────╯
-╭─ subcommands ──────────────────────────────────────────────────────────────────────────────────╮
-│ {demo-endless-loop,demo-verbose-check-output-error,edit-settings,print-settings,systemd-debug, │
-│ systemd-logs,systemd-remove,systemd-setup,systemd-status,systemd-stop,version}                 │
-│     demo-endless-loop                                                                          │
-│                   Just a useless example command, used in systemd DEMO: It just print some     │
-│                   information in a endless loop.                                               │
-│     demo-verbose-check-output-error                                                            │
-│                   DEMO for a error calling                                                     │
-│                   cli_base.cli_tools.subprocess_utils.verbose_check_output()                   │
-│     edit-settings                                                                              │
-│                   Edit the settings file. On first call: Create the default one.               │
-│     print-settings                                                                             │
-│                   Display (anonymized) MQTT server username and password                       │
-│     systemd-debug                                                                              │
-│                   Print Systemd service template + context + rendered file content.            │
-│     systemd-logs  List and follow logs of systemd service. (May need sudo)                     │
-│     systemd-remove                                                                             │
-│                   Write Systemd service file, enable it and (re-)start the service. (May need  │
-│                   sudo)                                                                        │
-│     systemd-setup                                                                              │
-│                   Write Systemd service file, enable it and (re-)start the service. (May need  │
-│                   sudo)                                                                        │
-│     systemd-status                                                                             │
-│                   Display status of systemd service. (May need sudo)                           │
-│     systemd-stop  Stops the systemd service. (May need sudo)                                   │
-│     version       Print version and exit                                                       │
-╰────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭─ options ────────────────────────────────────────────────────────────────────────────────────────╮
+│ -h, --help         show this help message and exit                                               │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭─ subcommands ────────────────────────────────────────────────────────────────────────────────────╮
+│ (required)                                                                                       │
+│   • demo-endless-loop                                                                            │
+│                    Just a useless example command, used in systemd DEMO: It just print some      │
+│                    information in a endless loop.                                                │
+│   • demo-verbose-check-output-error                                                              │
+│                    DEMO for a error calling                                                      │
+│                    cli_base.cli_tools.subprocess_utils.verbose_check_output()                    │
+│   • edit-settings  Edit the settings file. On first call: Create the default one.                │
+│   • print-settings                                                                               │
+│                    Display (anonymized) MQTT server username and password                        │
+│   • systemd-debug  Print Systemd service template + context + rendered file content.             │
+│   • systemd-logs   List and follow logs of systemd service. (May need sudo)                      │
+│   • systemd-remove                                                                               │
+│                    Write Systemd service file, enable it and (re-)start the service. (May need   │
+│                    sudo)                                                                         │
+│   • systemd-setup  Write Systemd service file, enable it and (re-)start the service. (May need   │
+│                    sudo)                                                                         │
+│   • systemd-status                                                                               │
+│                    Display status of systemd service. (May need sudo)                            │
+│   • systemd-stop   Stops the systemd service. (May need sudo)                                    │
+│   • version        Print version and exit                                                        │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 [comment]: <> (✂✂✂ auto generated demo help end ✂✂✂)
 
@@ -192,10 +184,13 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
-* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.25.0...main)
+* [v0.26.0](https://github.com/jedie/cli-base-utilities/compare/v0.25.0...v0.26.0)
+  * 2025-12-22 - Update README
+  * 2025-12-22 - NEW: git.changed_files(): Get a list of Path objects containing the changed files
+  * 2025-12-22 - Update requirements
+  * 2025-12-22 - Remove verbose output on "pip-audit" run
   * 2025-10-13 - -cli_base/cli_dev/update_readme_history.py and update test snapshots
   * 2025-10-13 - Fix code style
-  * 2025-10-13 - Update requirements
   * 2025-10-13 - Apply manageproject template updates
 * [v0.25.0](https://github.com/jedie/cli-base-utilities/compare/v0.24.1...v0.25.0)
   * 2025-09-23 - Shell completion: Remove fix_completion_prog() and add support for Z-Shell
