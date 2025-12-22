@@ -193,6 +193,7 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.25.0...main)
+  * 2025-12-22 - Remove verbose output on "pip-audit" run
   * 2025-10-13 - -cli_base/cli_dev/update_readme_history.py and update test snapshots
   * 2025-10-13 - Fix code style
   * 2025-10-13 - Update requirements
