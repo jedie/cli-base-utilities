@@ -66,29 +66,29 @@ usage: ./dev-cli.py [-h] {coverage,install,lint,mypy,nox,pip-audit,publish,shell
 
 # app CLI
 
-[comment]: <> (✂✂✂ auto generated app help start ✂✂✂)
+[comment]: <> (✂✂✂ auto generated main help start ✂✂✂)
 ```
 usage: ./cli.py [-h] {shell-completion,update-readme-history,version}
 
 
 
-╭─ options ────────────────────────────────────────────────────────────────────────────────────────╮
-│ -h, --help   show this help message and exit                                                     │
-╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
-╭─ subcommands ────────────────────────────────────────────────────────────────────────────────────╮
-│ (required)                                                                                       │
-│   • shell-completion                                                                             │
-│              Setup shell completion for this CLI (Currently only for bash and zsh)               │
-│   • update-readme-history                                                                        │
-│              Update project history base on git commits/tags in README.md Will always exist with │
-│              exit code 0 because changed README is auto added to git.                            │
-│                                                                                                  │
-│              Also, callable via e.g.:                                                            │
-│                  python -m cli_base update-readme-history -v                                     │
-│   • version  Print version and exit                                                              │
-╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭─ options ────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ -h, --help   show this help message and exit                                                                         │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭─ subcommands ────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ (required)                                                                                                           │
+│   • shell-completion                                                                                                 │
+│              Setup shell completion for this CLI (Currently only for bash and zsh)                                   │
+│   • update-readme-history                                                                                            │
+│              Update project history base on git commits/tags in README.md Will always exist with exit code 0 because │
+│              changed README is auto added to git.                                                                    │
+│                                                                                                                      │
+│              Also, callable via e.g.:                                                                                │
+│                  python -m cli_base update-readme-history -v                                                         │
+│   • version  Print version and exit                                                                                  │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
-[comment]: <> (✂✂✂ auto generated app help end ✂✂✂)
+[comment]: <> (✂✂✂ auto generated main help end ✂✂✂)
 
 
 # DEMO app CLI
@@ -99,32 +99,29 @@ usage: ./demo-cli.py [-h] {demo-endless-loop,demo-verbose-check-output-error,edi
 
 
 
-╭─ options ────────────────────────────────────────────────────────────────────────────────────────╮
-│ -h, --help         show this help message and exit                                               │
-╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
-╭─ subcommands ────────────────────────────────────────────────────────────────────────────────────╮
-│ (required)                                                                                       │
-│   • demo-endless-loop                                                                            │
-│                    Just a useless example command, used in systemd DEMO: It just print some      │
-│                    information in a endless loop.                                                │
-│   • demo-verbose-check-output-error                                                              │
-│                    DEMO for a error calling                                                      │
-│                    cli_base.cli_tools.subprocess_utils.verbose_check_output()                    │
-│   • edit-settings  Edit the settings file. On first call: Create the default one.                │
-│   • print-settings                                                                               │
-│                    Display (anonymized) MQTT server username and password                        │
-│   • systemd-debug  Print Systemd service template + context + rendered file content.             │
-│   • systemd-logs   List and follow logs of systemd service. (May need sudo)                      │
-│   • systemd-remove                                                                               │
-│                    Write Systemd service file, enable it and (re-)start the service. (May need   │
-│                    sudo)                                                                         │
-│   • systemd-setup  Write Systemd service file, enable it and (re-)start the service. (May need   │
-│                    sudo)                                                                         │
-│   • systemd-status                                                                               │
-│                    Display status of systemd service. (May need sudo)                            │
-│   • systemd-stop   Stops the systemd service. (May need sudo)                                    │
-│   • version        Print version and exit                                                        │
-╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭─ options ────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ -h, --help         show this help message and exit                                                                   │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭─ subcommands ────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ (required)                                                                                                           │
+│   • demo-endless-loop                                                                                                │
+│                    Just a useless example command, used in systemd DEMO: It just print some information in a endless │
+│                    loop.                                                                                             │
+│   • demo-verbose-check-output-error                                                                                  │
+│                    DEMO for a error calling cli_base.cli_tools.subprocess_utils.verbose_check_output()               │
+│   • edit-settings  Edit the settings file. On first call: Create the default one.                                    │
+│   • print-settings                                                                                                   │
+│                    Display (anonymized) MQTT server username and password                                            │
+│   • systemd-debug  Print Systemd service template + context + rendered file content.                                 │
+│   • systemd-logs   List and follow logs of systemd service. (May need sudo)                                          │
+│   • systemd-remove                                                                                                   │
+│                    Write Systemd service file, enable it and (re-)start the service. (May need sudo)                 │
+│   • systemd-setup  Write Systemd service file, enable it and (re-)start the service. (May need sudo)                 │
+│   • systemd-status                                                                                                   │
+│                    Display status of systemd service. (May need sudo)                                                │
+│   • systemd-stop   Stops the systemd service. (May need sudo)                                                        │
+│   • version        Print version and exit                                                                            │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 [comment]: <> (✂✂✂ auto generated demo help end ✂✂✂)
 
@@ -185,6 +182,7 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.26.0...main)
+  * 2026-01-14 - Apply manageprojects updates
   * 2026-01-14 - Update requirements
 * [v0.26.0](https://github.com/jedie/cli-base-utilities/compare/v0.25.0...v0.26.0)
   * 2025-12-22 - Update README
