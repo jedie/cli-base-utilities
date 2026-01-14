@@ -61,12 +61,9 @@ path = "cli_base/__init__.py"
 version_module_name = "cli_base" # Used in cli_base.cli_tools.git_history.update_readme_history()
 
 [tool.cli_base.pip_audit]
-requirements=["requirements.dev.txt"]
 strict=true
 require_hashes=true
-ignore-vuln=[
-    "GHSA-4xh5-x5gv-qwph",  # https://github.com/advisories/GHSA-4xh5-x5gv-qwph
-]
+ignore-vuln=[]
 
 
 [tool.bx_py_utils.doc_write]
@@ -147,6 +144,7 @@ applied_migrations = [
     "ae7c1d3", # 2024-09-25T22:26:25+02:00
     "e9e2dae", # 2024-11-14T17:59:23+01:00
     "4d9f75b", # 2025-10-13T12:11:18+02:00
+    "ae7c1ba", # 2025-12-16T19:28:11+01:00
 ]
 
 [manageprojects.cookiecutter_context.cookiecutter]
