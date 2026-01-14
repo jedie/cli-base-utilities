@@ -1,8 +1,8 @@
 import inspect
+import logging
 import os
 from unittest.mock import patch
 
-import typeguard
 from bx_py_utils.test_utils.redirect import RedirectOut
 from manageprojects.tests.base import BaseTestCase
 
@@ -10,15 +10,20 @@ import cli_base
 from cli_base.cli_tools.git import Git, GitError, NoGitRepoError
 from cli_base.cli_tools.git_history import get_git_history, update_readme_history
 from cli_base.cli_tools.test_utils.assertion import assert_in
+from cli_base.cli_tools.test_utils.base_testcases import (
+    LoggingMustBeCapturedTestCaseMixin,
+    OutputMustCapturedTestCaseMixin,
+)
 from cli_base.cli_tools.test_utils.environment_fixtures import MockCurrentWorkDir
 from cli_base.cli_tools.test_utils.rich_test_utils import NoColorEnvRich
 
 
-class GitHistoryTestCase(BaseTestCase):
+class GitHistoryTestCase(OutputMustCapturedTestCaseMixin, LoggingMustBeCapturedTestCaseMixin, BaseTestCase):
     def test_get_git_history_happy_path(self):
-        git = Git()
-        git_history = get_git_history(git=git, current_version=cli_base.__version__, add_author=False)
-        result = '\n'.join(git_history)
+        with self.assertLogs(level=logging.DEBUG), RedirectOut() as out_buffer:
+            git = Git()
+            git_history = get_git_history(git=git, current_version=cli_base.__version__, add_author=False)
+            result = '\n'.join(git_history)
         self.assert_in_content(
             got=result,
             parts=(
@@ -26,19 +31,24 @@ class GitHistoryTestCase(BaseTestCase):
                 '  * 2023-10-08 - NEW: Generate a project history base on git commits/tags.',
             ),
         )
+        self.assertEqual(out_buffer.stderr, '')
 
-        git_history = get_git_history(git=git, current_version=cli_base.__version__, add_author=True)
-        result = '\n'.join(git_history)
+        with self.assertLogs(level=logging.DEBUG), RedirectOut() as out_buffer:
+            git_history = get_git_history(git=git, current_version=cli_base.__version__, add_author=True)
+            result = '\n'.join(git_history)
         self.assert_in_content(
             got=result,
             parts=('  * 2023-10-08 JensDiemer - NEW: Generate a project history base on git commits/tags.',),
         )
+        self.assertEqual(out_buffer.stderr, '')
 
-    # FIXME: remove "suppress_type_checks" after:
-    # https://github.com/boxine/bx_py_utils/pull/164/files#diff-421e2a471c4deb91b133844c2caffb339a68dbebf82a65e798bbdf68b3b4013c
-    @typeguard.suppress_type_checks
     def test_update_readme_history(self):
-        with NoColorEnvRich(), MockCurrentWorkDir(prefix='test_update_readme_history') as mocked_cwd:
+        with (
+            NoColorEnvRich(),
+            MockCurrentWorkDir(prefix='test_update_readme_history') as mocked_cwd,
+            self.assertLogs(level=logging.DEBUG),
+            RedirectOut() as out_buffer,
+        ):
             temp_path = mocked_cwd.temp_path
 
             with self.assertRaises(NoGitRepoError) as cm:
@@ -126,3 +136,4 @@ class GitHistoryTestCase(BaseTestCase):
                 self.assertEqual(buffer.stderr, '')
                 self.assertIn('/README.md is up-to-date', buffer.stdout)
                 self.assertIs(updated, False)
+        self.assertEqual(out_buffer.stderr, '')

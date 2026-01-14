@@ -6,6 +6,7 @@ from pathlib import Path
 from unittest import TestCase
 
 from bx_py_utils.test_utils.datetime import parse_dt
+from bx_py_utils.test_utils.redirect import RedirectOut
 from bx_py_utils.test_utils.snapshot import assert_text_snapshot
 from manageprojects.test_utils.subprocess import (
     SimpleRunReturnCallback,
@@ -40,13 +41,15 @@ class MockedGit(Git):
         return self.mocked_output
 
 
-class GitTestCase(TestCase):
+class GitTestCase(TestCase):  # TODO: Use BaseTestCase
     @classmethod
     def setUpClass(cls) -> None:
         super().setUpClass()
-        cls.own_git = Git(cwd=PACKAGE_ROOT, detect_root=True)
-        git_root_path = cls.own_git.cwd
+        with RedirectOut() as out_buffer:
+            cls.own_git = Git(cwd=PACKAGE_ROOT, detect_root=True)
+            git_root_path = cls.own_git.cwd
         assert git_root_path == PACKAGE_ROOT, f'{git_root_path=} is not {PACKAGE_ROOT=}'
+        assert out_buffer.stderr == '', f'{out_buffer.stderr=}'
 
     def test_detect_cwd(self):
         with MockCurrentWorkDir(prefix='test_detect_cwd') as mocked_cwd:
@@ -304,7 +307,7 @@ class GitTestCase(TestCase):
             self.assertEqual(status, [])
 
     def test_branch_names(self):
-        with TemporaryDirectory(prefix='test_branch_names_') as temp_path:
+        with TemporaryDirectory(prefix='test_branch_names_') as temp_path, RedirectOut() as out_buffer:
             Path(temp_path, 'foo.txt').touch()
             git, first_hash = init_git(temp_path)
 
@@ -323,12 +326,14 @@ class GitTestCase(TestCase):
             with AssertLogs(self, loggers=('cli_base',)):
                 main_branch_name = git.get_main_branch_name()
                 self.assertEqual(main_branch_name, 'main')
+        self.assertEqual(out_buffer.stderr, '')
 
         # Test with local "cli_base" git clone:
-        with AssertLogs(self, loggers=('cli_base',)):
+        with AssertLogs(self, loggers=('cli_base',)), RedirectOut() as out_buffer:
             git = Git(cwd=PACKAGE_ROOT, detect_root=True)
             main_branch_name = git.get_main_branch_name()
             self.assertEqual(main_branch_name, 'main')
+        self.assertEqual(out_buffer.stderr, '')
 
     def test_log(self):
         with TemporaryDirectory(prefix='test_get_version_from_tags') as temp_path:
