@@ -181,6 +181,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.27.0...main)
+  * 2026-01-19 - Update requirements
 * [v0.27.0](https://github.com/jedie/cli-base-utilities/compare/v0.26.0...v0.27.0)
   * 2026-01-14 - NEW: cli_base.cli_tools.test_utils.base_testcases to deny output in unittests
   * 2026-01-14 - Apply manageprojects updates
@@ -195,14 +197,14 @@ It's easier to temporarily uninstall the hooks, create the release and install t
   * 2025-10-13 - Apply manageproject template updates
 * [v0.25.0](https://github.com/jedie/cli-base-utilities/compare/v0.24.1...v0.25.0)
   * 2025-09-23 - Shell completion: Remove fix_completion_prog() and add support for Z-Shell
+
+<details><summary>Expand older history entries ...</summary>
+
 * [v0.24.1](https://github.com/jedie/cli-base-utilities/compare/v0.24.0...v0.24.1)
   * 2025-09-22 - Fix tests: don't remove the ".gitignore" file
   * 2025-09-22 - Add integration tests for shell complete with snapshots
   * 2025-09-22 - fix shell-complete and match full cli program path
   * 2025-09-22 - suffix prog name to differate between app/dev cli
-
-<details><summary>Expand older history entries ...</summary>
-
 * [v0.24.0](https://github.com/jedie/cli-base-utilities/compare/v0.23.3...v0.24.0)
   * 2025-09-22 - Check README in CI, too
   * 2025-09-22 - NEW: setup_tyro_shell_completion(): Helper to setup shell completion for Tyro CLIs
