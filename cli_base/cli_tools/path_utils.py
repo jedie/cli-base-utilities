@@ -1,7 +1,6 @@
 import getpass
 import logging
 import os
-import pwd
 import shutil
 from pathlib import Path
 
@@ -49,6 +48,8 @@ def expand_user(path: Path) -> Path:
         logger.debug(f'SUDO_USER:{sudo_user!r} <-> {env_user}')
         if sudo_user != env_user:
             # Get home directory of the user that starts sudo via password database:
+            import pwd  # import here to avoid issues on non-unix systems
+
             sudo_user_home = pwd.getpwnam(sudo_user).pw_dir
             with OverrideEnviron(HOME=sudo_user_home):
                 return Path(path).expanduser()

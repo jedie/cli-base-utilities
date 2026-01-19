@@ -14,11 +14,12 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         python-version: ["3.14", "3.13", "3.12", "3.11"]
+        os: [ubuntu-latest] # TODO: macos-latest, windows-latest
+    runs-on: ${{ matrix.os }}
     steps:
     - name: Checkout
       run: |
