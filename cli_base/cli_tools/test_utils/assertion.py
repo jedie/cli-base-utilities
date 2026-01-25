@@ -1,7 +1,4 @@
 from click._compat import strip_ansi as strip_ansi_codes
-from rich.console import Console
-
-from cli_base.cli_tools.rich_utils import PanelPrinter
 
 
 def assert_in(content: str, parts: tuple[str, ...], strip_ansi=True) -> None:
@@ -13,17 +10,17 @@ def assert_in(content: str, parts: tuple[str, ...], strip_ansi=True) -> None:
 
     missing = [part for part in parts if part not in content]
     if missing:
-        console = Console()
-        console.rule(title='assert_in(): Content start', characters='∨')
-        print(content)
-        console.rule(title='assert_in(): Content end', characters='∧')
-
-        pp = PanelPrinter()
-        pp.print_panel(
-            title='assert_in(): [red]Missing parts:',
-            content='\n\n'.join(missing),
+        missing = '\n\n'.join(missing)
+        error_message = (
+            f'\nassert_in(): {len(missing)} parts not found in content:\n'
+            '∨∨∨∨∨∨∨∨∨∨∨∨ [Content start] ∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨\n'
+            f'{content}\n'
+            '∧∧∧∧∧∧∧∧∧∧∧∧ [Content end] ∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧\n'
+            f'Missing parts are:\n'
+            f'{missing}\n'
+            '======================================================================================================\n\n'
         )
-        raise AssertionError(f'assert_in(): {len(missing)} parts not found in content, see output above')
+        raise AssertionError(error_message)
 
 
 def assert_startswith(text, prefix):

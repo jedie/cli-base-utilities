@@ -27,6 +27,7 @@ from cli_base.cli_tools.git import (
     GitTagInfos,
     NoGitRepoError,
 )
+from cli_base.cli_tools.test_utils.assertion import assert_in
 from cli_base.cli_tools.test_utils.environment_fixtures import MockCurrentWorkDir
 from cli_base.cli_tools.test_utils.git_utils import init_git
 from cli_base.cli_tools.test_utils.logs import AssertLogs
@@ -326,6 +327,23 @@ class GitTestCase(TestCase):  # TODO: Use BaseTestCase
             with AssertLogs(self, loggers=('cli_base',)):
                 main_branch_name = git.get_main_branch_name()
                 self.assertEqual(main_branch_name, 'main')
+
+            # Go into "HEAD detached" and test again:
+            output = git.git_verbose_check_output('checkout', first_hash)
+            assert_in(
+                output,
+                parts=(
+                    f"switching to '{first_hash}'",
+                    "You are in 'detached HEAD' state.",
+                    f'HEAD is now at {first_hash}',
+                ),
+            )
+            with AssertLogs(self, loggers=('cli_base',)), RedirectOut() as out_buffer:
+                branch_names = git.get_branch_names()
+                self.assertEqual(branch_names, [f'(HEAD detached at {first_hash})', 'foobar', 'main'])
+                main_branch_name = git.get_main_branch_name()
+                self.assertEqual(main_branch_name, 'main')
+
         self.assertEqual(out_buffer.stderr, '')
 
         # Test with local "cli_base" git clone:
