@@ -181,6 +181,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.27.1...main)
+  * 2026-01-25 - Enhance "assert_in": No stdout usage and no click import
 * [v0.27.1](https://github.com/jedie/cli-base-utilities/compare/v0.27.0...v0.27.1)
   * 2026-01-19 - Import pwd only if needed to avoid issues on non-unix systems
   * 2026-01-19 - Update requirements
@@ -196,11 +198,11 @@ It's easier to temporarily uninstall the hooks, create the release and install t
   * 2025-10-13 - -cli_base/cli_dev/update_readme_history.py and update test snapshots
   * 2025-10-13 - Fix code style
   * 2025-10-13 - Apply manageproject template updates
-* [v0.25.0](https://github.com/jedie/cli-base-utilities/compare/v0.24.1...v0.25.0)
-  * 2025-09-23 - Shell completion: Remove fix_completion_prog() and add support for Z-Shell
 
 <details><summary>Expand older history entries ...</summary>
 
+* [v0.25.0](https://github.com/jedie/cli-base-utilities/compare/v0.24.1...v0.25.0)
+  * 2025-09-23 - Shell completion: Remove fix_completion_prog() and add support for Z-Shell
 * [v0.24.1](https://github.com/jedie/cli-base-utilities/compare/v0.24.0...v0.24.1)
   * 2025-09-22 - Fix tests: don't remove the ".gitignore" file
   * 2025-09-22 - Add integration tests for shell complete with snapshots

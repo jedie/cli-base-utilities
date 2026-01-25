@@ -39,7 +39,7 @@ class MockCurrentWorkDir(tempfile.TemporaryDirectory):
     def __enter__(self):
         temp_dir = super().__enter__()
         os.chdir(temp_dir)
-        self.temp_path = Path(temp_dir)
+        self.temp_path = Path(temp_dir).resolve()  # Resolve needed e.g.: under macos
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
