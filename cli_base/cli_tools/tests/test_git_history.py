@@ -24,8 +24,8 @@ class GitHistoryTestCase(OutputMustCapturedTestCaseMixin, LoggingMustBeCapturedT
             git = Git()
             git_history = get_git_history(git=git, current_version=cli_base.__version__, add_author=False)
             result = '\n'.join(git_history)
-        self.assert_in_content(
-            got=result,
+        assert_in(
+            content=result,
             parts=(
                 '* [v0.4.0](https://github.com/jedie/cli-base-utilities/compare/v0.3.0...v0.4.0)',
                 '  * 2023-10-08 - NEW: Generate a project history base on git commits/tags.',
@@ -36,8 +36,8 @@ class GitHistoryTestCase(OutputMustCapturedTestCaseMixin, LoggingMustBeCapturedT
         with self.assertLogs(level=logging.DEBUG), RedirectOut() as out_buffer:
             git_history = get_git_history(git=git, current_version=cli_base.__version__, add_author=True)
             result = '\n'.join(git_history)
-        self.assert_in_content(
-            got=result,
+        assert_in(
+            content=result,
             parts=('  * 2023-10-08 JensDiemer - NEW: Generate a project history base on git commits/tags.',),
         )
         self.assertEqual(out_buffer.stderr, '')

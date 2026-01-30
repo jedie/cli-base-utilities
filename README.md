@@ -182,6 +182,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.27.2...main)
+  * 2026-01-30 - self.assert_in_content() -> assert_in()
+  * 2026-01-30 - Update requirements
 * [v0.27.2](https://github.com/jedie/cli-base-utilities/compare/v0.27.1...v0.27.2)
   * 2026-01-25 - Update requirements
   * 2026-01-25 - Enhance "assert_in": No stdout usage and no click import
