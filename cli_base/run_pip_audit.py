@@ -47,8 +47,8 @@ def run_pip_audit(base_path: Path | None = None, verbosity: int = 0):
     )
 
     with tempfile.NamedTemporaryFile(prefix='requirements', suffix='.txt') as temp_file:
-        temp_file.write(requirements_txt)
-        temp_file.flush()
+        temp_file_path = Path(temp_file.name)
+        temp_file_path.write_bytes(requirements_txt)
 
         config: dict = get_pyproject_config(
             section=('tool', 'cli_base', 'pip_audit'),
