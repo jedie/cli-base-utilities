@@ -4,6 +4,7 @@ from manageprojects.tests.base import BaseTestCase
 
 from cli_base import constants
 from cli_base.cli_dev import PACKAGE_ROOT
+from cli_base.cli_tools.test_utils.assertion import assert_in
 from cli_base.cli_tools.test_utils.rich_test_utils import NoColorEnvRich, invoke
 
 
@@ -25,8 +26,8 @@ class ReadmeTestCase(BaseTestCase):
     def test_main_help(self):
         with NoColorEnvRich():
             stdout = invoke(cli_bin=PACKAGE_ROOT / 'cli.py', args=['--help'], strip_line_prefix='usage: ')
-        self.assert_in_content(
-            got=stdout,
+        assert_in(
+            content=stdout,
             parts=(
                 'usage: ./cli.py [-h]',
                 ' version ',
@@ -40,8 +41,8 @@ class ReadmeTestCase(BaseTestCase):
     def test_dev_help(self):
         with NoColorEnvRich():
             stdout = invoke(cli_bin=PACKAGE_ROOT / 'dev-cli.py', args=['--help'], strip_line_prefix='usage: ')
-        self.assert_in_content(
-            got=stdout,
+        assert_in(
+            content=stdout,
             parts=(
                 'usage: ./dev-cli.py [-h]',
                 ' lint ',
@@ -56,8 +57,8 @@ class ReadmeTestCase(BaseTestCase):
     def test_demo_help(self):
         with NoColorEnvRich():
             stdout = invoke(cli_bin=PACKAGE_ROOT / 'demo-cli.py', args=['--help'], strip_line_prefix='usage: ')
-        self.assert_in_content(
-            got=stdout,
+        assert_in(
+            content=stdout,
             parts=(
                 'usage: ./demo-cli.py [-h]',
                 ' edit-settings ',

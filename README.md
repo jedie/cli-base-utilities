@@ -181,6 +181,10 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.27.2...main)
+  * 2026-01-30 - Bugfix run_pip_audit() and add a tests for it
+  * 2026-01-30 - self.assert_in_content() -> assert_in()
+  * 2026-01-30 - Update requirements
 * [v0.27.2](https://github.com/jedie/cli-base-utilities/compare/v0.27.1...v0.27.2)
   * 2026-01-25 - Update requirements
   * 2026-01-25 - Enhance "assert_in": No stdout usage and no click import
@@ -191,6 +195,9 @@ It's easier to temporarily uninstall the hooks, create the release and install t
   * 2026-01-14 - NEW: cli_base.cli_tools.test_utils.base_testcases to deny output in unittests
   * 2026-01-14 - Apply manageprojects updates
   * 2026-01-14 - Update requirements
+
+<details><summary>Expand older history entries ...</summary>
+
 * [v0.26.0](https://github.com/jedie/cli-base-utilities/compare/v0.25.0...v0.26.0)
   * 2025-12-22 - Update README
   * 2025-12-22 - NEW: git.changed_files(): Get a list of Path objects containing the changed files
@@ -199,9 +206,6 @@ It's easier to temporarily uninstall the hooks, create the release and install t
   * 2025-10-13 - -cli_base/cli_dev/update_readme_history.py and update test snapshots
   * 2025-10-13 - Fix code style
   * 2025-10-13 - Apply manageproject template updates
-
-<details><summary>Expand older history entries ...</summary>
-
 * [v0.25.0](https://github.com/jedie/cli-base-utilities/compare/v0.24.1...v0.25.0)
   * 2025-09-23 - Shell completion: Remove fix_completion_prog() and add support for Z-Shell
 * [v0.24.1](https://github.com/jedie/cli-base-utilities/compare/v0.24.0...v0.24.1)
