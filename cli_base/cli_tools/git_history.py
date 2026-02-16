@@ -82,9 +82,7 @@ class TagHistoryRenderer:
 
             if entry.last == 'HEAD':
                 version: Version = entry.tag.version
-
-                release_planing = self.current_version > version
-                if release_planing:
+                if version and self.current_version > version:
                     new_version = self.version2str(self.current_version)
                     compare_url = self.project_info.compare_url(old=entry.next, new=new_version)
                     yield f'* [{new_version}]({compare_url})'
