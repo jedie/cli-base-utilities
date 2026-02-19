@@ -9,9 +9,10 @@ def assert_in(content: str, parts: tuple[str, ...], strip_ansi=True) -> None:
 
     missing = [part for part in parts if part not in content]
     if missing:
+        missing_count = len(missing)
         missing = '\n\n'.join(missing)
         error_message = (
-            f'\nassert_in(): {len(missing)} parts not found in content:\n'
+            f'\nassert_in(): {missing_count} parts not found in content:\n'
             '∨∨∨∨∨∨∨∨∨∨∨∨ [Content start] ∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨∨\n'
             f'{content}\n'
             '∧∧∧∧∧∧∧∧∧∧∧∧ [Content end] ∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧∧\n'
