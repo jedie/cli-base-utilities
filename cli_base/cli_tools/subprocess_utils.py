@@ -133,7 +133,6 @@ def verbose_check_call(
     exit_on_error=False,
     timeout=DEFAULT_TIMEOUT,
     env=None,
-    text=True,
     **kwargs,
 ):
     """
@@ -155,7 +154,6 @@ def verbose_check_call(
     try:
         return subprocess.check_call(
             [str(part) for part in popenargs],  # e.g.: Path() instance -> str,
-            text=text,
             env=env,
             cwd=cwd,
             timeout=timeout,

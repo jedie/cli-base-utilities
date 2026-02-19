@@ -182,6 +182,7 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.27.4...main)
+  * 2026-02-19 - Don't set "text=True" as default for subprocess.check_call()
   * 2026-02-19 - Bugfix the "missing parts count" value in assert_in()
 * [v0.27.4](https://github.com/jedie/cli-base-utilities/compare/v0.27.3...v0.27.4)
   * 2026-02-16 - Bugfix initial commits without any parent version number
