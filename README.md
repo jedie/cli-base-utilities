@@ -181,6 +181,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.27.4...main)
+  * 2026-02-19 - Bugfix the "missing parts count" value in assert_in()
 * [v0.27.4](https://github.com/jedie/cli-base-utilities/compare/v0.27.3...v0.27.4)
   * 2026-02-16 - Bugfix initial commits without any parent version number
   * 2026-02-16 - Update requirements
@@ -191,12 +193,12 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 * [v0.27.2](https://github.com/jedie/cli-base-utilities/compare/v0.27.1...v0.27.2)
   * 2026-01-25 - Update requirements
   * 2026-01-25 - Enhance "assert_in": No stdout usage and no click import
-* [v0.27.1](https://github.com/jedie/cli-base-utilities/compare/v0.27.0...v0.27.1)
-  * 2026-01-19 - Import pwd only if needed to avoid issues on non-unix systems
-  * 2026-01-19 - Update requirements
 
 <details><summary>Expand older history entries ...</summary>
 
+* [v0.27.1](https://github.com/jedie/cli-base-utilities/compare/v0.27.0...v0.27.1)
+  * 2026-01-19 - Import pwd only if needed to avoid issues on non-unix systems
+  * 2026-01-19 - Update requirements
 * [v0.27.0](https://github.com/jedie/cli-base-utilities/compare/v0.26.0...v0.27.0)
   * 2026-01-14 - NEW: cli_base.cli_tools.test_utils.base_testcases to deny output in unittests
   * 2026-01-14 - Apply manageprojects updates
