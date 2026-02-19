@@ -1,8 +1,7 @@
-import contextlib
 import logging
+import sys
 import unittest
-
-from bx_py_utils.test_utils.context_managers import MassContextManager
+from unittest.case import _Outcome
 
 
 class RaiseLogOutput(logging.Handler):
@@ -43,39 +42,54 @@ class LoggingMustBeCapturedTestCaseMixin:
         super().tearDown()
 
 
-class RaiseOutput(MassContextManager):
-    def __init__(self, test_case: unittest.TestCase):
-        self.test_case = test_case
-        self.mocks = (
-            contextlib.redirect_stdout(self),
-            contextlib.redirect_stderr(self),
-        )
+class OutputWriteTracker:
+    def __init__(self):
+        self.output_written = False
+        self._original_stdout = None
+        self._original_stderr = None
 
-    def write(self, txt):
-        self.test_case.fail(
-            f'Output was written during the test:\n'
-            '------------------------------------------------------------------------------------\n'
-            f'{txt!r}\n'
-            '------------------------------------------------------------------------------------\n'
-            f'(Hint: use RedirectOut context manager)'
-        )
+    class _StreamWrapper:
+        def __init__(self, original, tracker):
+            self._original = original
+            self._tracker = tracker
 
-    def flush(self):
-        pass
+        def write(self, data):
+            self._tracker.output_written = True
+            return self._original.write(data)
 
-    def getvalue(self):
-        return ''
+        def flush(self):
+            return self._original.flush()
+
+        def __getattr__(self, attr):
+            return getattr(self._original, attr)
+
+    def __enter__(self):
+        self._original_stdout = sys.stdout
+        self._original_stderr = sys.stderr
+        sys.stdout = self._StreamWrapper(sys.stdout, self)
+        sys.stderr = self._StreamWrapper(sys.stderr, self)
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        sys.stdout = self._original_stdout
+        sys.stderr = self._original_stderr
+        return self.output_written
 
 
 class OutputMustCapturedTestCaseMixin:
     def setUp(self):
         super().setUp()
-        self._cm = RaiseOutput(self)
-        self._cm_result = self._cm.__enter__()
+        self._output_tracker = OutputWriteTracker()
+        self._output_tracker.__enter__()
 
     def tearDown(self):
-        self._cm.__exit__(None, None, None)
+        outcome: _Outcome = self._outcome
+        test_success = not outcome.result.errors
+
+        output_written = self._output_tracker.__exit__(None, None, None)
         super().tearDown()
+
+        if output_written and test_success:
+            raise AssertionError('Output was written during test!')
 
 
 class BaseTestCase(

@@ -203,6 +203,7 @@ def update_readme_history(
         verbose=verbosity > 1,
     )
     history = '\n'.join(git_history)
+    history = history.replace('\\', '\\\\')  # Escape backslashes for markdown
 
     old_mtime = readme_md_path.stat().st_mtime
     try:
