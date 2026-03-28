@@ -182,6 +182,7 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [v0.29.0](https://github.com/jedie/cli-base-utilities/compare/v0.28.0...v0.29.0)
+  * 2026-03-28 - fix CI
   * 2026-03-28 - fix tests
   * 2026-03-28 - fix ruff
   * 2026-03-28 - deprecate shell completion
