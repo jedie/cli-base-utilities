@@ -47,10 +47,9 @@ class SensibleEditorTestCase(TestCase):
         with (
             SubprocessCallMock() as subprocess_mock,
             patch.object(path_utils, 'shutil', which_mock),
-            RedirectOut() as buffer,
+            RedirectOut() as buffer, self.assertRaises(SystemExit)
         ):
-            with self.assertRaises(SystemExit):
-                open_editor_for(file_path='/file/path/foo.txt')
+            open_editor_for(file_path='/file/path/foo.txt')
 
         self.assertEqual(buffer.stderr, '')
         assert_in(

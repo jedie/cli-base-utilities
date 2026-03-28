@@ -43,7 +43,7 @@ class MockSystemdServiceInfo(MassContextManager):
         mocked_systemd_base_path = self.temp_path / 'etc-systemd-system'
         mocked_systemd_base_path.mkdir()
         self.systemd_info: BaseSystemdServiceInfo = self.SystemdServiceInfoClass(
-            systemd_base_path=mocked_systemd_base_path  # noqa
+            systemd_base_path=mocked_systemd_base_path
         )
 
         # Move the source template into temp directory:

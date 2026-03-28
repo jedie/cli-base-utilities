@@ -66,12 +66,9 @@ class DeserializeTestCase(TestCase):
             logs.output,
             [
                 "INFO:cli_base.toml_settings.deserialize:Missing 'one' in toml config",
-                #
                 "INFO:cli_base.toml_settings.deserialize:Take over 'two' from user toml setting",
-                #
                 'ERROR:cli_base.toml_settings.deserialize:Toml value three=666 is type '
                 "'int' but must be type 'str' -> ignored and use default value!",
-                #
                 'DEBUG:cli_base.toml_settings.deserialize:Default value 123 also used in toml file, ok.',
             ],
         )
@@ -169,13 +166,10 @@ class DeserializeTestCase(TestCase):
             logs.output,
             [
                 "INFO:cli_base.toml_settings.deserialize:Missing 'foo' in toml config",
-                #
                 "ERROR:cli_base.toml_settings.deserialize:Toml value number='Not a "
                 "Number!' is type 'str' but must be type 'int' -> ignored and use default "
                 'value!',
-                #
                 "INFO:cli_base.toml_settings.deserialize:Take over 'something' from user toml setting",
-                #
                 'INFO:cli_base.toml_settings.deserialize:Missing complete sub dataclass '
                 "'sub_class_three' in toml config",
             ],

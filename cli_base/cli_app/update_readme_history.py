@@ -2,7 +2,7 @@ import logging
 import sys
 from pathlib import Path
 
-from rich import print  # noqa
+from rich import print
 
 from cli_base.cli_app import app
 from cli_base.cli_tools import git_history

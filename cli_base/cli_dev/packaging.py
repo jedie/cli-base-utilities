@@ -1,14 +1,14 @@
 import logging
 
+from manageprojects.utilities.publish import publish_package
+
+import cli_base
+from cli_base.cli_dev import PACKAGE_ROOT, app
 from cli_base.cli_tools.dev_tools import run_unittest_cli
 from cli_base.cli_tools.subprocess_utils import ToolsExecutor
 from cli_base.cli_tools.verbosity import setup_logging
 from cli_base.run_pip_audit import run_pip_audit
 from cli_base.tyro_commands import TyroVerbosityArgType
-from manageprojects.utilities.publish import publish_package
-
-import cli_base
-from cli_base.cli_dev import PACKAGE_ROOT, app
 
 
 logger = logging.getLogger(__name__)

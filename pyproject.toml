@@ -103,6 +103,10 @@ ignore = [
     "E731", # https://docs.astral.sh/ruff/rules/lambda-assignment/
     "PLW1508", # Invalid type for environment variable default
     "C408", # Unnecessary `dict()` call (rewrite as a literal)
+    "DTZ", # flake8 datetime rules
+    "SIM102", # Use a single `if` statement instead of nested `if` statements
+    "SIM103", # Return the condition `bool(...)` directly"
+    "PYI034", # `__enter__` methods usually return `self`
 ]
 
 [tool.ruff.lint.isort]

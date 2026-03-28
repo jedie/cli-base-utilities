@@ -8,7 +8,7 @@ class MockToolsExecutor(MassContextManager):
     Helper to mock `ToolsExecutor` in tests.
     """
 
-    def __init__(self, *, target, return_codes: dict[str, int] = None, outputs: dict[str, str] = None):
+    def __init__(self, *, target, return_codes: dict[str, int] | None = None, outputs: dict[str, str] | None = None,):
         self.return_codes = return_codes
         self.outputs = outputs
         self.mocks = (patch.object(target, 'ToolsExecutor', self),)

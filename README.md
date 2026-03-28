@@ -68,7 +68,7 @@ usage: ./dev-cli.py [-h] {coverage,install,lint,mypy,nox,pip-audit,publish,shell
 
 [comment]: <> (✂✂✂ auto generated main help start ✂✂✂)
 ```
-usage: ./cli.py [-h] {shell-completion,update-readme-history,version}
+usage: cli_base [-h] {shell-completion,update-readme-history,version}
 
 
 
@@ -182,6 +182,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.28.0...main)
+  * 2026-03-28 - fix ruff
+  * 2026-03-28 - deprecate shell completion
   * 2026-03-28 - Apply manageprojects updates
 * [v0.28.0](https://github.com/jedie/cli-base-utilities/compare/v0.27.4...v0.28.0)
   * 2026-02-19 - Fix update_readme_history() by escape backslashes for markdown rendering

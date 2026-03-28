@@ -2,7 +2,7 @@ import logging
 import subprocess
 import sys
 
-from rich import print  # noqa
+from rich import print
 
 from cli_base.cli_tools.path_utils import which
 

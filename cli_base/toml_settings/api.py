@@ -4,7 +4,7 @@ from collections.abc import Iterable
 from pathlib import Path
 
 import tomlkit
-from rich import print  # noqa
+from rich import print
 from rich.console import Console
 from tomlkit import TOMLDocument
 

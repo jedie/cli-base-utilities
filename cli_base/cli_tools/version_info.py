@@ -1,7 +1,7 @@
 import logging
 from pathlib import Path
 
-from rich import print  # noqa
+from rich import print
 
 from cli_base.cli_tools.git import Git
 
@@ -9,7 +9,7 @@ from cli_base.cli_tools.git import Git
 logger = logging.getLogger(__name__)
 
 
-def _print_version(module, project_root: Path = None):
+def _print_version(module, project_root: Path | None = None):
     print(f'[bold][green]{module.__name__}[/green] v', end='')
     print(module.__version__, end=' ')
 
@@ -25,11 +25,11 @@ def _print_version(module, project_root: Path = None):
         print(f'(No git found for: {project_root})')
 
 
-def print_version(module, project_root: Path = None) -> None:
+def print_version(module, project_root: Path | None = None) -> None:
     try:
         _print_version(module=module, project_root=project_root)
     except Exception as err:
-        logger.exception('Error print version: %s', err)
+        logger.exception('Error print version')
 
         # Catch all errors, otherwise the CLI is not usable ;)
         print(f'{module} (print version error: {err})')

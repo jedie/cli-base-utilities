@@ -1,7 +1,7 @@
 import logging
 from subprocess import CalledProcessError
 
-from rich import print  # noqa
+from rich import print
 from rich.console import Console
 from rich.highlighter import ReprHighlighter
 

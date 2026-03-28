@@ -112,7 +112,7 @@ class DevToolsTestCase(TestCase):
         assert_in(
             stdout,
             parts=(
-                '.venv/bin/cli_base_dev coverage --help',
+                'cli_base.cli_dev coverage --help',
                 'Coverage.py',
                 'usage: coverage <command> [options] [args]',
             ),
