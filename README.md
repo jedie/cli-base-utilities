@@ -181,6 +181,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.28.0...main)
+  * 2026-03-28 - Apply manageprojects updates
 * [v0.28.0](https://github.com/jedie/cli-base-utilities/compare/v0.27.4...v0.28.0)
   * 2026-02-19 - Fix update_readme_history() by escape backslashes for markdown rendering
   * 2026-02-19 - Don't set "text=True" as default for subprocess.check_call()
@@ -192,12 +194,12 @@ It's easier to temporarily uninstall the hooks, create the release and install t
   * 2026-01-30 - Bugfix run_pip_audit() and add a tests for it
   * 2026-01-30 - self.assert_in_content() -> assert_in()
   * 2026-01-30 - Update requirements
-* [v0.27.2](https://github.com/jedie/cli-base-utilities/compare/v0.27.1...v0.27.2)
-  * 2026-01-25 - Update requirements
-  * 2026-01-25 - Enhance "assert_in": No stdout usage and no click import
 
 <details><summary>Expand older history entries ...</summary>
 
+* [v0.27.2](https://github.com/jedie/cli-base-utilities/compare/v0.27.1...v0.27.2)
+  * 2026-01-25 - Update requirements
+  * 2026-01-25 - Enhance "assert_in": No stdout usage and no click import
 * [v0.27.1](https://github.com/jedie/cli-base-utilities/compare/v0.27.0...v0.27.1)
   * 2026-01-19 - Import pwd only if needed to avoid issues on non-unix systems
   * 2026-01-19 - Update requirements

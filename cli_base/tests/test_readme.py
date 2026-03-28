@@ -1,11 +1,19 @@
 from bx_py_utils.auto_doc import assert_readme_block
 from bx_py_utils.path import assert_is_file
+from cli_base.cli_tools.test_utils.assertion import assert_in
+from cli_base.cli_tools.test_utils.rich_test_utils import NoColorEnvRich, invoke
 from manageprojects.tests.base import BaseTestCase
 
 from cli_base import constants
 from cli_base.cli_dev import PACKAGE_ROOT
-from cli_base.cli_tools.test_utils.assertion import assert_in
-from cli_base.cli_tools.test_utils.rich_test_utils import NoColorEnvRich, invoke
+
+
+def remove_until_usage(text: str) -> str:
+    lines = text.splitlines()
+    for idx, line in enumerate(lines):
+        if line.startswith('usage: '):
+            return '\n'.join(lines[idx:])
+    raise ValueError('No usage line found')
 
 
 def assert_cli_help_in_readme(text_block: str, marker: str):
@@ -13,7 +21,9 @@ def assert_cli_help_in_readme(text_block: str, marker: str):
     assert_is_file(README_PATH)
 
     text_block = text_block.replace(constants.CLI_EPILOG, '')
+    text_block = remove_until_usage(text_block)
     text_block = f'```\n{text_block.strip()}\n```'
+
     assert_readme_block(
         readme_path=README_PATH,
         text_block=text_block,
