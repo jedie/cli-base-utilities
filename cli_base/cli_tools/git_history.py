@@ -10,7 +10,7 @@ from bx_py_utils.auto_doc import assert_readme_block
 from bx_py_utils.path import assert_is_file
 from bx_py_utils.pyproject_toml import get_pyproject_config
 from packaging.version import Version
-from rich import print  # noqa
+from rich import print
 
 from cli_base.cli_tools.git import Git, GitHistoryEntry, GithubInfo, GitlabInfo
 

@@ -32,13 +32,13 @@ class MockRichTestCase(TestCase):
             assert_in(
                 stdout,
                 parts=(
-                    '.venv/bin/cli_base_dev --help',
+                    'cli_base.cli_dev --help',
                     f'cli_base v{__version__}',
                     'usage: ./dev-cli.py',
                     'show this help message and exit',
                 ),
             )
-            assert_startswith(stdout, f'\n+ {PACKAGE_ROOT}')
+            assert_startswith(stdout, '\n+ ')
 
             with self.assertWarns(DeprecationWarning):
                 stdout = cm.invoke(cli_bin=PACKAGE_ROOT / 'dev-cli.py', args=('--help',), strip_line_prefix='usage: ')

@@ -7,7 +7,7 @@ readme = "README.md"
 authors = [
     {name = 'Jens Diemer', email = 'github@jensdiemer.de'}
 ]
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 dependencies = [
     "bx_py_utils",  # https://github.com/boxine/bx_py_utils
     "tomlkit",  # https://github.com/sdispater/tomlkit
@@ -37,13 +37,41 @@ dev = [
     "rich_click",  # For Backward compatibility TODO: Remove in future
 ]
 
+
+[tool.uv]
+# Don't install bleed-edge versions of dependencies, to avoid undetected issues and supply chain attacks.
+exclude-newer = "1 week"
+
+# Exclude own packages from the "exclude-newer" rule and
+# add external packages temporarily to fix known issues or current CVEs
+# TODO: Remove requests - v2.33.0 fixed CVE-2026-25645
+exclude-newer-package = { requests = "2026-03-25T18:00:00Z", cryptography="2026-03-27T00:00:00Z" }
+
+
+[tool.cli_base.pip_audit]
+strict=true
+require_hashes=true
+ignore-vuln=[
+    "CVE-2026-4539", # https://github.com/pygments/pygments/issues/3058#issuecomment-4127344972
+]
+
+[tool.cli_base]
+version_module_name = "cli_base"  # Used by "update-readme-history" git hook
+
 [project.urls]
 Documentation = "https://github.com/jedie/cli-base-utilities"
 Source = "https://github.com/jedie/cli-base-utilities"
 
 [project.scripts]
-cli_base_app = "cli_base.__main__:main"
-cli_base_dev = "cli_base.cli_dev:main"
+cli_base = "cli_base.__main__:main"
+
+
+[tool.bx_py_utils.doc_write]
+docstring_prefix = 'DocWrite:'
+macro_prefix = 'DocWriteMacro:'
+output_base_path = './docs/'
+search_paths = ['./cli_base/']
+delete_obsolete_files = true
 
 
 [build-system]
@@ -57,29 +85,12 @@ packages = ["cli_base"]
 path = "cli_base/__init__.py"
 
 
-[tool.cli_base]
-version_module_name = "cli_base" # Used in cli_base.cli_tools.git_history.update_readme_history()
-
-[tool.cli_base.pip_audit]
-strict=true
-require_hashes=true
-ignore-vuln=[]
-
-
-[tool.bx_py_utils.doc_write]
-docstring_prefix = 'DocWrite:'
-output_base_path = './docs/'
-search_paths = ['./cli_base/']
-delete_obsolete_files = true  # Delete obsolete files in output_base_path
-
-
 [tool.ruff]
 # https://docs.astral.sh/ruff/configuration/
 line-length = 120
 exclude = [
   ".*/",
 ]
-
 
 [tool.ruff.lint]
 preview = true  # Needed for some of the rules
@@ -90,6 +101,12 @@ extend-select = [
 ignore = [
     "E402", # https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file/
     "E731", # https://docs.astral.sh/ruff/rules/lambda-assignment/
+    "PLW1508", # Invalid type for environment variable default
+    "C408", # Unnecessary `dict()` call (rewrite as a literal)
+    "DTZ", # flake8 datetime rules
+    "SIM102", # Use a single `if` statement instead of nested `if` statements
+    "SIM103", # Return the condition `bool(...)` directly"
+    "PYI034", # `__enter__` methods usually return `self`
 ]
 
 [tool.ruff.lint.isort]
@@ -108,7 +125,7 @@ source = ['.']
 command_line = '-m unittest --verbose --locals --buffer'
 
 [tool.coverage.report]
-omit = ['.*', '*/tests/*']
+omit = ['.*', '*/tests/*', 'noxfile.py']
 skip_empty = true
 fail_under = 30
 show_missing = true
@@ -145,6 +162,7 @@ applied_migrations = [
     "e9e2dae", # 2024-11-14T17:59:23+01:00
     "4d9f75b", # 2025-10-13T12:11:18+02:00
     "ae7c1ba", # 2025-12-16T19:28:11+01:00
+    "69ee933", # 2026-03-28T10:01:57+01:00
 ]
 
 [manageprojects.cookiecutter_context.cookiecutter]

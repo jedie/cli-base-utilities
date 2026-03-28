@@ -6,7 +6,7 @@ import sys
 from pathlib import Path
 
 from bx_py_utils.path import assert_is_dir, assert_is_file
-from rich import print  # noqa
+from rich import print
 from rich.console import Console
 
 from cli_base.cli_tools.path_utils import which

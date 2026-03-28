@@ -115,7 +115,7 @@ class GitTestCase(TestCase):  # TODO: Use BaseTestCase
             file_dt2 = self.own_git.get_file_dt('cli.py', with_tz=False)
             self.assertIsInstance(file_dt2, datetime.datetime)
             self.assertGreater(file_dt2, datetime.datetime(2023, 1, 1))
-            self.assertLess(file_dt2, datetime.datetime(2026, 1, 1))
+            self.assertLess(file_dt2, datetime.datetime(2027, 1, 1))
 
         git_bin = shutil.which('git')
         with SubprocessCallMock() as call_mock:
@@ -204,7 +204,7 @@ class GitTestCase(TestCase):  # TODO: Use BaseTestCase
             Path(repo_path, 'directory1', 'unchanged.txt').write_text('Will be not changed file')
 
             shutil.copytree(repo_path, project_path)  # "fake" cookiecutter output
-            project_git, project_first_hash = init_git(project_path)  # init project
+            project_git, _project_first_hash = init_git(project_path)  # init project
 
             # 1:1 copy?
             project_change_path = project_path / 'directory1' / 'pyproject.toml'
@@ -292,7 +292,7 @@ class GitTestCase(TestCase):  # TODO: Use BaseTestCase
             change_txt_path = Path(temp_path, 'change.txt')
             change_txt_path.write_text('This is the first revision!')
 
-            git, first_hash = init_git(temp_path)
+            git, _first_hash = init_git(temp_path)
 
             change_txt_path.write_text('Changed content')
             Path(temp_path, 'added.txt').write_text('Added file')
@@ -309,7 +309,7 @@ class GitTestCase(TestCase):  # TODO: Use BaseTestCase
     def test_branch_names(self):
         with TemporaryDirectory(prefix='test_branch_names_') as temp_path, RedirectOut() as out_buffer:
             Path(temp_path, 'foo.txt').touch()
-            git, first_hash = init_git(temp_path)
+            git, _first_hash = init_git(temp_path)
 
             with AssertLogs(self, loggers=('cli_base',)) as logs:
                 branch_names = git.get_branch_names()
@@ -338,7 +338,7 @@ class GitTestCase(TestCase):  # TODO: Use BaseTestCase
     def test_log(self):
         with TemporaryDirectory(prefix='test_get_version_from_tags') as temp_path:
             Path(temp_path, '1.txt').touch()
-            git, first_hash = init_git(temp_path, comment='The initial commit ;)')
+            git, _first_hash = init_git(temp_path, comment='The initial commit ;)')
 
             git.tag('v0.0.1', message='one', verbose=False)
 
@@ -364,7 +364,7 @@ class GitTestCase(TestCase):  # TODO: Use BaseTestCase
     def test_get_version_from_tags(self):
         with TemporaryDirectory(prefix='test_get_version_from_tags') as temp_path:
             Path(temp_path, 'foo.txt').touch()
-            git, first_hash = init_git(temp_path)
+            git, _first_hash = init_git(temp_path)
 
             empty_tags = git.get_tag_infos()
             self.assertEqual(empty_tags, GitTagInfos(tags=[]))
@@ -420,7 +420,7 @@ class GitTestCase(TestCase):  # TODO: Use BaseTestCase
             prefix='test_get_remote_url_and_github_username'
         ) as temp_path:
             Path(temp_path, 'foo.txt').touch()
-            git, first_hash = init_git(temp_path)
+            git, _first_hash = init_git(temp_path)
 
             self.assertEqual(git.get_remote_url(), '.')
             self.assertIs(git.get_github_username(), None)
@@ -433,7 +433,7 @@ class GitTestCase(TestCase):  # TODO: Use BaseTestCase
     def test_get_project_info(self):
         with self.assertLogs('cli_base'), TemporaryDirectory(prefix='github') as temp_path:
             Path(temp_path, 'foo.txt').touch()
-            git, first_hash = init_git(temp_path)
+            git, _first_hash = init_git(temp_path)
 
             self.assertEqual(git.get_remote_url(), '.')
             self.assertIs(git.get_project_info(), None)
@@ -462,7 +462,7 @@ class GitTestCase(TestCase):  # TODO: Use BaseTestCase
 
         with self.assertLogs('cli_base'), TemporaryDirectory(prefix='github') as temp_path:
             Path(temp_path, 'foo.txt').touch()
-            git, first_hash = init_git(temp_path)
+            git, _first_hash = init_git(temp_path)
             git.git_verbose_check_call(
                 'remote', 'set-url', 'origin', 'https://github.com/user-name/project-name.git'
             )
@@ -489,7 +489,7 @@ class GitTestCase(TestCase):  # TODO: Use BaseTestCase
 
         with self.assertLogs('cli_base'), TemporaryDirectory(prefix='gitlab') as temp_path:
             Path(temp_path, 'foo.txt').touch()
-            git, first_hash = init_git(temp_path)
+            git, _first_hash = init_git(temp_path)
 
             self.assertEqual(git.get_remote_url(), '.')
             self.assertIs(git.get_project_info(), None)
@@ -529,7 +529,7 @@ class GitTestCase(TestCase):  # TODO: Use BaseTestCase
         with TemporaryDirectory(prefix='test_get_tag_history') as temp_path:
             test_file_path = Path(temp_path, 'foo.txt')
             test_file_path.touch()
-            git, first_hash = init_git(temp_path, comment='The initial commit ;)')
+            git, _first_hash = init_git(temp_path, comment='The initial commit ;)')
             tag_history = git.get_tag_history()
             self.assertEqual(
                 tag_history,

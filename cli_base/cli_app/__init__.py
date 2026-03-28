@@ -1,5 +1,5 @@
 """
-CLI for usage
+    CLI for usage
 """
 
 import logging
@@ -33,7 +33,7 @@ def version():
 def main(args: Sequence[str] | None = None):
     print_version(cli_base)
     app.cli(
-        prog='./cli.py',
+        prog='cli_base',  # Enforce program name if pipx used
         description=constants.CLI_EPILOG,
         use_underscores=False,  # use hyphens instead of underscores
         sort_subcommands=True,

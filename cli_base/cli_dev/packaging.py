@@ -21,7 +21,7 @@ def install():
     """
     tools_executor = ToolsExecutor(cwd=PACKAGE_ROOT)
     tools_executor.verbose_check_call('uv', 'sync')
-    tools_executor.verbose_check_call('pip', 'install', '--no-deps', '-e', '.')
+    tools_executor.verbose_check_call('uv', 'pip', 'install', '--no-deps', '-e', '.')
 
 
 @app.command
@@ -41,9 +41,6 @@ def update(verbosity: TyroVerbosityArgType):
     setup_logging(verbosity=verbosity)
 
     tools_executor = ToolsExecutor(cwd=PACKAGE_ROOT)
-
-    tools_executor.verbose_check_call('pip', 'install', '-U', 'pip')
-    tools_executor.verbose_check_call('pip', 'install', '-U', 'uv')
     tools_executor.verbose_check_call('uv', 'lock', '--upgrade')
 
     run_pip_audit(base_path=PACKAGE_ROOT, verbosity=verbosity)
@@ -51,9 +48,8 @@ def update(verbosity: TyroVerbosityArgType):
     # Install new dependencies in current .venv:
     tools_executor.verbose_check_call('uv', 'sync')
 
-    if tools_executor.is_executable('pre-commit'):
-        # Update git pre-commit hooks:
-        tools_executor.verbose_check_call('pre-commit', 'autoupdate')
+    # Update git pre-commit hooks:
+    tools_executor.verbose_check_call('pre-commit', 'autoupdate')
 
 
 @app.command
@@ -63,8 +59,4 @@ def publish():
     """
     run_unittest_cli(verbose=False, exit_after_run=False)  # Don't publish a broken state
 
-    publish_package(
-        module=cli_base,
-        package_path=PACKAGE_ROOT,
-        distribution_name='cli-base-utilities',
-    )
+    publish_package(module=cli_base, package_path=PACKAGE_ROOT)

@@ -8,7 +8,7 @@ import resource
 import sys
 import time
 
-from rich import print  # noqa
+from rich import print
 from tyro.extras import SubcommandApp
 
 from cli_base import __version__, constants

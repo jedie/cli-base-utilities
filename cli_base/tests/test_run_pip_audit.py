@@ -33,6 +33,8 @@ class RunPipAuditTestCase(TestCase):
                     '--strict',
                     '--require-hashes',
                     '--disable-pip',
+                    '--ignore-vuln',
+                    'CVE-2026-4539',
                     '-r',
                     '/tmp/requirements<rnd>.txt',
                 ],

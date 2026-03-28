@@ -3,7 +3,7 @@ import unittest.util
 from pathlib import Path
 
 from bx_py_utils.test_utils.deny_requests import deny_any_real_request
-from rich import print  # noqa
+from rich import print
 from typeguard import install_import_hook
 
 from cli_base.cli_tools.verbosity import MAX_LOG_LEVEL, setup_logging
@@ -18,7 +18,7 @@ def pre_configure_tests() -> None:
 
     # Hacky way to display more "assert"-Context in failing tests:
     _MIN_MAX_DIFF = unittest.util._MAX_LENGTH - unittest.util._MIN_DIFF_LEN
-    unittest.util._MAX_LENGTH = int(os.environ.get('UNITTEST_MAX_LENGTH', 2000))
+    unittest.util._MAX_LENGTH = int(os.environ.get('UNITTEST_MAX_LENGTH') or 2000)
     unittest.util._MIN_DIFF_LEN = unittest.util._MAX_LENGTH - _MIN_MAX_DIFF
 
     # Deny any request via docket/urllib3 because tests they should mock all requests:
