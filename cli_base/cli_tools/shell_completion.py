@@ -1,5 +1,8 @@
 """
 DocWrite: shell_completion.md # Tyro CLI Shell Completion
+
+WARNING: This is deprecated and will be removed in a future release. Please use completion from tyro direct.
+
 Helper to setup shell completion for a Tyro based CLI program.
 """
 
@@ -8,9 +11,10 @@ import os
 import re
 import sys
 import textwrap
+import warnings
 from pathlib import Path
 
-from rich import print  # noqa
+from rich import print
 
 from cli_base.cli_tools.subprocess_utils import verbose_check_output
 
@@ -51,6 +55,11 @@ def setup_bash_completion(prog_name: str, remove: bool = False) -> None:
     DocWrite: shell_completion.md # Tyro CLI Shell Completion
     Supports Bash shell
     """
+    warnings.warn(
+        'This is deprecated and will be removed in a future release. Please use completion from tyro direct.',
+        DeprecationWarning,
+        stacklevel=2,
+    )
     print(
         f'\nSetting up [blue]Bash[/blue] completion for {prog_name} ...',
     )
@@ -123,6 +132,11 @@ def setup_zshell_completion(prog_name: str, remove: bool = False) -> None:
     DocWrite: shell_completion.md # Tyro CLI Shell Completion
     Supports Z-Shell
     """
+    warnings.warn(
+        'This is deprecated and will be removed in a future release. Please use completion from tyro direct.',
+        DeprecationWarning,
+        stacklevel=2,
+    )
     print(
         f'\nSetting up [blue]Z-Shell[/blue] completion for {prog_name} ...',
     )
@@ -155,6 +169,12 @@ def setup_tyro_shell_completion(prog_name: str, remove: bool = False) -> None:
     DocWrite: shell_completion.md # Tyro CLI Shell Completion
     Usage: Expand you Tyro CLI and call `setup_tyro_shell_completion()` from your program ;)
     """
+    warnings.warn(
+        'This is deprecated and will be removed in a future release. Please use completion from tyro direct.',
+        DeprecationWarning,
+        stacklevel=2,
+    )
+
     print(f'\nSetting up shell completion for [bold]{prog_name}[/bold] ...\n')
 
     setup_bash_completion(prog_name, remove)
