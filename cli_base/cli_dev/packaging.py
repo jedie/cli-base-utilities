@@ -59,4 +59,8 @@ def publish():
     """
     run_unittest_cli(verbose=False, exit_after_run=False)  # Don't publish a broken state
 
-    publish_package(module=cli_base, package_path=PACKAGE_ROOT)
+    publish_package(
+        module=cli_base,
+        package_path=PACKAGE_ROOT,
+        distribution_name='cli-base-utilities',
+    )
