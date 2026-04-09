@@ -181,7 +181,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
-* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.29.0...main)
+* [v0.29.1](https://github.com/jedie/cli-base-utilities/compare/v0.29.0...v0.29.1)
+  * 2026-04-09 - run_pip_audit(): Fill temp file directly from uv
   * 2026-04-09 - update requirements
   * 2026-04-09 - Apply project updates
 * [v0.29.0](https://github.com/jedie/cli-base-utilities/compare/v0.28.0...v0.29.0)

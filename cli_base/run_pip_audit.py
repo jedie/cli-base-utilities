@@ -36,19 +36,19 @@ def run_pip_audit(base_path: Path | None = None, verbosity: int = 0):
         ]
     """
     tools_executor = ToolsExecutor(cwd=base_path)
-    requirements_txt = tools_executor.verbose_check_output(
-        'uv',
-        'export',
-        '--no-header',
-        '--frozen',
-        '--no-editable',
-        '--no-emit-project',
-        text=False,
-    )
 
     with tempfile.NamedTemporaryFile(prefix='requirements', suffix='.txt') as temp_file:
-        temp_file_path = Path(temp_file.name)
-        temp_file_path.write_bytes(requirements_txt)
+        tools_executor.verbose_check_call(
+            'uv',
+            'export',
+            '--quiet',
+            '--no-header',
+            '--frozen',
+            '--no-editable',
+            '--no-emit-project',
+            '--output-file',
+            temp_file.name,
+        )
 
         config: dict = get_pyproject_config(
             section=('tool', 'cli_base', 'pip_audit'),
