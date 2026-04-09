@@ -181,6 +181,9 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [**dev**](https://github.com/jedie/cli-base-utilities/compare/v0.29.0...main)
+  * 2026-04-09 - update requirements
+  * 2026-04-09 - Apply project updates
 * [v0.29.0](https://github.com/jedie/cli-base-utilities/compare/v0.28.0...v0.29.0)
   * 2026-03-28 - fix publishing
   * 2026-03-28 - fix CI
@@ -195,13 +198,13 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 * [v0.27.4](https://github.com/jedie/cli-base-utilities/compare/v0.27.3...v0.27.4)
   * 2026-02-16 - Bugfix initial commits without any parent version number
   * 2026-02-16 - Update requirements
+
+<details><summary>Expand older history entries ...</summary>
+
 * [v0.27.3](https://github.com/jedie/cli-base-utilities/compare/v0.27.2...v0.27.3)
   * 2026-01-30 - Bugfix run_pip_audit() and add a tests for it
   * 2026-01-30 - self.assert_in_content() -> assert_in()
   * 2026-01-30 - Update requirements
-
-<details><summary>Expand older history entries ...</summary>
-
 * [v0.27.2](https://github.com/jedie/cli-base-utilities/compare/v0.27.1...v0.27.2)
   * 2026-01-25 - Update requirements
   * 2026-01-25 - Enhance "assert_in": No stdout usage and no click import
