@@ -65,7 +65,7 @@ class DeserializeTestCase(TestCase):
         self.assertEqual(
             logs.output,
             [
-                "INFO:cli_base.toml_settings.deserialize:Missing 'one' in toml config",
+                "INFO:cli_base.toml_settings.deserialize:Missing 'one' in toml config, use default: 'foo'",
                 "INFO:cli_base.toml_settings.deserialize:Take over 'two' from user toml setting",
                 'ERROR:cli_base.toml_settings.deserialize:Toml value three=666 is type '
                 "'int' but must be type 'str' -> ignored and use default value!",
@@ -165,7 +165,7 @@ class DeserializeTestCase(TestCase):
         self.assertEqual(
             logs.output,
             [
-                "INFO:cli_base.toml_settings.deserialize:Missing 'foo' in toml config",
+                "INFO:cli_base.toml_settings.deserialize:Missing 'foo' in toml config, use default: 'bar'",
                 "ERROR:cli_base.toml_settings.deserialize:Toml value number='Not a "
                 "Number!' is type 'str' but must be type 'int' -> ignored and use default "
                 'value!',
@@ -201,8 +201,43 @@ class DeserializeTestCase(TestCase):
         self.assertEqual(
             logs.output,
             [
-                "ERROR:cli_base.toml_settings.deserialize:"
+                'ERROR:cli_base.toml_settings.deserialize:'
                 "Toml value flag='no boolean' is not a boolean"
-                " -> ignored and use default value: False"
+                ' -> ignored and use default value: False'
             ],
         )
+
+    def test_toml2dataclass_path_instance(self):
+        @dataclasses.dataclass
+        class ExampleConfig:
+            foobar: Path = Path('/default/path')
+
+        instance = ExampleConfig()
+        self.assertEqual(instance.foobar, Path('/default/path'))
+
+        document = tomlkit.loads('foobar = "/default/path"')
+        changed = toml2dataclass(document=document, instance=instance)
+        self.assertIs(changed, False)
+        self.assertEqual(document.unwrap(), {'foobar': '/default/path'})
+        self.assertEqual(instance.foobar, Path('/default/path'))
+
+        with self.assertLogs(logger=None, level=logging.INFO) as logs:
+            instance = ExampleConfig()
+            document = tomlkit.loads('# No foobar set here!')
+            changed = toml2dataclass(document=document, instance=instance)
+        self.assertIs(changed, True)  # It's missing
+        self.assertEqual(document.unwrap(), {'foobar': '/default/path'})
+        self.assertEqual(instance.foobar, Path('/default/path'))
+        self.assertEqual(
+            logs.output,
+            [
+                "INFO:cli_base.toml_settings.deserialize:Missing 'foobar' in toml config,"
+                f' use default: {Path("/default/path")!r}'
+            ],
+        )
+
+        document = tomlkit.loads('foobar = "/a/other/path/"')
+        changed = toml2dataclass(document=document, instance=instance)
+        self.assertIs(changed, False)
+        self.assertEqual(document.unwrap(), {'foobar': '/a/other/path/'})
+        self.assertEqual(instance.foobar, Path('/a/other/path/'))
