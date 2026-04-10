@@ -41,9 +41,13 @@ def toml2dataclass(*, document: TOMLDocument | Table, instance, _changed=False) 
         try:
             doc_value = document[field_name]
         except KeyError:
-            logger.info('Missing %r in toml config', field_name)
+            logger.info('Missing %r in toml config, use default: %r', field_name, field_value)
+            setattr(instance, field_name, field_value)
 
             # Add missing item, so that the toml file can be updated on disk:
+            if isinstance(field_value, Path):
+                # Avoid: tomlkit.exceptions.ConvertError: Unable to convert an object of <class 'pathlib.Path'>
+                field_value = str(field_value)
             document[field_name] = field_value
             _changed = True
             continue
