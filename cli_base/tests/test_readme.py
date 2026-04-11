@@ -39,7 +39,7 @@ class ReadmeTestCase(BaseTestCase):
         assert_in(
             content=stdout,
             parts=(
-                'usage: cli_base [-h]',
+                'usage: cli-base-utilities [-h]',
                 ' version ',
                 ' update-readme-history ',  # Not in dev-cli.py! Because it's used by pre-commit hook!
                 'Print version and exit',

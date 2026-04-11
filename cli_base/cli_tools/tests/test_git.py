@@ -27,6 +27,7 @@ from cli_base.cli_tools.git import (
     GitTagInfos,
     NoGitRepoError,
 )
+from cli_base.cli_tools.test_utils.assertion import assert_in
 from cli_base.cli_tools.test_utils.environment_fixtures import MockCurrentWorkDir
 from cli_base.cli_tools.test_utils.git_utils import init_git
 from cli_base.cli_tools.test_utils.logs import AssertLogs
@@ -172,14 +173,24 @@ class GitTestCase(TestCase):  # TODO: Use BaseTestCase
 
             second_hash = git.get_current_hash(verbose=False)
             reflog = git.reflog(verbose=False)
-            self.assertIn('The second commit', reflog)
-            self.assertIn(first_hash, reflog)
-            self.assertIn(second_hash, reflog)
+            assert_in(
+                content=reflog,
+                parts=(
+                    'The second commit',
+                    first_hash,
+                    second_hash,
+                ),
+            )
 
             diff_txt = git.diff(first_hash, second_hash)
-            self.assertIn('--- a/change.txt', diff_txt)
-            self.assertIn('+++ b/change.txt', diff_txt)
-            self.assertIn('@@ -1 +1 @@', diff_txt)
+            assert_in(
+                content=diff_txt,
+                parts=(
+                    '--- a/change.txt',
+                    '+++ b/change.txt',
+                    '@@ -1 +1 @@',
+                ),
+            )
             assert_text_snapshot(got=diff_txt, extension='.patch')
 
     def test_git_apply_patch(self):
@@ -232,7 +243,7 @@ class GitTestCase(TestCase):  # TODO: Use BaseTestCase
 
             # Generate a patch via git diff:
             diff_txt = repo_git.diff(repo_first_hash, second_hash)
-            self.assertIn('directory1/pyproject.toml', diff_txt)
+            assert_in(content=diff_txt, parts=('directory1/pyproject.toml',))
             patch_file_path = temp_path / 'git-diff-1.patch'
             patch_file_path.write_text(diff_txt)
             assert_text_snapshot(got=diff_txt, extension='.patch')

@@ -13,6 +13,7 @@ class ToolsExecutorTestCase(unittest.TestCase):
     def test_happy_path(self):
         executor = ToolsExecutor()
         self.assertEqual(executor.cwd, Path.cwd())
+        self.assertIsInstance(executor.extra_env, dict)
         self.assertIn('PYTHONUNBUFFERED', executor.extra_env)
 
         self.assertFalse(executor.is_executable('foo-bar'))

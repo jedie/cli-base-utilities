@@ -68,7 +68,7 @@ usage: ./dev-cli.py [-h] {coverage,install,lint,mypy,nox,pip-audit,publish,shell
 
 [comment]: <> (✂✂✂ auto generated main help start ✂✂✂)
 ```
-usage: cli_base [-h] {shell-completion,update-readme-history,version}
+usage: cli-base-utilities [-h] {shell-completion,update-readme-history,version}
 
 
 
@@ -181,6 +181,8 @@ It's easier to temporarily uninstall the hooks, create the release and install t
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [v0.30.0](https://github.com/jedie/cli-base-utilities/compare/v0.29.2...v0.30.0)
+  * 2026-04-11 - Enhance print_version(): Add optional project_name and clean module name
 * [v0.29.2](https://github.com/jedie/cli-base-utilities/compare/v0.29.1...v0.29.2)
   * 2026-04-10 - Bugfix fallback to default Path instance
   * 2026-04-10 - update requirements
@@ -196,13 +198,13 @@ It's easier to temporarily uninstall the hooks, create the release and install t
   * 2026-03-28 - fix ruff
   * 2026-03-28 - deprecate shell completion
   * 2026-03-28 - Apply manageprojects updates
+
+<details><summary>Expand older history entries ...</summary>
+
 * [v0.28.0](https://github.com/jedie/cli-base-utilities/compare/v0.27.4...v0.28.0)
   * 2026-02-19 - Fix update_readme_history() by escape backslashes for markdown rendering
   * 2026-02-19 - Don't set "text=True" as default for subprocess.check_call()
   * 2026-02-19 - Bugfix the "missing parts count" value in assert_in()
-
-<details><summary>Expand older history entries ...</summary>
-
 * [v0.27.4](https://github.com/jedie/cli-base-utilities/compare/v0.27.3...v0.27.4)
   * 2026-02-16 - Bugfix initial commits without any parent version number
   * 2026-02-16 - Update requirements

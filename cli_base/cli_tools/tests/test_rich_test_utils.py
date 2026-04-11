@@ -34,8 +34,8 @@ class MockRichTestCase(TestCase):
                 stdout,
                 parts=(
                     'cli_base.cli_dev --help',
-                    f'cli_base v{__version__}',
-                    'usage: ./dev-cli.py',
+                    f'cli-base-utilities v{__version__}',
+                    'usage: ./dev-cli.py [-h]',
                     'show this help message and exit',
                 ),
             )

@@ -9,8 +9,14 @@ from cli_base.cli_tools.git import Git
 logger = logging.getLogger(__name__)
 
 
-def _print_version(module, project_root: Path | None = None):
-    print(f'[bold][green]{module.__name__}[/green] v', end='')
+def _print_version(
+    module,
+    project_root: Path | None = None,
+    project_name: str | None = None,
+):
+    if not project_name:
+        project_name = module.__name__.replace('_', '-')
+    print(f'[bold][green]{project_name}[/green] v', end='')
     print(module.__version__, end=' ')
 
     if not project_root:
@@ -25,9 +31,13 @@ def _print_version(module, project_root: Path | None = None):
         print(f'(No git found for: {project_root})')
 
 
-def print_version(module, project_root: Path | None = None) -> None:
+def print_version(
+    module,
+    project_root: Path | None = None,
+    project_name: str | None = None,
+) -> None:
     try:
-        _print_version(module=module, project_root=project_root)
+        _print_version(module=module, project_root=project_root, project_name=project_name)
     except Exception as err:
         logger.exception('Error print version')
 
