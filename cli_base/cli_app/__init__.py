@@ -31,9 +31,10 @@ def version():
 
 
 def main(args: Sequence[str] | None = None):
-    print_version(cli_base)
+    project_name = 'cli-base-utilities'
+    print_version(cli_base, project_name=project_name)
     app.cli(
-        prog='cli_base',  # Enforce program name if pipx used
+        prog=project_name,  # Enforce program name if pipx used
         description=constants.CLI_EPILOG,
         use_underscores=False,  # use hyphens instead of underscores
         sort_subcommands=True,

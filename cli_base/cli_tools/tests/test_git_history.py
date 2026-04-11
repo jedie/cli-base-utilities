@@ -65,7 +65,7 @@ class GitHistoryTestCase(OutputMustCapturedTestCaseMixin, LoggingMustBeCapturedT
             # pyproject.toml is missing:
             with self.assertRaises(FileNotFoundError) as cm:
                 update_readme_history()
-            self.assertIn('/pyproject.toml', str(cm.exception))
+            assert_in(content=str(cm.exception), parts=('/pyproject.toml',))
 
             pyproject_toml_path = temp_path / 'pyproject.toml'
             pyproject_toml_path.touch()
@@ -75,20 +75,20 @@ class GitHistoryTestCase(OutputMustCapturedTestCaseMixin, LoggingMustBeCapturedT
             # README.md is missing:
             with self.assertRaises(FileNotFoundError) as cm:
                 update_readme_history()
-            self.assertIn('/README.md', str(cm.exception))
+            assert_in(content=str(cm.exception), parts=('/README.md',))
 
             readme_path = temp_path / 'README.md'
             readme_path.touch()
 
             with self.assertRaises(LookupError) as cm:
                 update_readme_history()
-            self.assertIn('No "tool.cli_base.version_module_name" in ', str(cm.exception))
+            assert_in(content=str(cm.exception), parts=('No "tool.cli_base.version_module_name" in ',))
 
             pyproject_toml_path.write_text('[tool.cli_base]\nversion_module_name = "not_existing_module_name"\n')
 
             with self.assertRaises(ModuleNotFoundError) as cm:
                 update_readme_history()
-            self.assertIn('not_existing_module_name', str(cm.exception))
+            assert_in(content=str(cm.exception), parts=('not_existing_module_name',))
 
             pyproject_toml_path.write_text('[tool.cli_base]\nversion_module_name = "cli_base"\n')
             git.add('pyproject.toml')
@@ -96,8 +96,9 @@ class GitHistoryTestCase(OutputMustCapturedTestCaseMixin, LoggingMustBeCapturedT
 
             with self.assertRaises(AssertionError) as cm:
                 update_readme_history()
-            self.assertIn(
-                "Start marker '[comment]: <> (✂✂✂ auto generated history start ✂✂✂)' not found ", str(cm.exception)
+            assert_in(
+                content=str(cm.exception),
+                parts=("Start marker '[comment]: <> (✂✂✂ auto generated history start ✂✂✂)' not found ",),
             )
 
             readme_path.write_text(
@@ -176,7 +177,7 @@ class GitHistoryTestCase(OutputMustCapturedTestCaseMixin, LoggingMustBeCapturedT
             with RedirectOut() as buffer:
                 updated = update_readme_history()
             self.assertEqual(buffer.stderr, '')
-            self.assertIn('/README.md is up-to-date', buffer.stdout)
+            assert_in(content=buffer.stdout, parts=('/README.md is up-to-date',))
             self.assertIs(updated, False)
 
         self.assertEqual(out_buffer.stderr, '')

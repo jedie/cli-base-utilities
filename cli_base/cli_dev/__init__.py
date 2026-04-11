@@ -48,7 +48,7 @@ def version():
 
 
 def main(args: Sequence[str] | None = None):
-    print_version(cli_base)
+    print_version(cli_base, project_name='cli-base-utilities')
 
     if len(sys.argv) >= 2:
         # Check if we can just pass a command call to origin CLI:
